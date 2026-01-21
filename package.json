@@ -8,6 +8,7 @@
   "scripts": {
     "#--------------------------GENERAL------------------------------#":"",
     "dev": "turbo run dev",
+    "dev:web": "concurrently -n web,styles,components \"turbo run dev --filter=web\" \"turbo run dev:styles --filter=ui\" \"turbo run dev:components --filter=ui\" ",
     "build": "turbo run build",
     "#--------------------------TESTING------------------------------#":"",
     "test": "turbo run test",
@@ -20,11 +21,16 @@
     "db:studio": "turbo run db:studio --filter=api",
     "#---------------------------UI---------------------------------#":"",
     "storybook": "turbo run storybook --filter=ui",
-    "build-storybook": "turbo run build-storybook --filter=ui"
+    "build-storybook": "turbo run build-storybook --filter=ui",
+    "ui:build:styles": "turbo run build:styles --filter=ui",
+    "ui:build:components": "turbo run build:components --filter=ui",
+    "ui:dev:styles": "turbo run dev:styles --filter=ui",
+    "ui:dev:components": "turbo run dev:components --filter=ui"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
+    "concurrently": "^9.1.0",
     "prettier": "^3.2.5",
     "turbo": "^2.7.5"
   },
