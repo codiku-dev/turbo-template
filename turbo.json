@@ -12,6 +12,19 @@
     },
     "lint": {},
     "test": {},
-    "test:e2e": {}
+    "test:e2e": {},
+    "db:start": {
+      "cache": false,
+      "env": ["DATABASE_URL"]
+    },
+    "db:update": {
+      "cache": false,
+      "env": ["DATABASE_URL"]
+    },
+    "db:studio": {
+      "cache": false,
+      "persistent": true,
+      "env": ["DATABASE_URL"]
+    }
   }
 }
