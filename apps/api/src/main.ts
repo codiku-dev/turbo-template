@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
 
@@ -11,10 +12,22 @@ async function bootstrap() {
   
   const configService = app.get(ConfigService);
   const port = configService.get<number>('PORT') ?? 3090;
+  
+  // Swagger configuration
+  const config = new DocumentBuilder()
+    .setTitle('Turbo Template API')
+    .setDescription('API documentation for Turbo Template')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('docs', app, document);
+  
   await app.listen(port);
   
   const url = `http://localhost:${port}`;
-  console.log(`🚀 Backend is running on: ${url}`);
+  console.log(`🚀 Backend  : ${url}`);
+  console.log(`📚 Swagger  : ${url}/docs`);
+  console.log("🎨 Front end: http://localhost:3000");
 }
 
 void bootstrap();

@@ -22,6 +22,8 @@
     "@nestjs/config": "^3.2.3",
     "@nestjs/core": "^11.1.12",
     "@nestjs/platform-express": "^11.1.12",
+    "@nestjs/swagger": "^8.0.7",
+    "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^7.0.0",
     "@repo/api": "*",
     "class-transformer": "^0.5.1",
