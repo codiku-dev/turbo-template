@@ -14,7 +14,11 @@
     "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "build:styles": "tailwindcss -i ./globals.css -o ./dist/index.css",
+    "build:components": "tsc",
+    "dev:styles": "tailwindcss -i ./globals.css -o ./dist/index.css --watch",
+    "dev:components": "tsc --watch"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
