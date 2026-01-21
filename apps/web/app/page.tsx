@@ -1,21 +1,14 @@
-
-import styles from './page.module.css';
-
-
-
-
+import { Button } from '@repo/ui/button';
 
 export default async function Home() {
-
-
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-      <h1>Hello World</h1>
-
+    <div >
+      <main >
+        <h1 className='text-2xl font-bold'>Hello World</h1>
+        <Button>Click me</Button>
       </main>
 
-      <footer className={styles.footer}>
+      <footer >
      
       </footer>
     </div>

@@ -25,6 +25,13 @@
       "cache": false,
       "persistent": true,
       "env": ["DATABASE_URL"]
+    },
+    "storybook": {
+      "cache": false,
+      "persistent": true
+    },
+    "build-storybook": {
+      "outputs": ["storybook-static/**"]
     }
   }
 }

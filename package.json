@@ -17,7 +17,10 @@
     "#---------------------------API---------------------------------#":"",
     "db:start": "turbo run db:start --filter=api",
     "db:update": "cd apps/api && bun run db:update",
-    "db:studio": "turbo run db:studio --filter=api"
+    "db:studio": "turbo run db:studio --filter=api",
+    "#---------------------------UI---------------------------------#":"",
+    "storybook": "turbo run storybook --filter=ui",
+    "build-storybook": "turbo run build-storybook --filter=ui"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
