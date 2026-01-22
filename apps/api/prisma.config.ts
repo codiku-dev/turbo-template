@@ -9,6 +9,9 @@ config({ path: resolve(__dirname, '.env.production') });
 
 const databaseUrl = process.env.DATABASE_URL;
 
+console.log('🔍 prisma.config.ts - DATABASE_URL:', databaseUrl?.replace(/:[^:@]+@/, ':****@'));
+console.log('🔍 prisma.config.ts - __dirname:', __dirname);
+
 if (!databaseUrl) {
   throw new Error('DATABASE_URL environment variable is not set');
 }

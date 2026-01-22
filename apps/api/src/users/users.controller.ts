@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -31,7 +33,9 @@ export class UsersController {
     description: 'The user has been successfully created.',
     type: User,
   })
+
   @ApiResponse({ status: 400, description: 'Bad request.' })
+  @ApiResponse({ status: 409, description: 'Email already exists.' })
   @ApiBody({ type: CreateUserDto })
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
@@ -70,16 +74,18 @@ export class UsersController {
     type: User,
   })
   @ApiResponse({ status: 404, description: 'User not found.' })
+  @ApiResponse({ status: 409, description: 'Email already exists.' })
   @ApiBody({ type: UpdateUserDto })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(+id, updateUserDto);
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Delete a user' })
   @ApiParam({ name: 'id', type: 'number', description: 'User id' })
   @ApiResponse({
-    status: 200,
+    status: 204,
     description: 'The user has been successfully deleted.',
   })
   @ApiResponse({ status: 404, description: 'User not found.' })

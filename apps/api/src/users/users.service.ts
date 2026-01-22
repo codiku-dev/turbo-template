@@ -1,43 +1,50 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
-import { User, CreateUserDto, UpdateUserDto } from '@repo/api';
+import { CreateUserDto, UpdateUserDto } from '@repo/api';
+import { PrismaService } from '../prisma/prisma.service';
+import { UserModel } from '../generated/prisma/models/User';
 
 @Injectable()
 export class UsersService {
-  private readonly _users: User[] = [];
+  constructor(private readonly prisma: PrismaService) {}
 
-  create(createUserDto: CreateUserDto): User {
-    const newUser: User = {
-      id: this._users.length,
-      ...createUserDto,
-    };
-    this._users.push(newUser);
-    return newUser;
+  async create(createUserDto: CreateUserDto): Promise<UserModel> {
+    return await this.prisma.user.create({
+      data: createUserDto,
+    });
   }
 
-  findAll(): User[] {
-    return this._users;
+  async findAll(): Promise<UserModel[]> {
+    return await this.prisma.user.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
   }
 
-  findOne(id: number): User | undefined {
-    return this._users.find((user) => user.id === id);
-  }
-
-  update(id: number, updateUserDto: UpdateUserDto): User | undefined {
-    const userIndex = this._users.findIndex((user) => user.id === id);
-    if (userIndex === -1) {
-      return undefined;
+  async findOne(id: number): Promise<UserModel> {
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+    });
+    if (!user) {
+      throw new NotFoundException(`User with ID ${id} not found`);
     }
-    this._users[userIndex] = { ...this._users[userIndex], ...updateUserDto };
-    return this._users[userIndex];
+    return user;
   }
 
-  remove(id: number): boolean {
-    const userIndex = this._users.findIndex((user) => user.id === id);
-    if (userIndex === -1) {
-      return false;
-    }
-    this._users.splice(userIndex, 1);
-    return true;
+  async update(
+    id: number,
+    updateUserDto: UpdateUserDto,
+  ): Promise<UserModel> {
+    return await this.prisma.user.update({
+      where: { id },
+      data: updateUserDto,
+    });
+  }
+
+  async remove(id: number): Promise<void> {
+    await this.prisma.user.delete({
+      where: { id },
+    });
   }
 }
