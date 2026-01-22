@@ -15,6 +15,7 @@ import { AppController } from './app.controller';
     }),
     PrismaModule,
     UsersModule,
+
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -6,20 +6,20 @@
   "author": "",
   "license": "UNLICENSED",
   "scripts": {
-    "#--------------------------GENERAL------------------------------#":"",
+    "#--------------------------GENERAL------------------------------#": "",
     "dev": "turbo run dev",
     "dev:web": "concurrently -n web,styles,components \"turbo run dev --filter=web\" \"turbo run dev:styles --filter=ui\" \"turbo run dev:components --filter=ui\" ",
     "build": "turbo run build",
-    "#--------------------------TESTING------------------------------#":"",
+    "#--------------------------TESTING------------------------------#": "",
     "test": "turbo run test",
     "test:e2e": "turbo run test:e2e",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "#---------------------------API---------------------------------#":"",
+    "#---------------------------API---------------------------------#": "",
     "db:start": "turbo run db:start --filter=api",
     "db:update": "cd apps/api && bun run db:update",
     "db:studio": "turbo run db:studio --filter=api",
-    "#---------------------------UI---------------------------------#":"",
+    "#---------------------------UI---------------------------------#": "",
     "storybook": "turbo run storybook --filter=ui",
     "build-storybook": "turbo run build-storybook --filter=ui",
     "ui:build:styles": "turbo run build:styles --filter=ui",
@@ -41,5 +41,8 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "nestjs-trpc": "^1.6.1"
+  }
 }
