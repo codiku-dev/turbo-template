@@ -14,18 +14,10 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const port = configService.get<number>('PORT') ?? 3090;
-  
-  // Swagger configuration
-  const config = new DocumentBuilder()
-    .setTitle('Turbo Template API')
-    .setDescription('API documentation for Turbo Template')
-    .setVersion('1.0')
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document);
-  
+
+
   await app.listen(port);
-  
+
   const url = `http://localhost:${port}`;
   console.log(`🚀 Backend  : ${url}`);
   console.log(`📚 Swagger  : ${url}/docs`);

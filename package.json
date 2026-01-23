@@ -7,8 +7,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "#--------------------------GENERAL------------------------------#": "",
-    "dev": "turbo run dev",
-    "dev:web": "concurrently -n web,styles,components \"turbo run dev --filter=web\" \"turbo run dev:styles --filter=ui\" \"turbo run dev:components --filter=ui\" ",
+    "dev": "concurrently -n turbo,ui \"turbo run dev\" \"npm run watch:ui\"",
+    "watch:ui": "concurrently -n styles,components \"turbo run dev:styles --filter=@repo/ui\" \"turbo run dev:components --filter=@repo/ui\" ",
     "build": "turbo run build",
     "#--------------------------TESTING------------------------------#": "",
     "test": "turbo run test",

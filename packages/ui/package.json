@@ -6,17 +6,17 @@
   "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./*": "./src/*.tsx",
-    "./styles.css": "./src/styles.css"
+    "./globals.css": "./dist/globals.css",
+    "./*": "./src/*.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "build:styles": "tailwindcss -i ./globals.css -o ./dist/index.css",
+    "build:styles": "tailwindcss -i ./src/globals.css -o ./dist/globals.css",
     "build:components": "tsc",
-    "dev:styles": "tailwindcss -i ./globals.css -o ./dist/index.css --watch",
+    "dev:styles": "tailwindcss -i ./src/globals.css -o ./dist/globals.css --watch",
     "dev:components": "tsc --watch"
   },
   "devDependencies": {

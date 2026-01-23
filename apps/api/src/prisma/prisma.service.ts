@@ -10,24 +10,24 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
 
   constructor(private readonly configService: ConfigService) {
     const databaseUrl = configService.get<string>('DATABASE_URL');
-    
+
     console.log('PrismaService - DATABASE_URL:', databaseUrl?.replace(/:[^:@]+@/, ':****@'));
     console.log('PrismaService - DATABASE_URL type:', typeof databaseUrl);
-    
+
     if (!databaseUrl) {
       throw new Error('DATABASE_URL environment variable is not set');
     }
 
     // Créer un pool pg manuellement pour éviter les problèmes de parsing
     const url = String(databaseUrl).trim();
-    const pool = new Pool({ 
+    const pool = new Pool({
       connectionString: url,
       ssl: false, // Désactiver SSL pour le développement local
     });
-    
+
     const adapter = new PrismaPg(pool);
     super({ adapter });
-    
+
     // Assigner après super() pour pouvoir l'utiliser dans onModuleDestroy
     this.pool = pool;
   }
