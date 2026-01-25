@@ -1,124 +1,571 @@
-# Turborepo starter
+<div align="center">
 
-This is a community-maintained example. If you experience a problem, please submit a pull request with a fix. GitHub Issues will be closed.
+# 🚀 Turbo Template
 
-## Using this example
+**A blazing-fast, type-safe monorepo starter with Next.js, NestJS, tRPC, and Tailwind CSS**
 
-Run the following command:
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-16.1-black?logo=next.js)](https://nextjs.org/)
+[![NestJS](https://img.shields.io/badge/NestJS-11-red?logo=nestjs)](https://nestjs.com/)
+[![tRPC](https://img.shields.io/badge/tRPC-11-blue?logo=trpc)](https://trpc.io/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1-38bdf8?logo=tailwind-css)](https://tailwindcss.com/)
+[![Turborepo](https://img.shields.io/badge/Turborepo-2.7-ef4444?logo=turborepo)](https://turborepo.org/)
+
+*Built with ❤️ using Bun, TypeScript, and modern best practices*
+
+</div>
+
+---
+
+## 🔥 Features
+
+### 🛡️ Type Safety & Validation
+
+- **🔐 Environment Variable Type Checking** - Zod-powered validation with TypeScript types generated from your `.env` files. Catch missing or invalid env vars before your app starts!
+- **✅ Runtime Validation** - Automatic Zod schema validation on startup with watch mode during development
+
+### 🗄️ Database & ORM
+
+- **🐘 Prisma Setup** - Fully configured Prisma ORM with PostgreSQL, migrations, and Prisma Studio
+- **🔄 Database Migrations** - Easy migration workflow with `bun db:update`
+- **🐳 Docker Integration** - One-command PostgreSQL setup with Docker Compose
+
+### 🔌 API & Type Safety
+
+- **⚡ tRPC Setup** - End-to-end type-safe APIs between Next.js and NestJS. Zero API contracts, full autocomplete!
+- **📚 tRPC UI Documentation** - Beautiful, interactive API docs at `/docs` - test endpoints directly from your browser
+- **🎯 Shared Router Definitions** - Centralized tRPC routers in `@repo/trpc` for maximum type safety
+
+### 🎨 Styling & UI
+
+- **💨 Tailwind CSS v4** - Latest Tailwind with PostCSS integration and auto-compilation
+- **🎨 Shared UI Package** - Reusable React components in `@repo/ui` with hot-reload support
+- **📖 Storybook** - Component development environment with isolated component testing
+
+### ⚛️ Frontend
+
+- **⚡ Next.js 16** - Latest Next.js with App Router, React 19, and Server Components
+- **🔄 Hot Module Replacement** - Instant updates during development
+- **📦 Auto-reload** - Styles and components from shared packages refresh automatically
+
+### 🏗️ Backend
+
+- **🚀 NestJS 11** - Progressive Node.js framework with decorators and dependency injection
+- **🔄 Watch Mode** - Auto-reload on file changes
+- **📝 Swagger Integration** - API documentation ready
+
+### 🧰 Developer Experience
+
+- **📦 Shared Configs** - Common TypeScript, ESLint, and Jest configurations across the monorepo
+- **🔍 Type Checking** - Run `check-types` across all packages for instant feedback
+- **🎯 Turborepo** - Lightning-fast builds with intelligent caching
+- **⚡ Bun** - Ultra-fast package manager and runtime
+
+### 🧪 Testing & Quality
+
+- **✅ Jest Configuration** - Shared Jest setup for unit and integration tests
+- **📋 ESLint + Prettier** - Consistent code style across the entire monorepo
+- **🔍 TypeScript Strict Mode** - Maximum type safety enabled
+
+---
+
+## ✨ What's Inside?
+
+This is a **production-ready monorepo** that combines the best of both worlds:
+
+### 🎯 Apps
+
+- **`apps/web`** - Next.js 16 frontend with React 19, tRPC client, and Tailwind CSS v4
+- **`apps/api`** - NestJS 11 backend with tRPC server, Prisma ORM, PostgreSQL, and **tRPC UI** for interactive API docs
+
+### 📦 Packages
+
+- **`@repo/ui`** - Shared React component library with Tailwind CSS and Storybook
+- **`@repo/trpc`** - Shared tRPC router definitions for end-to-end type safety
+- **`@repo/api`** - Shared NestJS DTOs and entities
+- **`@repo/eslint-config`** - Shared ESLint + Prettier configurations
+- **`@repo/typescript-config`** - Shared TypeScript configurations
+- **`@repo/jest-config`** - Shared Jest testing configurations
+
+---
+
+## 🎬 Quick Start
+
+### Prerequisites
+
+- **Bun** ≥ 1.2.15 (package manager)
+- **Docker** & **Docker Compose** (for PostgreSQL database)
+- **Node.js** ≥ 18
+
+### Initial Setup
 
 ```bash
-npx create-turbo@latest -e with-nestjs
+# 1. Install dependencies
+bun install
+
+# 2. Start the PostgreSQL database (REQUIRED - run this first!)
+bun db:start
+
+# 3. Run database migrations and generate Prisma client (REQUIRED - run this once!)
+bun db:update
+
+# 4. Start development servers
+bun dev
 ```
 
-## What's inside?
+That's it! 🎉 Your apps will be running at:
+- **Web**: http://localhost:3000
+- **API**: http://localhost:3090 (or check your `PORT` env var)
+- **Docs(tRPC UI)**: http://localhost:3090/docs (Interactive API documentation)
 
-This Turborepo includes the following packages & apps:
+---
 
-### Apps and Packages
+## 🔥 Development Mode Explained
 
-```shell
+You just run 
+
+```bash
+bun dev
+```
+And here's what happens **concurrently**:
+
+### 🎯 Behind the dev script
+
+1. **`turbo run dev`** - Runs all `dev` scripts across apps:
+   - **Next.js dev server** (`apps/web`) - Hot module replacement enabled
+   - **NestJS dev server** (`apps/api`) - Watch mode with auto-reload
+
+2. **`npm run watch:ui`** - Watches the shared UI package:
+   - **`dev:styles`** - Tailwind CSS compiler in watch mode (auto-rebuilds `dist/globals.css`)
+   - **`dev:components`** - TypeScript compiler in watch mode (auto-rebuilds component types)
+
+3. **`npm run check-env:watch`** - Environment variable validator:
+   - Watches for `.env` file changes
+   - Validates required environment variables match your `env-type.ts` schemas
+   - Exits with error if validation fails
+
+### 🔄 Auto-Refresh Magic ✨
+
+**Styles & Components from `@repo/ui` automatically refresh!**
+
+- **Styles**: When you modify `packages/ui/src/globals.css` or any Tailwind classes, the CSS is automatically recompiled to `packages/ui/dist/globals.css`
+- **Components**: When you modify any component in `packages/ui/src`, TypeScript recompiles and the Next.js app hot-reloads
+- **No manual rebuild needed** - Everything syncs in real-time! 🚀
+
+The web app imports styles via:
+```css
+@import "tailwindcss";
+@import "@repo/ui/globals.css";
+```
+
+So changes in the shared package are instantly available in your Next.js app!
+
+---
+
+## 🔌 tRPC: End-to-End Type Safety
+
+This monorepo uses **tRPC** for type-safe API communication between your Next.js frontend and NestJS backend.
+
+### How It Works
+
+1. **Define your router** in `packages/trpc/src/server.ts`:
+```typescript
+const appRouter = t.router({
+  users: t.router({
+    getUserById: publicProcedure
+      .input(z.object({ id: z.number() }))
+      .query(async ({ input }) => {
+        // Your logic here
+      }),
+  }),
+});
+
+export type AppRouter = typeof appRouter;
+```
+
+2. **Use in your NestJS API** (`apps/api/src/app.router.ts`):
+```typescript
+@Query({ output: z.object({ message: z.string() }) })
+async hello(): Promise<{ message: string }> {
+  return { message: 'Hello World' };
+}
+```
+
+3. **Call from your Next.js app** with full autocomplete:
+```typescript
+import { trpc } from '@web/libs/trpc-client';
+
+const { data } = trpc.users.getUserById.useQuery({ id: 1 });
+// ✅ Fully typed! TypeScript knows the exact return type
+```
+
+### Benefits
+
+- ✅ **Zero API contracts** - Types are shared, not duplicated
+- ✅ **Autocomplete** - Your IDE knows all available endpoints
+- ✅ **Compile-time safety** - Catch errors before runtime
+- ✅ **No code generation** - Pure TypeScript inference
+
+---
+
+## 🎨 tRPC UI: Interactive API Documentation
+
+This project includes **tRPC UI** - a beautiful, interactive API documentation and testing interface built right into your NestJS backend.
+
+### Accessing tRPC UI
+
+Once your API server is running, visit:
+
+```
+http://localhost:3090/docs
+```
+
+> **Note**: The port may vary based on your `PORT` environment variable (default: 3090)
+
+### What You Get
+
+tRPC UI provides a **fully interactive playground** where you can:
+
+- 🔍 **Browse all endpoints** - See every procedure in your tRPC router
+- 📝 **View schemas** - Inspect input/output types with Zod validation
+- 🧪 **Test endpoints** - Execute queries and mutations directly from the browser
+- 📊 **See responses** - View formatted JSON responses in real-time
+- 🔗 **Copy code examples** - Get ready-to-use code snippets for your frontend
+- 📚 **Read documentation** - View descriptions and metadata for each endpoint
+
+### How It Works
+
+The tRPC UI is automatically generated from your tRPC router definitions:
+
+1. **Router Discovery**: The UI scans your `AppRouter` and all nested routers
+2. **Schema Extraction**: Extracts Zod schemas for inputs and outputs
+3. **Type Inference**: Uses TypeScript types to show exact return types
+4. **Interactive Testing**: Connects to your tRPC endpoint to execute procedures
+
+### Configuration
+
+The tRPC UI is configured in `apps/api/src/infrastructure/docs/docs.controller.ts`:
+
+```typescript
+@Controller("docs")
+export class TrpcPanelController {
+  @All()
+  panel(): string {
+    return renderTrpcPanel(this.appRouter, {
+      url: process.env.TRPC_URL, // e.g., "http://localhost:3090/trpc"
+      meta: {
+        title: "API Documentation",
+        description: "This is the documentation of the API.",
+      },
+    });
+  }
+}
+```
+
+### Environment Setup
+
+Make sure your `.env` file includes:
+
+```env
+TRPC_URL=http://localhost:3090/trpc
+```
+
+This tells tRPC UI where to send requests when testing endpoints.
+
+### Usage Example
+
+1. **Start your API server**:
+   ```bash
+   bun dev
+   ```
+
+2. **Open tRPC UI** in your browser:
+   ```
+   http://localhost:3090/docs
+   ```
+
+3. **Explore your API**:
+   - Navigate through router groups (e.g., `app`, `users`)
+   - Click on any procedure to see its schema
+   - Fill in input fields and click "Execute"
+   - View the response and copy the code example
+
+4. **Use in your frontend**:
+   - Copy the generated code snippet
+   - Paste it into your React component
+   - Enjoy full type safety! 🎉
+
+### Features
+
+- 🎯 **Zero Configuration** - Works out of the box with your existing tRPC setup
+- 🔄 **Auto-updates** - Reflects changes to your router automatically
+- 🎨 **Beautiful UI** - Modern, responsive interface
+- 📱 **Mobile-friendly** - Test your API on any device
+- 🔒 **Development Only** - Typically disabled in production (you can add environment checks)
+
+### Customization
+
+You can customize the UI by modifying the `renderTrpcPanel` options:
+
+```typescript
+renderTrpcPanel(this.appRouter, {
+  url: process.env.TRPC_URL,
+  meta: {
+    title: "My Awesome API",
+    description: "Custom description here",
+  },
+  // Add custom styling, themes, etc.
+});
+```
+
+---
+
+## 🛠️ Type Checking & Utilities
+
+### Type Checking
+
+Run type checking across the entire monorepo:
+
+```bash
+# Check types in all packages and apps
+turbo run check-types
+```
+
+This runs `tsc --noEmit` in each package/app, ensuring:
+- No TypeScript errors
+- All imports resolve correctly
+- Type definitions are valid
+- Shared packages are properly typed
+
+### Environment Variable Validation
+
+The project includes a **powerful environment validation system**:
+
+```bash
+# Check environment variables once
+bun check-env
+
+# Watch for .env changes and validate automatically
+bun check-env:watch
+```
+
+**How it works:**
+- Each app/package can have an `env-type.ts` file defining required env vars using Zod
+- The validator checks that all required variables are present and valid
+- Automatically loads `.env.local.development`, `.env.production`, or `.env` files
+- Runs in watch mode during `bun dev` to catch missing env vars early
+
+**Generate env types from existing `.env` files:**
+```bash
+bun generate-env-types
+```
+
+---
+
+## 📜 Available Commands
+
+### 🚀 Development
+
+```bash
+# Start all dev servers with auto-reload
+bun dev
+
+# Start only the UI package watchers
+bun watch:ui
+```
+
+### 🗄️ Database
+
+```bash
+# Start PostgreSQL in Docker (run this first!)
+bun db:start
+
+# Run migrations and generate Prisma client
+bun db:update
+
+# Open Prisma Studio (database GUI)
+bun db:studio
+```
+
+### 🏗️ Build
+
+```bash
+# Build all apps and packages
+bun build
+
+# Build UI package styles
+bun ui:build:styles
+
+# Build UI package components
+bun ui:build:components
+```
+
+### 🧪 Testing
+
+```bash
+# Run all tests
+bun test
+
+# Run end-to-end tests
+bun test:e2e
+```
+
+### 🔍 Quality
+
+```bash
+# Lint all code
+bun lint
+
+# Format all code
+bun format
+
+# Check TypeScript types
+turbo run check-types
+```
+
+### 📚 Storybook
+
+```bash
+# Start Storybook for UI components
+bun storybook
+
+# Build Storybook for deployment
+bun build-storybook
+```
+
+---
+
+## 🏗️ Project Structure
+
+```
 .
-├── apps
-│   ├── api                       # NestJS app (https://nestjs.com).
-│   └── web                       # Next.js app (https://nextjs.org).
-└── packages
-    ├── @repo/api                 # Shared `NestJS` resources.
-    ├── @repo/eslint-config       # `eslint` configurations (includes `prettier`)
-    ├── @repo/jest-config         # `jest` configurations
-    ├── @repo/typescript-config   # `tsconfig.json`s used throughout the monorepo
-    └── @repo/ui                  # Shareable stub React component library.
+├── apps/
+│   ├── api/              # NestJS backend
+│   │   ├── src/
+│   │   │   ├── features/ # Feature modules
+│   │   │   └── infrastructure/
+│   │   └── docker-compose.yml
+│   └── web/              # Next.js frontend
+│       ├── app/          # Next.js app directory
+│       ├── providers/    # React providers (tRPC, React Query)
+│       └── libs/         # Client libraries
+│
+├── packages/
+│   ├── ui/               # Shared React components
+│   │   ├── src/
+│   │   └── dist/         # Compiled CSS and types
+│   ├── trpc/             # Shared tRPC router
+│   ├── api/              # Shared DTOs and entities
+│   ├── eslint-config/    # Shared ESLint configs
+│   ├── typescript-config/# Shared TS configs
+│   └── jest-config/     # Shared Jest configs
+│
+└── scripts/              # Utility scripts
+    ├── check-env.ts      # Environment validator
+    └── generate-env-types.ts
 ```
 
-Each package and application are mostly written in [TypeScript](https://www.typescriptlang.org/).
+---
 
-### Utilities
+## 🎨 Tech Stack
 
-This `Turborepo` has some additional tools already set for you:
+### Frontend
+- **Next.js 16** - React framework with App Router
+- **React 19** - Latest React with Server Components
+- **Tailwind CSS v4** - Utility-first CSS framework
+- **tRPC** - End-to-end typesafe APIs
+- **TanStack Query** - Powerful data synchronization
 
-- [TypeScript](https://www.typescriptlang.org/) for static type-safety
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-- [Jest](https://prettier.io) & [Playwright](https://playwright.dev/) for testing
+### Backend
+- **NestJS 11** - Progressive Node.js framework
+- **tRPC** - Type-safe API layer
+- **Prisma** - Next-generation ORM
+- **PostgreSQL** - Robust relational database
+- **Zod** - TypeScript-first schema validation
 
-### Commands
+### Tooling
+- **Turborepo** - High-performance build system
+- **Bun** - Fast all-in-one JavaScript runtime
+- **TypeScript** - Static type checking
+- **ESLint + Prettier** - Code quality and formatting
+- **Jest** - Testing framework
+- **Storybook** - Component development environment
 
-This `Turborepo` already configured useful commands for all your apps and packages.
+---
 
-#### Build
+## 🔐 Environment Variables
 
-```bash
-# Will build all the app & packages with the supported `build` script.
-pnpm run build
+Each app/package can define required environment variables in `env-type.ts`:
 
-# ℹ️ If you plan to only build apps individually,
-# Please make sure you've built the packages first.
+```typescript
+import { z } from 'zod';
+
+export const envSchema = z.object({
+  DATABASE_URL: z.string().url(),
+  API_PORT: z.coerce.number().default(4000),
+});
+
+export type Env = z.infer<typeof envSchema>;
 ```
 
-#### Develop
+The validator ensures all required variables are present before the app starts.
 
-```bash
-# Will run the development server for all the app & packages with the supported `dev` script.
-pnpm run dev
-```
+---
 
-#### test
-
-```bash
-# Will launch a test suites for all the app & packages with the supported `test` script.
-pnpm run test
-
-# You can launch e2e testes with `test:e2e`
-pnpm run test:e2e
-
-# See `@repo/jest-config` to customize the behavior.
-```
-
-#### Lint
-
-```bash
-# Will lint all the app & packages with the supported `lint` script.
-# See `@repo/eslint-config` to customize the behavior.
-pnpm run lint
-```
-
-#### Format
-
-```bash
-# Will format all the supported `.ts,.js,json,.tsx,.jsx` files.
-# See `@repo/eslint-config/prettier-base.js` to customize the behavior.
-pnpm format
-```
-
-### Remote Caching
+## 🚢 Remote Caching
 
 > [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+> Vercel Remote Cache is **free** for all plans! Get started at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+Turborepo can share build caches across machines:
 
 ```bash
+# Authenticate with Vercel
 npx turbo login
-```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```bash
+# Link your repository
 npx turbo link
 ```
 
-## Useful Links
+This enables:
+- ⚡ Faster CI/CD builds
+- 🔄 Shared cache with your team
+- 💰 Reduced compute costs
 
-This example take some inspiration the [with-nextjs](https://github.com/vercel/turborepo/tree/main/examples/with-nextjs) `Turbo` example and [01-cats-app](https://github.com/nestjs/nest/tree/master/sample/01-cats-app) `NestJs` sample.
+---
 
-Learn more about the power of Turborepo:
+## 📚 Learn More
 
+### Turborepo
 - [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
 - [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
 - [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+- [Configuration](https://turborepo.dev/docs/reference/configuration)
+
+### Technologies
+- [Next.js Docs](https://nextjs.org/docs)
+- [NestJS Docs](https://docs.nestjs.com)
+- [tRPC Docs](https://trpc.io/docs)
+- [Prisma Docs](https://www.prisma.io/docs)
+
+---
+
+## 🤝 Contributing
+
+This is a community-maintained example. If you experience a problem, please submit a pull request with a fix. GitHub Issues will be closed.
+
+---
+
+## 📄 License
+
+UNLICENSED
+
+---
+
+<div align="center">
+
+**Made with ⚡ by the community**
+
+[⭐ Star this repo](https://github.com/your-repo) • [🐛 Report Bug](https://github.com/your-repo/issues) • [💡 Request Feature](https://github.com/your-repo/issues)
+
+</div>

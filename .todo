@@ -1,7 +1,9 @@
 - docs ( trpc panel )
 - error to display in console (back)
-- tailwind command not to set globally por favor
+- tailwind command not to set globally por favor 
 - logs request back side
 - env typing
 - better auth
 - deploy
+- Dto a gicler 
+- env variable a utiliser aprotut
