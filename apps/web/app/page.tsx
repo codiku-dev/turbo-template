@@ -9,8 +9,8 @@ export default function Home() {
     <div>
       <main>
         <h1 className="text-2xl font-bold">Hello World</h1>
-        <Button>UI package button</Button>
-        <div className="bg-red-400">A fetch response from the API:</div>
+        <Button>UI shared package button</Button>
+        <div className="">A fetch response from the API:</div>
 
         {users?.map((user: any) => (
           <div key={user.id}>

@@ -11,7 +11,6 @@ export class UserRouter {
 
   @Query({
     input: z.object({ id: z.number() }),
-
     output: usersSchema,
   })
   getUserById(@Input('id') id: number) {

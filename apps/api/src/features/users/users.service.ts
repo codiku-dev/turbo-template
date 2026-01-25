@@ -3,7 +3,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from '@repo/api';
 import { PrismaService } from '@api/src/infrastructure/prisma/prisma.service';
 import { UserModel } from '@api/generated/prisma/models';
-
+import { TRPCError } from '@trpc/server';
 @Injectable()
 export class UsersService {
   constructor(private readonly db: PrismaService) { }

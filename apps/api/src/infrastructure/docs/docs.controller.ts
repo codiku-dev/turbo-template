@@ -18,7 +18,6 @@ export class TrpcPanelController implements OnModuleInit {
     @All()
     @Header('Content-Type', 'text/html')
     panel(): string {
-        console.log("TRPC_URL", process.env.TRPC_URL);
         return renderTrpcPanel(this.appRouter, {
             url: process.env.TRPC_URL as string,
             meta: {
