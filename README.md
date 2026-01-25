@@ -18,17 +18,30 @@
 ---
 
 ## 🔥 Features
+### ⚛️ Frontend
 
-### 🛡️ Type Safety & Validation
+- **⚡ Next.js 16** - Latest Next.js with App Router, React 19, and Server Components
+- **🔄 Hot Module Replacement** - Instant updates during development
+- **📦 Auto-reload** - Styles and components from shared packages refresh automatically
 
-- **🔐 Environment Variable Type Checking** - Zod-powered validation with TypeScript types generated from your `.env` files. Catch missing or invalid env vars before your app starts!
-- **✅ Runtime Validation** - Automatic Zod schema validation on startup with watch mode during development
+### 🏗️ Backend
+
+- **🚀 NestJS 11** - Progressive Node.js framework with decorators and dependency injection
+- **🔄 Watch Mode** - Auto-reload on file changes
+- **📝 Swagger Integration** - API documentation ready
 
 ### 🗄️ Database & ORM
 
 - **🐘 Prisma Setup** - Fully configured Prisma ORM with PostgreSQL, migrations, and Prisma Studio
 - **🔄 Database Migrations** - Easy migration workflow with `bun db:update`
 - **🐳 Docker Integration** - One-command PostgreSQL setup with Docker Compose
+
+### 🛡️ Type Safety & Validation
+
+- **🔐 Environment Variable Type Checking** - Zod-powered validation with TypeScript types generated from your `.env` files. Catch missing or invalid env vars before your app starts!
+- **✅ Runtime Validation** - Automatic Zod schema validation on startup with watch mode during development
+
+
 
 ### 🔌 API & Type Safety
 
@@ -42,17 +55,6 @@
 - **🎨 Shared UI Package** - Reusable React components in `@repo/ui` with hot-reload support
 - **📖 Storybook** - Component development environment with isolated component testing
 
-### ⚛️ Frontend
-
-- **⚡ Next.js 16** - Latest Next.js with App Router, React 19, and Server Components
-- **🔄 Hot Module Replacement** - Instant updates during development
-- **📦 Auto-reload** - Styles and components from shared packages refresh automatically
-
-### 🏗️ Backend
-
-- **🚀 NestJS 11** - Progressive Node.js framework with decorators and dependency injection
-- **🔄 Watch Mode** - Auto-reload on file changes
-- **📝 Swagger Integration** - API documentation ready
 
 ### 🧰 Developer Experience
 
