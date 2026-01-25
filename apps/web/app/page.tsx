@@ -1,8 +1,10 @@
+'use client';
 import { Button } from '@repo/ui/button/button';
+import { trpc } from '@web/libs/trpc-client';
 import { Suspense } from 'react';
 
-export default async function Home() {
-  const data: any[] = [];
+export default function Home() {
+  const { data: users } = trpc.users.getAllUsers.useQuery();
   return (
     <div>
       <main>
@@ -10,7 +12,7 @@ export default async function Home() {
         <Button>UI package button</Button>
         <div className="bg-red-400">A fetch response from the API:</div>
 
-        {data.map((user: any) => (
+        {users?.map((user: any) => (
           <div key={user.id}>
             {user.firstName} {user.lastName}
           </div>

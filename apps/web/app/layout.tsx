@@ -1,3 +1,4 @@
+import { Providers } from '@web/providers';
 import './globals.css';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
@@ -22,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

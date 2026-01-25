@@ -6,16 +6,18 @@ import { UserModel } from '@api/generated/prisma/models';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly db: PrismaService) { }
 
   async create(createUserDto: CreateUserDto): Promise<UserModel> {
-    return await this.prisma.user.create({
+    return await this.db.user.create({
       data: createUserDto,
     });
   }
 
   async findAll(): Promise<UserModel[]> {
-    return await this.prisma.user.findMany({
+    console.log('findAll');
+
+    return await this.db.user.findMany({
       orderBy: {
         createdAt: 'desc',
       },
@@ -23,7 +25,7 @@ export class UsersService {
   }
 
   async findOne(id: number): Promise<UserModel> {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.db.user.findUnique({
       where: { id },
     });
     if (!user) {
@@ -36,14 +38,14 @@ export class UsersService {
     id: number,
     updateUserDto: UpdateUserDto,
   ): Promise<UserModel> {
-    return await this.prisma.user.update({
+    return await this.db.user.update({
       where: { id },
       data: updateUserDto,
     });
   }
 
   async remove(id: number): Promise<void> {
-    await this.prisma.user.delete({
+    await this.db.user.delete({
       where: { id },
     });
   }

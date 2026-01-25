@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "exports": {
-    "./router": "./src/server/server.ts",
-    "./client": "./src/client/client.ts",
+    "./router": "./src/server.ts",
+    "./client": "./src/client.ts",
     "./TrpcProvider": "./src/client/providers/TrpcProvider.tsx"
   },
   "peerDependencies": {
