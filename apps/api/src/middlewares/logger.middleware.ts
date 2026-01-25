@@ -15,7 +15,7 @@ export class LoggedMiddleware implements TRPCMiddleware {
         const durationMs = Date.now() - start;
         const meta = { path, type, durationMs }
 
-        console.log(`\n[${new Date().toISOString()}]\nREQUEST : http://localhost:3090/trpc/` + path, "\nMETA : ", JSON.stringify(meta, null, 2), "\nRESPONSE : ", JSON.stringify(result.data, null, 2), "\n\n");
+        console.log(`[${new Date().toISOString()}]\nREQUEST : http://localhost:3090/trpc/` + path, "\nMETA : ", JSON.stringify(meta, null, 2), "\nRESPONSE : ", JSON.stringify(result.data, null, 2), "\n\n");
 
         return result;
     }
