@@ -15,11 +15,10 @@ async function bootstrap() {
 
   const env = parseEnv();
   const port = Number(env.PORT) || 3090;
-
   await app.listen(port, () => {
     const url = `http://localhost:${port}`;
     console.log(`🚀 Backend     : ${url}`);
-    console.log(`📚 Swagger     : ${url}/docs`);
+    console.log(`📚 Docs     : ${url}/docs`);
     console.log("🎨 Front end   : http://localhost:3000");
   });
 

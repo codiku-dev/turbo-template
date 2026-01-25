@@ -1,5 +1,5 @@
 /**
- * Generated from .env.local.development. Do not edit manually.
+ * Generated from .env.local.development. You can regenerate it with the npm run generate-env-types script.
  * Regenerated when .env.local.development changes (generate-env-types script).
  */
 import { z } from "zod";
@@ -12,13 +12,15 @@ export const envSchema = z.object({
   POSTGRES_PORT: z.string(),
   POSTGRES_USER: z.string(),
   TRPC_URL: z.string(),
+  VLAD_PUDDING: z.string(),
 });
+
 
 export type Env = z.infer<typeof envSchema>;
 
 declare global {
   namespace NodeJS {
-    interface ProcessEnv extends Env {}
+    interface ProcessEnv extends Env { }
   }
 }
 

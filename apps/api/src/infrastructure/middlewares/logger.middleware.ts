@@ -1,7 +1,7 @@
 import { TRPCMiddleware, MiddlewareOptions } from 'nestjs-trpc';
 import { Inject, Injectable, ConsoleLogger } from '@nestjs/common';
 
-const TRPC_BASE = process.env.API_URL ?? 'http://localhost:3090';
+const TRPC_BASE = process.env.TRPC_URL
 
 @Injectable()
 export class LoggedMiddleware implements TRPCMiddleware {
