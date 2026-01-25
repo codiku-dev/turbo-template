@@ -1,10 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 
 import { AppModule } from '@api/src/app.module';
 import { PrismaExceptionFilter } from '@api/src/infrastructure/prisma/prisma-exception.filter';
-import { AppRouterHost } from 'nestjs-trpc';
+import { parseEnv } from '@api/env-type';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -12,12 +11,10 @@ async function bootstrap() {
   });
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalFilters(new PrismaExceptionFilter()); // Ajoutez cette ligne
-  const configService = app.get(ConfigService);
+  app.useGlobalFilters(new PrismaExceptionFilter());
 
-
-  const port = configService.get<number>('PORT') ?? 3090;
-
+  const env = parseEnv();
+  const port = Number(env.PORT) || 3090;
 
   await app.listen(port, () => {
     const url = `http://localhost:${port}`;

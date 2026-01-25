@@ -7,7 +7,8 @@
   "license": "UNLICENSED",
   "scripts": {
     "#--------------------------GENERAL------------------------------#": "",
-    "dev": "concurrently -n turbo,ui \"turbo run dev\" \"npm run watch:ui\"",
+    "dev": "concurrently -n turbo,ui,check \"turbo run dev\" \"npm run watch:ui\" \"npm run check-env:watch\"",
+
     "watch:ui": "concurrently -n styles,components \"turbo run dev:styles --filter=@repo/ui\" \"turbo run dev:components --filter=@repo/ui\" ",
     "build": "turbo run build",
     "#--------------------------TESTING------------------------------#": "",
@@ -25,12 +26,18 @@
     "ui:build:styles": "turbo run build:styles --filter=ui",
     "ui:build:components": "turbo run build:components --filter=ui",
     "ui:dev:styles": "turbo run dev:styles --filter=ui",
-    "ui:dev:components": "turbo run dev:components --filter=ui"
+    "ui:dev:components": "turbo run dev:components --filter=ui",
+    "#---------------------------ENV---------------------------------#": "",
+    "generate-env-types": "bun run scripts/generate-env-types.ts",
+    "check-env": "bun run scripts/check-env.ts",
+    "check-env:watch": "bun run scripts/check-env.ts -- --watch"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
+    "chokidar": "^4.0.1",
     "concurrently": "^9.1.0",
+    "dotenv": "^16.4.7",
     "prettier": "^3.2.5",
     "turbo": "^2.7.5"
   },
