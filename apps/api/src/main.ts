@@ -2,8 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { AppModule } from './app.module';
-import { PrismaExceptionFilter } from './prisma/prisma-exception.filter';
+import { AppModule } from '@api/src/app.module';
+import { PrismaExceptionFilter } from '@api/src/infrastructure/prisma/prisma-exception.filter';
+import { AppRouterHost } from 'nestjs-trpc';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -13,15 +14,19 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new PrismaExceptionFilter()); // Ajoutez cette ligne
   const configService = app.get(ConfigService);
+
+
   const port = configService.get<number>('PORT') ?? 3090;
 
 
-  await app.listen(port);
+  await app.listen(port, () => {
+    const url = `http://localhost:${port}`;
+    console.log(`🚀 Backend     : ${url}`);
+    console.log(`📚 Swagger     : ${url}/docs`);
+    console.log("🎨 Front end   : http://localhost:3000");
+  });
 
-  const url = `http://localhost:${port}`;
-  console.log(`🚀 Backend  : ${url}`);
-  console.log(`📚 Swagger  : ${url}/docs`);
-  console.log("🎨 Front end: http://localhost:3000");
+
 }
 
 void bootstrap();

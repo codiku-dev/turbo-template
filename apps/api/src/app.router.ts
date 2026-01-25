@@ -1,8 +1,8 @@
-import { PrismaService } from '@api/src/prisma/prisma.service';
-import { Query, Router } from 'nestjs-trpc';
+import { PrismaService } from '@api/src/infrastructure/prisma/prisma.service';
+import { Query } from 'nestjs-trpc';
 import { Inject } from '@nestjs/common';
 import { z } from 'zod';
-import { LoggedRouter } from '@api/src/middlewares/logged-router.decorator';
+import { LoggedRouter } from '@api/src/infrastructure/middlewares/logged-router.decorator';
 
 @LoggedRouter({ alias: 'app' })
 export class AppRouter {

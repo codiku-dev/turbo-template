@@ -47,7 +47,6 @@
     "packages/*"
   ],
   "dependencies": {
-    "nestjs-trpc": "^1.6.1",
-    "trpc-panel": "^1.3.4"
+    "nestjs-trpc": "^1.6.1"
   }
 }

@@ -1,6 +1,6 @@
 import { applyDecorators } from '@nestjs/common';
 import { Router, UseMiddlewares } from 'nestjs-trpc';
-import { LoggedMiddleware } from '@api/src/middlewares/logger.middleware';
+import { LoggedMiddleware } from '@api/src/infrastructure/middlewares/logger.middleware';
 
 /**
  * Router decorator that applies LoggedMiddleware to all procedures.

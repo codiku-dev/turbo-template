@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { CreateUserDto, UpdateUserDto } from '@repo/api';
-import { PrismaService } from '@api/src/prisma/prisma.service';
+import { PrismaService } from '@api/src/infrastructure/prisma/prisma.service';
 import { UserModel } from '@api/generated/prisma/models';
 
 @Injectable()
@@ -15,7 +15,6 @@ export class UsersService {
   }
 
   async findAll(): Promise<UserModel[]> {
-    console.log('findAll');
 
     return await this.db.user.findMany({
       orderBy: {

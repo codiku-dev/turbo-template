@@ -1,5 +1,5 @@
 import { ConsoleLogger, Global, Module } from '@nestjs/common';
-import { LoggedMiddleware } from '@api/src/middlewares/logger.middleware';
+import { LoggedMiddleware } from '@api/src/infrastructure/middlewares/logger.middleware';
 
 @Global()
 @Module({

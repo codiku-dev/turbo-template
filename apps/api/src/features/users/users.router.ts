@@ -3,14 +3,15 @@ import { UsersService } from './users.service';
 import { z } from 'zod';
 import { CreateUserInput, createUserSchema, usersSchema } from './users.schema';
 import { UpdateUserDto } from '@repo/api';
-import { LoggedRouter } from '@api/src/middlewares/logged-router.decorator';
+import { LoggedRouter } from '@api/src/infrastructure/middlewares/logged-router.decorator';
 
-// @LoggedRouter({ alias: 'users' })
+@LoggedRouter({ alias: 'users' })
 export class UserRouter {
   constructor(private readonly usersService: UsersService) { }
 
   @Query({
     input: z.object({ id: z.number() }),
+
     output: usersSchema,
   })
   getUserById(@Input('id') id: number) {
