@@ -1,11 +1,10 @@
-import { Input, Mutation, Query } from 'nestjs-trpc';
+import { Input, Mutation, Query, Router } from 'nestjs-trpc';
 import { UsersService } from './users.service';
 import { z } from 'zod';
 import { CreateUserInput, createUserSchema, usersSchema } from './users.schema';
 import { UpdateUserDto } from '@repo/api';
-import { LoggedRouter } from '@api/src/infrastructure/middlewares/logged-router.decorator';
 
-@LoggedRouter({ alias: 'users' })
+@Router({ alias: 'users' })
 export class UserRouter {
   constructor(private readonly usersService: UsersService) { }
 

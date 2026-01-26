@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "exports": {
-    "./router": "./src/server.ts",
-    "./client": "./src/client.ts",
-    "./TrpcProvider": "./src/client/providers/TrpcProvider.tsx"
+    "./router": "./src/server.ts"
   },
   "peerDependencies": {
     "zod": "3.25.5",

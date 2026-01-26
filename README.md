@@ -29,6 +29,7 @@
 - **🚀 NestJS 11** - Progressive Node.js framework with decorators and dependency injection
 - **🔄 Watch Mode** - Auto-reload on file changes
 - **📝 Swagger Integration** - API documentation ready
+- **📊 Request Logging Middleware** - Automatic logging of all tRPC requests with inputs, outputs, errors, and performance metrics
 
 ### 🗄️ Database & ORM
 
@@ -105,7 +106,8 @@ This is a **production-ready monorepo** that combines the best of both worlds:
 # 1. Install dependencies
 bun install
 
-# 2. Start the PostgreSQL database (REQUIRED - run this first!)
+# 2. Start docker, then to Start the PostgreSQL database :
+
 bun db:start
 
 # 3. Run database migrations and generate Prisma client (REQUIRED - run this once!)
@@ -319,6 +321,124 @@ renderTrpcPanel(this.appRouter, {
   // Add custom styling, themes, etc.
 });
 ```
+
+---
+
+## 📊 Request Logging Middleware
+
+This project includes a **powerful logging middleware** for tRPC that automatically logs all API requests with detailed information.
+
+### Features
+
+The `LoggedMiddleware` provides comprehensive request logging:
+
+- 📝 **Request Details** - Logs the full request URL, path, and type (query/mutation)
+- ⏱️ **Performance Metrics** - Tracks execution duration for each request
+- 📥 **Input Logging** - Records all input parameters sent to procedures
+- 📤 **Response Logging** - Logs successful responses with data payloads
+- ❌ **Error Logging** - Captures and logs errors with full error details
+- 🕐 **Timestamps** - Includes ISO timestamps for all log entries
+
+### How It Works
+
+The middleware intercepts all tRPC procedures and logs:
+- Request URL (built from `TRPC_URL` env variable)
+- Input parameters
+- Response data or error details
+- Execution duration in milliseconds
+- Request metadata (path, type)
+
+### Usage
+
+Apply logging to your routers using the `@LoggedRouter` decorator:
+
+```typescript
+import { LoggedRouter } from '@api/src/infrastructure/middlewares/logged-router.decorator';
+import { Query, Mutation } from 'nestjs-trpc';
+
+@LoggedRouter({ alias: 'users' })
+export class UserRouter {
+  @Query({ /* ... */ })
+  getUserById(@Input('id') id: number) {
+    // This request will be automatically logged
+    return this.usersService.findOne(id);
+  }
+}
+```
+
+### Log Format
+
+The middleware outputs structured logs in the following format:
+
+```
+[2026-01-26T10:30:45.123Z]
+REQUEST : http://localhost:3090/trpc/users.getUserById
+INPUT :
+{
+  "id": 1
+}
+META :
+{
+  "path": "users.getUserById",
+  "type": "query",
+  "durationMs": 15
+}
+RESPONSE :
+{
+  "id": 1,
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+```
+
+For errors, the log includes an `ERROR` section instead of `RESPONSE`:
+
+```
+[2026-01-26T10:30:45.123Z]
+REQUEST : http://localhost:3090/trpc/users.getUserById
+INPUT :
+{
+  "id": 999
+}
+META :
+{
+  "path": "users.getUserById",
+  "type": "query",
+  "durationMs": 5
+}
+ERROR :
+{
+  "code": "NOT_FOUND",
+  "message": "User not found"
+}
+```
+
+### Configuration
+
+The middleware uses NestJS's `ConsoleLogger` and is registered in `TrpcMiddlewaresModule`:
+
+```typescript
+@Global()
+@Module({
+  providers: [ConsoleLogger, LoggedMiddleware],
+  exports: [LoggedMiddleware],
+})
+export class TrpcMiddlewaresModule { }
+```
+
+Make sure your `.env` file includes:
+```env
+TRPC_URL=http://localhost:3090
+```
+
+This is used to build the full request URL in logs.
+
+### Benefits
+
+- 🔍 **Debugging** - Quickly identify which requests are slow or failing
+- 📊 **Monitoring** - Track API usage patterns and performance
+- 🐛 **Error Tracking** - See exact error details and request context
+- 📈 **Performance Analysis** - Monitor execution times across all endpoints
 
 ---
 

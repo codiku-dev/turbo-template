@@ -21,11 +21,10 @@ import { TrpcPanelController } from '@api/src/infrastructure/docs/docs.controlle
     PrismaModule,
     UsersModule,
     TRPCModule.forRoot({
-      autoSchemaFile: path.resolve(__dirname, '../../../../packages/trpc/src/server'),
+      autoSchemaFile: path.resolve(__dirname, '../../../../packages/trpc/src'),
 
     }),
   ],
   controllers: [TrpcPanelController],
   providers: [AppService, AppRouter],
-})
-export class AppModule { }
+}) export class AppModule { }
