@@ -24,7 +24,7 @@ async function bootstrap() {
   // Get the actual server URL from NestJS
   const serverUrl = await app.getUrl();
 
-  console.log(`🚀 Backend     : ${serverUrl}`);
+  console.log(`🚀 Backend     : ${serverUrl}/trpc`);
   console.log(`📚 Docs     : ${serverUrl}/docs`);
 }
 

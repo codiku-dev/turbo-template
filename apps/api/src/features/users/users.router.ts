@@ -1,8 +1,7 @@
 import { Input, Mutation, Query, Router } from 'nestjs-trpc';
 import { UsersService } from './users.service';
 import { z } from 'zod';
-import { CreateUserInput, createUserSchema, usersSchema } from './users.schema';
-import { UpdateUserDto } from '@repo/api';
+import { CreateUserInput, UpdateUserInput, createUserSchema, updateUserSchema, usersSchema } from './users.schema';
 
 @Router({ alias: 'users' })
 export class UserRouter {
@@ -34,15 +33,15 @@ export class UserRouter {
   @Mutation({
     input: z.object({
       id: z.number(),
-      data: createUserSchema.partial(),
+      data: updateUserSchema,
     }),
     output: usersSchema,
   })
   updateUser(
     @Input('id') id: number,
-    @Input('data') data: Partial<CreateUserInput>,
+    @Input('data') data: UpdateUserInput,
   ) {
-    return this.usersService.update(id, data as UpdateUserDto);
+    return this.usersService.update(id, data);
   }
 
   @Mutation({

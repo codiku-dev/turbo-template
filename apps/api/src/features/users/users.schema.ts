@@ -15,5 +15,8 @@ export const createUserSchema = usersSchema.omit({
     updatedAt: true,
 });
 
+export const updateUserSchema = createUserSchema.partial();
+
 export type UsersSchema = z.infer<typeof usersSchema>;
 export type CreateUserInput = z.infer<typeof createUserSchema>;
+export type UpdateUserInput = z.infer<typeof updateUserSchema>;
