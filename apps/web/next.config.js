@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  allowedDevOrigins: ['http://localhost:3090/trpc'],
+  allowedDevOrigins: [process.env.API_URL],
   transpilePackages: ['@repo/ui'],
 };
+
+export default nextConfig;
