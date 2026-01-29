@@ -5,7 +5,10 @@ const t = initTRPC.create();
 const publicProcedure = t.procedure;
 
 const appRouter = t.router({
-  app: t.router({ hello: publicProcedure.output(z.object({ message: z.string() })).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any) }),
+  app: t.router({
+    hello: publicProcedure.output(z.object({ message: z.string() })).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
+    protectedHello: publicProcedure.output(z.object({ message: z.string() })).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any)
+  }),
   users: t.router({
     read: publicProcedure.input(z.object({ id: z.string() })).output(z.object({
       id: z.string(),
