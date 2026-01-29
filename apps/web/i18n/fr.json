@@ -1,5 +1,58 @@
 {
   "HomePage": {
     "title": "Bonjour le monde !"
+  },
+  "Landing": {
+    "templateSubtitle": "Template (Turbo Nest Trpc Next)",
+    "steps": {
+      "fullstackTypeSafety": "Fullstack type safety",
+      "shareResources": "Partager des ressources",
+      "storybook": "Storybook",
+      "typedEnv": "Env typés et validés",
+      "internationalisation": "Internationalisation"
+    },
+    "descriptions": {
+      "fullstackTypeSafety": "Créez un endpoint NestJS et appelez-le côté front avec une sécurité de types complète.",
+      "shareResources": "Créez un composant React simple et partagez-le entre vos apps.",
+      "storybook": "Créez vos stories et développez vos composants en isolation.",
+      "typedEnv": "Variables d'environnement typées et validées au démarrage.",
+      "internationalisation": "Utilisez next-intl pour traduire votre application facilement."
+    },
+    "step1": {
+      "title": "Fullstack type safety",
+      "nestjsSide": "NestJS side",
+      "nextjsSide": "NextJS side",
+      "backendSide": "Back-end side",
+      "frontendSide": "Front-end side"
+    },
+    "step2": {
+      "title": "Partagez vos ressources",
+      "uiPackageSide": "UI package side",
+      "nextjsSide": "NextJS side"
+    },
+    "step3": {
+      "title": "Storybook",
+      "uiPackageSide": "UI package side",
+      "result": "Résultat"
+    },
+    "step4": {
+      "title": "Variables d'environnement typées et validées",
+      "typedEnv": "Env typé",
+      "validation": "Validation",
+      "validationTitle": "Validation permanente durant le dev et au build",
+      "envFile": ".env file",
+      "result": "Résultat",
+      "typeSafety": "Type safety",
+      "terminal": "Terminal"
+    },
+    "step5": {
+      "title": "Internationalisation",
+      "code": "Code",
+      "result": "Résultat"
+    }
+  },
+  "I18nExample": {
+    "title": "Bonjour le monde !",
+    "description": "Ce texte est traduit en utilisant next-intl."
   }
 }

@@ -1,4 +1,7 @@
+'use client';
+
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 type OtherStepsContentProps = {
   activeStep: 2 | 3 | 4;
@@ -7,6 +10,9 @@ type OtherStepsContentProps = {
 };
 
 export function OtherStepsContent(p: OtherStepsContentProps) {
+  const t2 = useTranslations('Landing.step2');
+  const t3 = useTranslations('Landing.step3');
+  const t4 = useTranslations('Landing.step4');
   if (p.activeStep === 2) {
     return (
       <div className="grid gap-8 lg:grid-cols-2">
@@ -21,7 +27,7 @@ export function OtherStepsContent(p: OtherStepsContentProps) {
               </div>
               <span className="text-xs text-gray-400 ml-2">packages/ui/src/button/button.tsx</span>
             </div>
-            <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">Common UI package side</span>
+            <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">{t2('uiPackageSide')}</span>
           </div>
           <div className="p-6 overflow-x-auto">
             <pre className="text-sm font-mono leading-relaxed text-gray-300">
@@ -58,7 +64,7 @@ export function OtherStepsContent(p: OtherStepsContentProps) {
               </div>
               <span className="text-xs text-gray-400 ml-2">apps/web/app/page.tsx</span>
             </div>
-            <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">Front-end side</span>
+            <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">{t2('nextjsSide')}</span>
           </div>
           <div className="p-4">
             <pre className="text-xs font-mono leading-relaxed text-gray-300">
@@ -103,7 +109,7 @@ export function OtherStepsContent(p: OtherStepsContentProps) {
               </div>
               <span className="text-xs text-gray-400 ml-2">packages/ui/src/button/button.stories.tsx</span>
             </div>
-            <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">Common   UI package side</span>
+            <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">{t3('uiPackageSide')}</span>
           </div>
           <div className="p-6 overflow-x-auto">
             <pre className="text-sm font-mono leading-relaxed text-gray-300">
@@ -170,7 +176,7 @@ export function OtherStepsContent(p: OtherStepsContentProps) {
     return (
       <div className="space-y-8">
         <div>
-          <h3 className="text-lg font-semibold mb-4 text-gray-800">Env typé</h3>
+          <h3 className="text-lg font-semibold mb-4 text-gray-800">{t4('typedEnv')}</h3>
           <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-800">
             <div className="bg-gray-800 px-4 py-2 flex items-center justify-between border-b border-gray-700">
               <div className="flex items-center gap-2">
@@ -181,7 +187,7 @@ export function OtherStepsContent(p: OtherStepsContentProps) {
                 </div>
                 <span className="text-xs text-gray-400 ml-2">apps/api/src/main.ts</span>
               </div>
-              <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">Type safety</span>
+              <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">{t4('typeSafety')}</span>
             </div>
             <div className="p-6 overflow-x-auto">
               <pre className="text-sm font-mono leading-relaxed text-gray-300">
@@ -203,7 +209,7 @@ export function OtherStepsContent(p: OtherStepsContentProps) {
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold mb-4 text-gray-800">Validation permanente durant le dev et au build</h3>
+          <h3 className="text-lg font-semibold mb-4 text-gray-800">{t4('validationTitle')}</h3>
           <div className="grid gap-8 lg:grid-cols-2">
             <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-800">
               <div className="bg-gray-800 px-4 py-2 flex items-center justify-between border-b border-gray-700">
@@ -215,7 +221,7 @@ export function OtherStepsContent(p: OtherStepsContentProps) {
                   </div>
                   <span className="text-xs text-gray-400 ml-2">.env.local.development</span>
                 </div>
-                <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">.env file</span>
+                <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">{t4('envFile')}</span>
               </div>
               <div className="p-4">
                 <pre className="text-xs font-mono text-gray-300 leading-relaxed">
@@ -244,7 +250,7 @@ export function OtherStepsContent(p: OtherStepsContentProps) {
                   </div>
                   <span className="text-xs text-gray-400 ml-2">Terminal</span>
                 </div>
-                <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">Résultat</span>
+                <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">{t3('result')}</span>
               </div>
               <div className="p-4">
                 <pre className="text-xs font-mono text-gray-300 leading-relaxed">

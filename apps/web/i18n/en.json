@@ -1,5 +1,58 @@
 {
   "HomePage": {
     "title": "Hello world!"
+  },
+  "Landing": {
+    "templateSubtitle": "Template (Turbo Nest Trpc Next)",
+    "steps": {
+      "fullstackTypeSafety": "Fullstack type safety",
+      "shareResources": "Share resources",
+      "storybook": "Storybook",
+      "typedEnv": "Typed and validated env",
+      "internationalisation": "Internationalisation"
+    },
+    "descriptions": {
+      "fullstackTypeSafety": "Create a NestJS endpoint and call it from the frontend with complete type safety.",
+      "shareResources": "Create a simple React component and share it between your apps.",
+      "storybook": "Create your stories and develop your components in isolation.",
+      "typedEnv": "Typed and validated environment variables at startup.",
+      "internationalisation": "Use next-intl to translate your application easily."
+    },
+    "step1": {
+      "title": "Fullstack type safety",
+      "nestjsSide": "NestJS side",
+      "nextjsSide": "NextJS side",
+      "backendSide": "Back-end side",
+      "frontendSide": "Front-end side"
+    },
+    "step2": {
+      "title": "Share your resources",
+      "uiPackageSide": "UI package side",
+      "nextjsSide": "NextJS side"
+    },
+    "step3": {
+      "title": "Storybook",
+      "uiPackageSide": "UI package side",
+      "result": "Result"
+    },
+    "step4": {
+      "title": "Typed and validated env",
+      "typedEnv": "Typed env",
+      "validation": "Validation",
+      "validationTitle": "Validation during dev and build",
+      "envFile": ".env file",
+      "result": "Result",
+      "typeSafety": "Type safety",
+      "terminal": "Terminal"
+    },
+    "step5": {
+      "title": "Internationalisation",
+      "code": "Code",
+      "result": "Result"
+    }
+  },
+  "I18nExample": {
+    "title": "Hello world!",
+    "description": "This text is translated using next-intl."
   }
 }

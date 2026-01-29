@@ -1,4 +1,10 @@
+'use client';
+
+import { useTranslations } from 'next-intl';
+
 export function Step1Content() {
+  const t = useTranslations('Landing.step1');
+
   return (
     <div className="grid gap-8 lg:grid-cols-2">
       <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-800">
@@ -11,7 +17,7 @@ export function Step1Content() {
             </div>
             <span className="text-xs text-gray-400 ml-2">apps/api/src/features/users/users.router.ts</span>
           </div>
-          <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">Back-end side</span>
+          <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">{t('backendSide')}</span>
         </div>
         <div className="p-6 overflow-x-auto">
           <pre className="text-sm font-mono leading-relaxed text-gray-300">
@@ -74,7 +80,7 @@ export function Step1Content() {
             </div>
             <span className="text-xs text-gray-400 ml-2">apps/web/app/page.tsx</span>
           </div>
-          <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">Front-end side</span>
+          <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">{t('frontendSide')}</span>
         </div>
         <div className="p-6 overflow-x-auto">
           <pre className="text-sm font-mono leading-relaxed text-gray-300">

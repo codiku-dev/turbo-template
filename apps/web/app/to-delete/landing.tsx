@@ -2,11 +2,14 @@
 import { Button } from '@repo/ui/button/button';
 import { trpc } from '@web/libs/trpc-client';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Step1Content } from './step-1-content';
 import { OtherStepsContent } from './other-steps-content';
+import { I18nStepContent } from './i18n-step-content';
 
 export default function Home() {
-    const [activeStep, setActiveStep] = useState<1 | 2 | 3 | 4>(1);
+    const t = useTranslations('Landing');
+    const [activeStep, setActiveStep] = useState<1 | 2 | 3 | 4 | 5>(1);
     const [activeSubStep, setActiveSubStep] = useState<1 | 2>(1);
     const [activeSubStep3, setActiveSubStep3] = useState<1 | 2>(1);
 
@@ -24,7 +27,7 @@ export default function Home() {
                             <h1 className="text-4xl font-bold text-gray-900 tracking-tight mb-1">
                                 TenTen
                             </h1>
-                            <p className="text-sm text-gray-500 font-medium">Template (Turbo Nest Trpc Next)</p>
+                            <p className="text-sm text-gray-500 font-medium">{t('templateSubtitle')}</p>
                         </div>
                     </div>
                 </div>
@@ -35,15 +38,16 @@ export default function Home() {
                 {/* Features Navigation */}
                 <div className="flex gap-2 mb-12 overflow-x-auto pb-4">
                     {[
-                        { num: 1, emoji: '🛡️', label: 'Fullstack type safety' },
-                        { num: 2, emoji: '📦', label: 'Partager des ressources' },
-                        { num: 3, emoji: '📚', label: 'Storybook' },
-                        { num: 4, emoji: '🔐', label: 'Env typés et validés' },
+                        { num: 1, emoji: '🛡️', label: t('steps.fullstackTypeSafety') },
+                        { num: 2, emoji: '📦', label: t('steps.shareResources') },
+                        { num: 3, emoji: '📚', label: t('steps.storybook') },
+                        { num: 4, emoji: '🔐', label: t('steps.typedEnv') },
+                        { num: 5, emoji: '🌍', label: t('steps.internationalisation') },
                     ].map((step) => (
                         <button
                             key={step.num}
                             onClick={() => {
-                                setActiveStep(step.num as 1 | 2 | 3 | 4);
+                                setActiveStep(step.num as 1 | 2 | 3 | 4 | 5);
                                 if (step.num === 1) setActiveSubStep(1);
                             }}
                             className={`px-6 py-3 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${activeStep === step.num
@@ -58,30 +62,36 @@ export default function Home() {
 
                 {/* Step Content */}
                 <div className="space-y-6">
-                    <div>
+                    <div className="min-h-[120px]">
                         <h2 className="text-2xl font-bold mb-4">
-                            {activeStep === 1 && '🛡️ Fullstack type safety'}
-                            {activeStep === 2 && '📦 Partagez vos ressources'}
-                            {activeStep === 3 && '📚 Storybook'}
-                            {activeStep === 4 && '🔐 Variables d\'environnement typées et validées'}
+                            {activeStep === 1 && `🛡️ ${t('step1.title')}`}
+                            {activeStep === 2 && `📦 ${t('step2.title')}`}
+                            {activeStep === 3 && `📚 ${t('step3.title')}`}
+                            {activeStep === 4 && `🔐 ${t('step4.title')}`}
+                            {activeStep === 5 && `🌍 ${t('step5.title')}`}
                         </h2>
                         <p className="text-gray-600 mb-6">
-                            {activeStep === 1 && 'Créez un endpoint NestJS et appelez-le côté front avec une sécurité de types complète.'}
-                            {activeStep === 2 && 'Créez un composant React simple et partagez-le entre vos apps.'}
-                            {activeStep === 3 && 'Créez vos stories et développez vos composants en isolation.'}
-                            {activeStep === 4 && 'Variables d\'environnement typées et validées au démarrage.'}
+                            {activeStep === 1 && t('descriptions.fullstackTypeSafety')}
+                            {activeStep === 2 && t('descriptions.shareResources')}
+                            {activeStep === 3 && t('descriptions.storybook')}
+                            {activeStep === 4 && t('descriptions.typedEnv')}
+                            {activeStep === 5 && t('descriptions.internationalisation')}
                         </p>
                     </div>
 
-                    {activeStep === 1 ? (
-                        <Step1Content />
-                    ) : (
-                        <OtherStepsContent
-                            activeStep={activeStep}
-                            activeSubStep3={activeSubStep3}
-                            onSubStep3Change={setActiveSubStep3}
-                        />
-                    )}
+                    <div className="min-h-[400px] transition-all duration-300">
+                        {activeStep === 1 ? (
+                            <Step1Content />
+                        ) : activeStep === 5 ? (
+                            <I18nStepContent />
+                        ) : (
+                            <OtherStepsContent
+                                activeStep={activeStep}
+                                activeSubStep3={activeSubStep3}
+                                onSubStep3Change={setActiveSubStep3}
+                            />
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
