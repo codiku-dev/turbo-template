@@ -15,8 +15,18 @@ export default function Home() {
       {/* Header */}
       <div className="border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-6 py-8">
-          <h1 className="text-4xl font-bold mb-2">Turbo Nest Template Trpc Next</h1>
-          <p className="text-gray-600">Monorepo moderne avec NestJS, tRPC, Next.js et TypeScript</p>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="relative w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center shadow-md">
+              <span className="text-white font-bold text-xl tracking-tight">TT</span>
+              <div className="absolute top-0 right-0 w-0 h-0 border-l-[12px] border-l-transparent border-t-[12px] border-t-indigo-400 rounded-tl-lg"></div>
+            </div>
+            <div>
+              <h1 className="text-4xl font-bold text-gray-900 tracking-tight mb-1">
+                TenTen
+              </h1>
+              <p className="text-sm text-gray-500 font-medium">Template (Turbo Nest Trpc Next)</p>
+            </div>
+          </div>
         </div>
       </div>
 
