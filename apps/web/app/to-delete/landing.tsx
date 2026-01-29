@@ -7,10 +7,11 @@ import { StorybookStep } from './storybook-step';
 import { EnvStep } from './env-step';
 import { InternationalizationStep } from './internationalization-step';
 import { AuthStep } from './auth-step';
+import { AutoDocStep } from './auto-doc-step';
 
 export default function Home() {
     const t = useTranslations('Landing');
-    const [activeStep, setActiveStep] = useState<1 | 2 | 3 | 4 | 5 | 6>(1);
+    const [activeStep, setActiveStep] = useState<1 | 2 | 3 | 4 | 5 | 6 | 7>(1);
 
     return (
         <div className="min-h-screen bg-white text-gray-900">
@@ -43,13 +44,14 @@ export default function Home() {
                         { num: 4, emoji: '🔐', label: t('steps.typedEnv') },
                         { num: 5, emoji: '🌍', label: t('steps.internationalisation') },
                         { num: 6, emoji: '🔑', label: t('steps.authBetterAuth') },
+                        { num: 7, emoji: '📄', label: t('steps.autoDoc') },
                     ].map((step) => {
                         const isActive = activeStep === step.num;
                         return (
                             <button
                                 key={step.num}
                                 type="button"
-                                onClick={() => setActiveStep(step.num as 1 | 2 | 3 | 4 | 5 | 6)}
+                                onClick={() => setActiveStep(step.num as 1 | 2 | 3 | 4 | 5 | 6 | 7)}
                                 className={`
                                     flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all
                                     ${isActive
@@ -75,6 +77,7 @@ export default function Home() {
                             {activeStep === 4 && `🔐 ${t('step4.title')}`}
                             {activeStep === 5 && `🌍 ${t('step5.title')}`}
                             {activeStep === 6 && `🔑 ${t('step6.title')}`}
+                            {activeStep === 7 && `📄 ${t('step7.title')}`}
                         </h2>
                         <p className="text-gray-600">
                             {activeStep === 1 && t('descriptions.fullstackTypeSafety')}
@@ -83,6 +86,7 @@ export default function Home() {
                             {activeStep === 4 && t('descriptions.typedEnv')}
                             {activeStep === 5 && t('descriptions.internationalisation')}
                             {activeStep === 6 && t('descriptions.authBetterAuth')}
+                            {activeStep === 7 && t('descriptions.autoDoc')}
                         </p>
                     </div>
 
@@ -93,6 +97,7 @@ export default function Home() {
                         {activeStep === 4 && <EnvStep />}
                         {activeStep === 5 && <InternationalizationStep />}
                         {activeStep === 6 && <AuthStep />}
+                        {activeStep === 7 && <AutoDocStep />}
                     </div>
                 </div>
             </div>

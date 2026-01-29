@@ -10,7 +10,8 @@
       "storybook": "Storybook",
       "typedEnv": "Typed and validated env",
       "internationalisation": "Internationalisation",
-      "authBetterAuth": "Auth with Better Auth"
+      "authBetterAuth": "Auth with Better Auth",
+      "autoDoc": "Auto documentation"
     },
     "descriptions": {
       "fullstackTypeSafety": "Create a NestJS endpoint and call it from the frontend with complete type safety.",
@@ -18,7 +19,8 @@
       "storybook": "Create your stories and develop your components in isolation.",
       "typedEnv": "Typed and validated environment variables at startup.",
       "internationalisation": "Use next-intl to translate your application easily.",
-      "authBetterAuth": "AuthRouter + @Public for public routes, protected routes require a session. Try both fetches below."
+      "authBetterAuth": "AuthRouter + @Public for public routes, protected routes require a session. Try both fetches below.",
+      "autoDoc": "Auto-generated API documentation with trpc-ui: explore routers, run queries and mutations, and view responses."
     },
     "step1": {
       "title": "Fullstack type safety",
@@ -63,6 +65,11 @@
       "loading": "Loading...",
       "clickToFetch": "Click the button to fetch",
       "unauthorized": "Unauthorized"
+    },
+    "step7": {
+      "title": "Auto documentation",
+      "description": "The API documentation is auto-generated with trpc-ui. You get an interactive UI to browse all routers, run queries and mutations, and see responses.",
+      "screenshotAlt": "trpc-ui API documentation interface"
     }
   },
   "I18nExample": {

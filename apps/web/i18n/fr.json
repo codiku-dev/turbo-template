@@ -10,7 +10,8 @@
       "storybook": "Storybook",
       "typedEnv": "Env typés et validés",
       "internationalisation": "Internationalisation",
-      "authBetterAuth": "Auth avec Better Auth"
+      "authBetterAuth": "Auth avec Better Auth",
+      "autoDoc": "Auto documentation"
     },
     "descriptions": {
       "fullstackTypeSafety": "Créez un endpoint NestJS et appelez-le côté front avec une sécurité de types complète.",
@@ -18,7 +19,8 @@
       "storybook": "Créez vos stories et développez vos composants en isolation.",
       "typedEnv": "Variables d'environnement typées et validées au démarrage.",
       "internationalisation": "Utilisez next-intl pour traduire votre application facilement.",
-      "authBetterAuth": "AuthRouter + @Public pour les routes publiques, les routes protégées exigent une session. Testez les deux appels ci-dessous."
+      "authBetterAuth": "AuthRouter + @Public pour les routes publiques, les routes protégées exigent une session. Testez les deux appels ci-dessous.",
+      "autoDoc": "La documentation de l'API est générée automatiquement avec trpc-ui : parcourez les routers, exécutez les queries et mutations, et consultez les réponses."
     },
     "step1": {
       "title": "Fullstack type safety",
@@ -63,6 +65,11 @@
       "loading": "Chargement...",
       "clickToFetch": "Cliquez pour lancer l'appel",
       "unauthorized": "Non autorisé"
+    },
+    "step7": {
+      "title": "Auto documentation",
+      "description": "La documentation de l'API est générée automatiquement avec trpc-ui. Une interface interactive permet de parcourir les routers, lancer les queries et mutations, et afficher les réponses.",
+      "screenshotAlt": "Interface de documentation API trpc-ui"
     }
   },
   "I18nExample": {
