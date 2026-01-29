@@ -12,14 +12,14 @@ export class UserRouter {
     input: z.object({ id: z.string() }),
     output: usersSchema,
   })
-  getUserById(@Input('id') id: string) {
+  read(@Input('id') id: string) {
     return this.usersService.findOne(id);
   }
 
   @Query({
     output: z.array(usersSchema),
   })
-  getAllUsers() {
+  readAll() {
     return this.usersService.findAll();
   }
 
@@ -27,7 +27,7 @@ export class UserRouter {
     input: createUserSchema,
     output: usersSchema,
   })
-  createUser(@Input() userData: UserCreateInput) {
+  create(@Input() userData: UserCreateInput) {
     return this.usersService.create(userData);
   }
 
@@ -38,7 +38,7 @@ export class UserRouter {
     }),
     output: usersSchema,
   })
-  updateUser(
+  update(
     @Input('id') id: string,
     @Input('data') data: UserUpdateInput,
   ) {
@@ -51,7 +51,7 @@ export class UserRouter {
     }),
     output: usersSchema
   })
-  deleteUser(@Input('id') id: string) {
+  delete(@Input('id') id: string) {
     return this.usersService.remove(id);
   }
 }

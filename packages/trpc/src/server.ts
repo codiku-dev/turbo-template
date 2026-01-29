@@ -7,7 +7,7 @@ const publicProcedure = t.procedure;
 const appRouter = t.router({
   app: t.router({ hello: publicProcedure.output(z.object({ message: z.string() })).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any) }),
   users: t.router({
-    getUserById: publicProcedure.input(z.object({ id: z.string() })).output(z.object({
+    read: publicProcedure.input(z.object({ id: z.string() })).output(z.object({
       id: z.string(),
       name: z.string(),
       email: z.string().email(),
@@ -32,7 +32,7 @@ const appRouter = t.router({
         refreshTokenExpiresAt: z.date(),
       })).optional(),
     })).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
-    getAllUsers: publicProcedure.output(z.array(z.object({
+    readAll: publicProcedure.output(z.array(z.object({
       id: z.string(),
       name: z.string(),
       email: z.string().email(),
@@ -57,7 +57,7 @@ const appRouter = t.router({
         refreshTokenExpiresAt: z.date(),
       })).optional(),
     }))).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
-    createUser: publicProcedure.input(z.object({
+    create: publicProcedure.input(z.object({
       id: z.string(),
       name: z.string(),
       email: z.string().email(),
@@ -112,7 +112,7 @@ const appRouter = t.router({
         refreshTokenExpiresAt: z.date(),
       })).optional(),
     })).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
-    updateUser: publicProcedure.input(z.object({
+    update: publicProcedure.input(z.object({
       id: z.string(),
       data: z.object({
         id: z.string(),
@@ -170,7 +170,7 @@ const appRouter = t.router({
         refreshTokenExpiresAt: z.date(),
       })).optional(),
     })).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
-    deleteUser: publicProcedure.input(z.object({
+    delete: publicProcedure.input(z.object({
       id: z.string(),
     })).output(z.object({
       id: z.string(),
