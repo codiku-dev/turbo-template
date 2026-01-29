@@ -1,7 +1,6 @@
 import { TRPCMiddleware, MiddlewareOptions } from 'nestjs-trpc';
 import { Inject, Injectable, ConsoleLogger } from '@nestjs/common';
 
-const TRPC_BASE = process.env.TRPC_URL
 
 @Injectable()
 export class LoggedMiddleware implements TRPCMiddleware {
@@ -18,12 +17,11 @@ export class LoggedMiddleware implements TRPCMiddleware {
         const start = Date.now();
         const { next, path, type, input } = opts;
         const meta = { path, type, durationMs: Date.now() - start };
-        const request = `${TRPC_BASE}/trpc/${path}`;
+        const request = `${process.env.TRPC_URL}/${path}`;
 
         const buildLog = (): string => {
             meta.durationMs = Date.now() - start;
             return [
-                `[${new Date().toISOString()}]`,
                 `REQUEST : ${request}`,
                 this.formatLine('INPUT :', input),
                 this.formatLine('META :', meta),
