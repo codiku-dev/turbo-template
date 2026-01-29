@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "#--------------------------GENERAL------------------------------#": "",
-    "dev": "bun db:update && concurrently -n turbo,ui,check \"turbo run dev\" \"npm run watch:ui\" \"npm run check-env:watch\"",
+    "dev": "bun db:update && concurrently -n turbo,ui,check --kill-others-on-fail \"turbo run dev\" \"npm run watch:ui\" \"npm run check-env:watch\"",
     "watch:ui": "concurrently -n styles,components \"turbo run dev:styles --filter=@repo/ui\" \"turbo run dev:components --filter=@repo/ui\" ",
     "build": "turbo run build",
     "#--------------------------TESTING------------------------------#": "",
@@ -28,8 +28,8 @@
     "ui:dev:components": "turbo run dev:components --filter=@repo/ui",
     "#---------------------------ENV---------------------------------#": "",
     "generate-env-types": "bun run scripts/generate-env-types.ts",
-    "check-env": "bun run scripts/check-env.ts",
-    "check-env:watch": "bun run scripts/check-env.ts -- --watch"
+    "check-env": "bun run scripts/check-env-all-apps.ts",
+    "check-env:watch": "bun run scripts/check-env-all-apps.ts -- --watch"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
