@@ -34,8 +34,8 @@ export default function Home() {
 
             {/* Main Content */}
             <div className="max-w-6xl mx-auto px-6 py-12">
-                {/* Features Navigation */}
-                <div className="flex gap-2 mb-12 overflow-x-auto pb-4">
+                {/* Features grid – all visible at a glance */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-10">
                     {[
                         { num: 1, emoji: '🛡️', label: t('steps.fullstackTypeSafety') },
                         { num: 2, emoji: '📦', label: t('steps.shareResources') },
@@ -43,26 +43,32 @@ export default function Home() {
                         { num: 4, emoji: '🔐', label: t('steps.typedEnv') },
                         { num: 5, emoji: '🌍', label: t('steps.internationalisation') },
                         { num: 6, emoji: '🔑', label: t('steps.authBetterAuth') },
-                    ].map((step) => (
-                        <button
-                            key={step.num}
-                            onClick={() => {
-                                setActiveStep(step.num as 1 | 2 | 3 | 4 | 5 | 6);
-                            }}
-                            className={`px-6 py-3 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${activeStep === step.num
-                                ? 'bg-gray-900 text-white'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                }`}
-                        >
-                            {step.emoji} {step.label}
-                        </button>
-                    ))}
+                    ].map((step) => {
+                        const isActive = activeStep === step.num;
+                        return (
+                            <button
+                                key={step.num}
+                                type="button"
+                                onClick={() => setActiveStep(step.num as 1 | 2 | 3 | 4 | 5 | 6)}
+                                className={`
+                                    flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all
+                                    ${isActive
+                                        ? 'bg-gray-900 text-white shadow-md ring-2 ring-gray-900 ring-offset-2'
+                                        : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200'
+                                    }
+                                `}
+                            >
+                                <span className="text-2xl shrink-0" aria-hidden>{step.emoji}</span>
+                                <span className="text-sm font-medium leading-tight">{step.label}</span>
+                            </button>
+                        );
+                    })}
                 </div>
 
                 {/* Step Content */}
                 <div className="space-y-6">
-                    <div className="min-h-[120px]">
-                        <h2 className="text-2xl font-bold mb-4">
+                    <div className="min-h-[100px]">
+                        <h2 className="text-2xl font-bold mb-2">
                             {activeStep === 1 && `🛡️ ${t('step1.title')}`}
                             {activeStep === 2 && `📦 ${t('step2.title')}`}
                             {activeStep === 3 && `📚 ${t('step3.title')}`}
@@ -70,7 +76,7 @@ export default function Home() {
                             {activeStep === 5 && `🌍 ${t('step5.title')}`}
                             {activeStep === 6 && `🔑 ${t('step6.title')}`}
                         </h2>
-                        <p className="text-gray-600 mb-6">
+                        <p className="text-gray-600">
                             {activeStep === 1 && t('descriptions.fullstackTypeSafety')}
                             {activeStep === 2 && t('descriptions.shareResources')}
                             {activeStep === 3 && t('descriptions.storybook')}
