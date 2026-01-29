@@ -18,9 +18,8 @@ async function bootstrap() {
   const env = parseEnv();
   const port = Number(env.PORT) || 3090;
   // Listen on all interfaces (0.0.0.0) for deployment compatibility (Docker, cloud, etc.)
-  const listenHost = process.env.HOST || '0.0.0.0';
 
-  await app.listen(port, listenHost);
+  await app.listen(port);
 
   // Get the actual server URL from NestJS
   const serverUrl = await app.getUrl();

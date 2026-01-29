@@ -16,10 +16,7 @@ export const trpcClient = trpc.createClient({
                 (opts.direction === 'down' && opts.result instanceof Error),
         }),
         httpBatchLink({
-            url:
-                typeof window !== "undefined"
-                    ? (process.env.NEXT_PUBLIC_TRPC_URL ?? "")
-                    : (process.env.TRPC_URL ?? "http://localhost:3090/trpc"),
+            url: process.env.NEXT_PUBLIC_API_URL
         }),
     ],
 });

@@ -54,7 +54,7 @@ function generateEnvTypeTs(_envPath: string, envName: string, keys: string[]): s
   const zodEntries = keys.map(formatZodEntry).join("\n");
   const lines: string[] = [
     `/**`,
-    ` * Generated from ${envName}. You can regenerate it with the npm run generate-env-types script.`,
+    ` * Generated from ${envName}. Do not edit manually.`,
     ` * Regenerated when ${envName} changes (generate-env-types script).`,
     ` */`,
     `import { z } from "zod";`,

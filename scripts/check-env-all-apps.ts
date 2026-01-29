@@ -12,7 +12,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 
 const ROOT = process.cwd();
-const ENV_CANDIDATES = [".env.local.development", ".env.production", ".env"] as const;
+const ENV_CANDIDATES = [".env.local.development", ".env.production", ".env", ".env.local", ".env.test", ".env.test.local", ".env.test.local.development", ".env.test.local.production", "env.staging", "env.preview"] as const;
 const SKIP_DIRS = new Set(["node_modules", ".git"]);
 
 function* walkDirs(dir: string): Generator<string> {
@@ -38,25 +38,33 @@ function pickEnvFile(dir: string): { file: string; name: string } | null {
 }
 
 /** Returns false if validation failed, true if passed or skipped. */
-function checkSingleApp(dir: string): boolean {
+function checkSingleApp(dir: string): { passed: boolean; missingVars?: string[]; envFile?: string; appName?: string } {
   const envTypePath = path.join(dir, "env-type.ts");
-  if (!fs.existsSync(envTypePath)) return true;
+  if (!fs.existsSync(envTypePath)) return { passed: true };
 
   const appName = path.relative(ROOT, dir);
   const picked = pickEnvFile(dir);
   if (!picked) {
     console.error(`  ❌ ${appName}: missing .env file (env-type.ts exists but no .env found)`);
-    return false;
+    return { passed: false, appName };
   }
 
   const script = path.join(ROOT, "scripts", "check-env-single-app.ts");
-  const r = spawnSync("bun", ["run", script, picked.file, dir], { stdio: "inherit", env: process.env });
+  const r = spawnSync("bun", ["run", script, picked.file, dir], {
+    stdio: "pipe",
+    env: process.env,
+    encoding: "utf-8"
+  });
+
   if (r.status !== 0) {
-    console.error(`  ❌ ${appName}: validation failed`);
-    return false;
+    const output = r.stderr?.toString() || r.stdout?.toString() || "";
+    const missingMatch = output.match(/MISSING_VARS:(.+)/);
+    const missingVars = missingMatch ? missingMatch?.[1]?.split(",") : undefined;
+    console.error(`  ❌ ${appName}: validation failed (${picked.name})`);
+    return { passed: false, missingVars, envFile: picked.name, appName };
   }
   console.log(`  ✅ ${appName}: valid (${picked.name})`);
-  return true;
+  return { passed: true };
 }
 
 function run(): void {
@@ -64,15 +72,43 @@ function run(): void {
   console.log("🔍 Validating environment variables");
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
 
+  const allMissingVars: Array<{ var: string; app: string; envFile: string }> = [];
   let ok = true;
+
   for (const dir of walkDirs(ROOT)) {
-    if (!checkSingleApp(dir)) ok = false;
+    const result = checkSingleApp(dir);
+    if (!result.passed) {
+      ok = false;
+      if (result.missingVars && result.envFile && result.appName) {
+        result.missingVars.forEach(v => {
+          allMissingVars.push({ var: v, app: result.appName!, envFile: result.envFile! });
+        });
+      }
+    }
   }
 
   console.log("");
   if (!ok) {
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
     console.log("❌ Env variables validation failed");
+    if (allMissingVars.length > 0) {
+      console.log("\nMissing variables:");
+      // Group by app and envFile
+      const grouped = new Map<string, string[]>();
+      allMissingVars.forEach(({ var: v, app, envFile }) => {
+        const key = `${app} (${envFile})`;
+        if (!grouped.has(key)) {
+          grouped.set(key, []);
+        }
+        grouped.get(key)!.push(v);
+      });
+
+      grouped.forEach((vars, key) => {
+        const uniqueVars = [...new Set(vars)];
+        console.log(`  ${key}:`);
+        uniqueVars.forEach(v => console.log(`    • ${v}`));
+      });
+    }
     console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
     process.exit(1);
   }

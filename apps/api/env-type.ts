@@ -1,10 +1,12 @@
 /**
- * Generated from .env.local.development. You can regenerate it with the npm run generate-env-types script.
+ * Generated from .env.local.development. 
  * Regenerated when .env.local.development changes (generate-env-types script).
  */
 import { z } from "zod";
 
 export const envSchema = z.object({
+  BETTER_AUTH_SECRET: z.string(),
+  BETTER_AUTH_URL: z.string(),
   DATABASE_URL: z.string(),
   PORT: z.string(),
   POSTGRES_DB: z.string(),
@@ -12,9 +14,7 @@ export const envSchema = z.object({
   POSTGRES_PORT: z.string(),
   POSTGRES_USER: z.string(),
   TRPC_URL: z.string(),
-  BETTER_AUTH_SECRET: z.string(),
 });
-
 
 export type Env = z.infer<typeof envSchema>;
 

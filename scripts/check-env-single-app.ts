@@ -21,7 +21,18 @@ config({ path: envPath });
 try {
   const mod = await import(pathToFileURL(path.join(appDir, "env-type.ts")).href);
   mod.parseEnv();
-} catch (err) {
-  console.error("❌ [check-env]", err);
+} catch (err: any) {
+  // Extract missing variables from ZodError
+  if (err?.issues && Array.isArray(err.issues)) {
+    const missingVars = err.issues
+      .filter((issue: any) => issue.code === "invalid_type" && issue.received === "undefined")
+      .map((issue: any) => issue.path.join("."))
+      .filter(Boolean);
+
+    if (missingVars.length > 0) {
+      // Output in a format that can be parsed by check-env-all-apps.ts
+      console.error(`MISSING_VARS:${missingVars.join(",")}`);
+    }
+  }
   process.exit(1);
 }
