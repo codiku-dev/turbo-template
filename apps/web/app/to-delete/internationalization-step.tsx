@@ -1,11 +1,12 @@
 'use client';
 
-import { I18nExample } from '../to-delete/i18n-example';
-import { LanguageSwitcher } from './language-switcher';
+import { I18nExample } from './internationalization/i18n-example';
+import { LanguageSwitcher } from './internationalization/language-switcher';
 import { useTranslations } from 'next-intl';
 
-export function I18nStepContent() {
+export function InternationalizationStep() {
   const t = useTranslations('Landing.step5');
+
   return (
     <div className="grid gap-8 lg:grid-cols-2">
       <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-800">

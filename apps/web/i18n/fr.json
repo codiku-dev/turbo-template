@@ -43,7 +43,8 @@
       "envFile": ".env file",
       "result": "Résultat",
       "typeSafety": "Type safety",
-      "terminal": "Terminal"
+      "terminal": "Terminal",
+      "missing": "manquant"
     },
     "step5": {
       "title": "Internationalisation",

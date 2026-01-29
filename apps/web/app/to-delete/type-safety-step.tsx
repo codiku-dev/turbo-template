@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
-export function Step1Content() {
+export function TypeSafetyStep() {
   const t = useTranslations('Landing.step1');
 
   return (

@@ -1,17 +1,15 @@
 'use client';
-import { Button } from '@repo/ui/button/button';
-import { trpc } from '@web/libs/trpc-client';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Step1Content } from './step-1-content';
-import { OtherStepsContent } from './other-steps-content';
-import { I18nStepContent } from './i18n-step-content';
+import { TypeSafetyStep } from './type-safety-step';
+import { ShareResourcesStep } from './share-resources-step';
+import { StorybookStep } from './storybook-step';
+import { EnvStep } from './env-step';
+import { InternationalizationStep } from './internationalization-step';
 
 export default function Home() {
     const t = useTranslations('Landing');
     const [activeStep, setActiveStep] = useState<1 | 2 | 3 | 4 | 5>(1);
-    const [activeSubStep, setActiveSubStep] = useState<1 | 2>(1);
-    const [activeSubStep3, setActiveSubStep3] = useState<1 | 2>(1);
 
     return (
         <div className="min-h-screen bg-white text-gray-900">
@@ -21,7 +19,7 @@ export default function Home() {
                     <div className="flex items-center gap-3 mb-4">
                         <div className="relative w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center shadow-md">
                             <span className="text-white font-bold text-xl tracking-tight">TT</span>
-                            <div className="absolute top-0 right-0 w-0 h-0 border-l-[12px] border-l-transparent border-t-[12px] border-t-indigo-400 rounded-tl-lg"></div>
+                            <div className="absolute top-0 right-0 w-0 h-0 border-l-12 border-l-transparent border-t-12 border-t-indigo-400 rounded-tl-lg"></div>
                         </div>
                         <div>
                             <h1 className="text-4xl font-bold text-gray-900 tracking-tight mb-1">
@@ -48,7 +46,6 @@ export default function Home() {
                             key={step.num}
                             onClick={() => {
                                 setActiveStep(step.num as 1 | 2 | 3 | 4 | 5);
-                                if (step.num === 1) setActiveSubStep(1);
                             }}
                             className={`px-6 py-3 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${activeStep === step.num
                                 ? 'bg-gray-900 text-white'
@@ -80,17 +77,11 @@ export default function Home() {
                     </div>
 
                     <div className="min-h-[400px] transition-all duration-300">
-                        {activeStep === 1 ? (
-                            <Step1Content />
-                        ) : activeStep === 5 ? (
-                            <I18nStepContent />
-                        ) : (
-                            <OtherStepsContent
-                                activeStep={activeStep}
-                                activeSubStep3={activeSubStep3}
-                                onSubStep3Change={setActiveSubStep3}
-                            />
-                        )}
+                        {activeStep === 1 && <TypeSafetyStep />}
+                        {activeStep === 2 && <ShareResourcesStep />}
+                        {activeStep === 3 && <StorybookStep />}
+                        {activeStep === 4 && <EnvStep />}
+                        {activeStep === 5 && <InternationalizationStep />}
                     </div>
                 </div>
             </div>
