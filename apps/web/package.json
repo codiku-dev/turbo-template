@@ -13,13 +13,13 @@
   "dependencies": {
     "@repo/trpc": "*",
     "@repo/ui": "*",
+    "better-auth": "^1.4.17",
     "next": "16.1.4",
-    "zod": "^3.25.5",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "react-dom": "^19.2.3",
+    "zod": "^3.25.5"
   },
   "devDependencies": {
-    "@repo/api": "*",
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "@tailwindcss/postcss": "^4.1.18",

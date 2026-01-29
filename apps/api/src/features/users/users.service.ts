@@ -1,13 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { PrismaService } from '@api/src/infrastructure/prisma/prisma.service';
-import { UserModel } from '@api/generated/prisma/models';
-import { CreateUserInput, UpdateUserInput } from './users.schema';
+import { UserCreateInput, UserModel, UserUpdateInput } from '@api/generated/prisma/models';
+
 @Injectable()
 export class UsersService {
   constructor(private readonly db: PrismaService) { }
 
-  async create(createUserInput: CreateUserInput): Promise<UserModel> {
+  async create(createUserInput: UserCreateInput): Promise<UserModel> {
     return await this.db.user.create({
       data: createUserInput,
     });
@@ -22,7 +22,7 @@ export class UsersService {
     });
   }
 
-  async findOne(id: number): Promise<UserModel> {
+  async findOne(id: string): Promise<UserModel> {
     const user = await this.db.user.findUnique({
       where: { id },
     });
@@ -33,8 +33,8 @@ export class UsersService {
   }
 
   async update(
-    id: number,
-    updateUserInput: UpdateUserInput,
+    id: string,
+    updateUserInput: UserUpdateInput,
   ): Promise<UserModel> {
     return await this.db.user.update({
       where: { id },
@@ -42,8 +42,8 @@ export class UsersService {
     });
   }
 
-  async remove(id: number): Promise<void> {
-    await this.db.user.delete({
+  async remove(id: string): Promise<UserModel> {
+    return await this.db.user.delete({
       where: { id },
     });
   }

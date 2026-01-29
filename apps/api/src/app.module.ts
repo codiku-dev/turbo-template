@@ -10,6 +10,8 @@ import { TRPCModule } from 'nestjs-trpc';
 import { AppRouter } from '@api/src/app.router';
 import { TrpcMiddlewaresModule } from '@api/src/infrastructure/middlewares/trpc-middlewares.module';
 import { TrpcPanelController } from '@api/src/infrastructure/docs/docs.controller';
+import { AuthModule } from '@thallesp/nestjs-better-auth';
+import { auth } from '@api/src/features/auth/auth';
 
 @Module({
   imports: [
@@ -22,8 +24,8 @@ import { TrpcPanelController } from '@api/src/infrastructure/docs/docs.controlle
     UsersModule,
     TRPCModule.forRoot({
       autoSchemaFile: path.resolve(__dirname, '../../../../packages/trpc/src'),
-
     }),
+    AuthModule.forRoot({ auth }),
   ],
   controllers: [TrpcPanelController],
   providers: [AppService, AppRouter],

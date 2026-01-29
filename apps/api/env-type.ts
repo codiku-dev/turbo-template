@@ -12,7 +12,7 @@ export const envSchema = z.object({
   POSTGRES_PORT: z.string(),
   POSTGRES_USER: z.string(),
   TRPC_URL: z.string(),
-  VLAD_PUDDING: z.string(),
+  BETTER_AUTH_SECRET: z.string(),
 });
 
 

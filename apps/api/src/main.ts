@@ -9,6 +9,7 @@ import { parseEnv } from '@api/env-type';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ['error', 'warn', 'log', 'verbose', 'debug'],
+    bodyParser: false,
   });
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
@@ -24,7 +25,7 @@ async function bootstrap() {
   // Get the actual server URL from NestJS
   const serverUrl = await app.getUrl();
 
-  console.log(`🚀 Backend     : ${serverUrl}/trpc`);
+  console.log(`🚀 Backend     : ${serverUrl}/trpc/app.hello`);
   console.log(`📚 Docs     : ${serverUrl}/docs`);
 }
 

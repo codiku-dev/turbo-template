@@ -25,14 +25,16 @@
     "@nestjs/swagger": "^8.0.7",
     "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^7.0.0",
-    "@repo/api": "*",
+    "@thallesp/nestjs-better-auth": "^2.2.5",
+    "better-auth": "^1.4.17",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "graphql": "^16.12.0",
     "nestjs-trpc": "^1.6.1",
-    "zod": "^3.25.5",
     "pg": "^8.17.2",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.2"
+    "rxjs": "^7.8.2",
+    "zod": "^3.25.5"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

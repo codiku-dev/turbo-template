@@ -85,7 +85,6 @@ This is a **production-ready monorepo** that combines the best of both worlds:
 
 - **`@repo/ui`** - Shared React component library with Tailwind CSS and Storybook
 - **`@repo/trpc`** - Shared tRPC router definitions for end-to-end type safety
-- **`@repo/api`** - Shared NestJS api packages ( empty by default )
 - **`@repo/eslint-config`** - Shared ESLint + Prettier configurations
 - **`@repo/typescript-config`** - Shared TypeScript configurations
 - **`@repo/jest-config`** - Shared Jest testing configurations
