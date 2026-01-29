@@ -6,10 +6,11 @@ import { ShareResourcesStep } from './share-resources-step';
 import { StorybookStep } from './storybook-step';
 import { EnvStep } from './env-step';
 import { InternationalizationStep } from './internationalization-step';
+import { AuthStep } from './auth-step';
 
 export default function Home() {
     const t = useTranslations('Landing');
-    const [activeStep, setActiveStep] = useState<1 | 2 | 3 | 4 | 5>(1);
+    const [activeStep, setActiveStep] = useState<1 | 2 | 3 | 4 | 5 | 6>(1);
 
     return (
         <div className="min-h-screen bg-white text-gray-900">
@@ -41,11 +42,12 @@ export default function Home() {
                         { num: 3, emoji: '📚', label: t('steps.storybook') },
                         { num: 4, emoji: '🔐', label: t('steps.typedEnv') },
                         { num: 5, emoji: '🌍', label: t('steps.internationalisation') },
+                        { num: 6, emoji: '🔑', label: t('steps.authBetterAuth') },
                     ].map((step) => (
                         <button
                             key={step.num}
                             onClick={() => {
-                                setActiveStep(step.num as 1 | 2 | 3 | 4 | 5);
+                                setActiveStep(step.num as 1 | 2 | 3 | 4 | 5 | 6);
                             }}
                             className={`px-6 py-3 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${activeStep === step.num
                                 ? 'bg-gray-900 text-white'
@@ -66,6 +68,7 @@ export default function Home() {
                             {activeStep === 3 && `📚 ${t('step3.title')}`}
                             {activeStep === 4 && `🔐 ${t('step4.title')}`}
                             {activeStep === 5 && `🌍 ${t('step5.title')}`}
+                            {activeStep === 6 && `🔑 ${t('step6.title')}`}
                         </h2>
                         <p className="text-gray-600 mb-6">
                             {activeStep === 1 && t('descriptions.fullstackTypeSafety')}
@@ -73,6 +76,7 @@ export default function Home() {
                             {activeStep === 3 && t('descriptions.storybook')}
                             {activeStep === 4 && t('descriptions.typedEnv')}
                             {activeStep === 5 && t('descriptions.internationalisation')}
+                            {activeStep === 6 && t('descriptions.authBetterAuth')}
                         </p>
                     </div>
 
@@ -82,6 +86,7 @@ export default function Home() {
                         {activeStep === 3 && <StorybookStep />}
                         {activeStep === 4 && <EnvStep />}
                         {activeStep === 5 && <InternationalizationStep />}
+                        {activeStep === 6 && <AuthStep />}
                     </div>
                 </div>
             </div>

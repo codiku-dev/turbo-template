@@ -4,7 +4,12 @@ import { QueryClient } from "@tanstack/react-query";
 
 export const trpc: CreateTRPCReact<AppRouter, object> = createTRPCReact<AppRouter, object>();
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: { retry: false },
+        mutations: { retry: false },
+    },
+});
 
 export const trpcClient = trpc.createClient({
 

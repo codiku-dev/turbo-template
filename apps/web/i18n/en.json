@@ -9,14 +9,16 @@
       "shareResources": "Share resources",
       "storybook": "Storybook",
       "typedEnv": "Typed and validated env",
-      "internationalisation": "Internationalisation"
+      "internationalisation": "Internationalisation",
+      "authBetterAuth": "Auth with Better Auth"
     },
     "descriptions": {
       "fullstackTypeSafety": "Create a NestJS endpoint and call it from the frontend with complete type safety.",
       "shareResources": "Create a simple React component and share it between your apps.",
       "storybook": "Create your stories and develop your components in isolation.",
       "typedEnv": "Typed and validated environment variables at startup.",
-      "internationalisation": "Use next-intl to translate your application easily."
+      "internationalisation": "Use next-intl to translate your application easily.",
+      "authBetterAuth": "AuthRouter + @Public for public routes, protected routes require a session. Try both fetches below."
     },
     "step1": {
       "title": "Fullstack type safety",
@@ -50,6 +52,17 @@
       "title": "Internationalisation",
       "code": "Code",
       "result": "Result"
+    },
+    "step6": {
+      "title": "Auth with Better Auth",
+      "backendSide": "Back-end",
+      "publicFetch": "Public (hello)",
+      "protectedFetch": "Protected (protectedHello)",
+      "fetchPublic": "Fetch public",
+      "fetchProtected": "Fetch protected",
+      "loading": "Loading...",
+      "clickToFetch": "Click the button to fetch",
+      "unauthorized": "Unauthorized"
     }
   },
   "I18nExample": {
