@@ -42,6 +42,8 @@
     "step4": {
       "title": "Variables d'environnement typées et validées",
       "typedEnv": "Env typé",
+      "typedEnvBadge": "Env fortement typé",
+      "typedVarLabel": "Variable d'env fortement typée",
       "validation": "Validation",
       "validationTitle": "Validation permanente durant le dev et au build",
       "envFile": ".env file",

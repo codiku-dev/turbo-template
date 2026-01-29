@@ -42,8 +42,8 @@ export class UsersService {
     });
   }
 
-  async remove(id: string): Promise<UserModel> {
-    return await this.db.user.delete({
+  async remove(id: string): Promise<void> {
+    await this.db.user.delete({
       where: { id },
     });
   }

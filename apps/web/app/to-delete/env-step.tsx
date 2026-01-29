@@ -19,12 +19,12 @@ export function EnvStep() {
               </div>
               <span className="text-xs text-gray-400 ml-2">apps/api/src/main.ts</span>
             </div>
-            <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">{t4('typeSafety')}</span>
+            <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">{t4('typedEnvBadge')}</span>
           </div>
           <div className="p-6 overflow-x-auto">
             <pre className="text-sm font-mono leading-relaxed text-gray-300">
               <code>
-                <span className="text-gray-500">// ✨ Autocomplétion complète</span>{'\n'}
+                <span className="text-gray-500">// ✨ {t4('typedVarLabel')}</span>{'\n'}
                 <span className="text-purple-400">const</span>{' '}
                 <span className="text-blue-400">dbUrl</span>{' '}
                 <span className="text-purple-400">=</span>{' '}
@@ -32,7 +32,7 @@ export function EnvStep() {
                 <span className="text-gray-300">.</span>
                 <span className="text-blue-400">env</span>
                 <span className="text-gray-300">.</span>
-                <span className="text-yellow-400">DATABASE_URL</span>
+                <span className="text-yellow-400 underline decoration-red-500 decoration-wavy decoration-2">PATABASE_URL</span>
                 <span className="text-gray-300">;</span>
               </code>
             </pre>
@@ -58,7 +58,7 @@ export function EnvStep() {
             <div className="p-4">
               <pre className="text-xs font-mono text-gray-300 leading-relaxed">
                 <code>
-                  <span className="text-green-400">DATABASE_URL</span>
+                  <span className="text-green-400">PATABASE_URL</span>
                   <span className="text-gray-500">=</span>
                   <span className="text-yellow-400">postgresql://...</span>
                   {'\n'}

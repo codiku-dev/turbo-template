@@ -42,6 +42,8 @@
     "step4": {
       "title": "Typed and validated env",
       "typedEnv": "Typed env",
+      "typedEnvBadge": "Strongly typed env",
+      "typedVarLabel": "Strongly typed env variable",
       "validation": "Validation",
       "validationTitle": "Validation during dev and build",
       "envFile": ".env file",

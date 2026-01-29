@@ -28,16 +28,6 @@ export function TypeSafetyStep() {
           <div className="p-6 overflow-x-auto">
             <pre className="text-sm font-mono leading-relaxed text-gray-300">
               <code>
-                <span className="text-gray-500">import</span>{' '}
-                <span className="text-blue-400">{'{'} Query, Router {'}'}</span>{' '}
-                <span className="text-gray-500">from</span>{' '}
-                <span className="text-green-400">'nestjs-trpc'</span>
-                <span className="text-gray-300">;</span>{'\n'}
-                <span className="text-gray-500">import</span>{' '}
-                <span className="text-blue-400">{'{'} z {'}'}</span>{' '}
-                <span className="text-gray-500">from</span>{' '}
-                <span className="text-green-400">'zod'</span>
-                <span className="text-gray-300">;</span>{'\n\n'}
                 <span className="text-purple-400">@Router</span>
                 <span className="text-gray-300">({' '}</span>
                 <span className="text-blue-400">alias</span>
