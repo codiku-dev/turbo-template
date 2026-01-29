@@ -14,6 +14,7 @@ export const envSchema = z.object({
   POSTGRES_PORT: z.string(),
   POSTGRES_USER: z.string(),
   TRPC_URL: z.string(),
+  FRONTEND_URL: z.string(),
 });
 
 export type Env = z.infer<typeof envSchema>;

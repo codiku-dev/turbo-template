@@ -17,15 +17,14 @@ async function bootstrap() {
 
   const env = parseEnv();
   const port = Number(env.PORT) || 3090;
-  // Listen on all interfaces (0.0.0.0) for deployment compatibility (Docker, cloud, etc.)
 
   await app.listen(port);
 
-  // Get the actual server URL from NestJS
   const serverUrl = await app.getUrl();
 
   console.log(`🚀 Backend     : ${serverUrl}/trpc/app.hello`);
-  console.log(`📚 Docs     : ${serverUrl}/docs`);
+  console.log(`📚 Docs        : ${serverUrl}/docs`);
+  console.log(`🎨 Frontend    : ${process.env.FRONTEND_URL}`);
 }
 
 void bootstrap();
