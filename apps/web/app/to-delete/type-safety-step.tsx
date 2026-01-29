@@ -6,7 +6,7 @@ import { trpc } from '@web/libs/trpc-client';
 export function TypeSafetyStep() {
   const t = useTranslations('Landing.step1');
 
-  const { data, isLoading, refetch } = trpc.app.hello.useQuery();
+  const { data, isLoading, refetch } = trpc.app.hello.useQuery(undefined, { enabled: false });
 
 
 
@@ -156,7 +156,7 @@ export function TypeSafetyStep() {
             disabled={isLoading}
             className="mb-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            {isLoading ? 'Loading...' : 'Fetch Users'}
+            {isLoading ? 'Loading...' : 'Fetch data'}
           </button>
           <div className="mt-4">
             {isLoading ? (
@@ -166,7 +166,7 @@ export function TypeSafetyStep() {
                 <code>{JSON.stringify(data, null, 2)}</code>
               </pre>
             ) : (
-              <p className="text-gray-500 text-sm">Click the button to fetch users</p>
+              <p className="text-gray-500 text-sm">Click the button to fetch data</p>
             )}
           </div>
         </div>
