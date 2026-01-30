@@ -24,11 +24,14 @@ export function LoggingStep() {
         <div className="p-6 overflow-x-auto">
           <pre className="text-sm font-mono leading-relaxed text-gray-300">
             <code>
-              <span className="text-purple-400">@LoggedAuthRouter</span>
+              <span className="text-purple-400">@AuthRouter</span>
               <span className="text-gray-300">({' {'} alias: </span>
-              <span className="text-blue-400">'users'</span>
+              <span className="text-blue-400">'users, </span>
+              <span className="border-2 border-green-400 p-1">
+                <span className="text-gray-300"> logs: </span>
+                <span className="text-amber-400">true</span>
+              </span>
               <span className="text-gray-300"> {'}'})</span>
-              <span className="ml-2 border-2 p-1 border-green-400 text-green-400">// Auth + request logging</span>
               {'\n'}
               <span className="text-gray-300">export class</span>
               <span className="text-gray-300"> UserRouter </span>

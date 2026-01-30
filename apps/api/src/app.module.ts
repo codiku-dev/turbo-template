@@ -11,7 +11,7 @@ import { AppRouter } from '@api/src/app.router';
 import { TrpcMiddlewaresModule } from '@api/src/infrastructure/middlewares/trpc-middlewares.module';
 import { TrpcPanelController } from '@api/src/infrastructure/docs/docs.controller';
 import { AuthModule } from '@thallesp/nestjs-better-auth';
-import { auth } from '@api/src/features/auth/auth';
+import { auth } from '@api/src/infrastructure/auth/auth';
 import { AppContext } from '@api/src/infrastructure/trpc/app-context';
 
 @Module({

@@ -4,9 +4,8 @@ import { Inject } from '@nestjs/common';
 import { z } from 'zod';
 import { AuthRouter } from '@api/src/infrastructure/decorators/auth/auth-router.decorator';
 import { Public } from '@api/src/infrastructure/decorators/auth/optional-auth.decorator';
-import { LoggedAuthRouter } from './infrastructure/decorators/logged-router.decorator';
 
-@LoggedAuthRouter({ alias: 'app' })
+@AuthRouter({ alias: 'app', logs: true })
 export class AppRouter {
     constructor(@Inject(PrismaService) private db: PrismaService) { }
 

@@ -1,14 +1,18 @@
 import { applyDecorators } from '@nestjs/common';
 import { Router, UseMiddlewares } from 'nestjs-trpc';
 import { AuthMiddleware } from '@api/src/infrastructure/middlewares/auth.middleware';
+import { LoggedMiddleware } from '@api/src/infrastructure/middlewares/logger.middleware';
 import { getOptionalAuthMethods } from '@api/src/infrastructure/decorators/auth/optional-auth.decorator';
 import { getPrivateMethods } from '@api/src/infrastructure/decorators/auth/private.decorator';
+
+type AuthRouterArgs = { alias?: string; logs?: boolean };
 
 /**
  * Router decorator that applies AuthMiddleware to all procedures.
  * Use in place of @Router when you want authentication on every procedure.
+ * Set logs: true to also apply request logging (LoggedMiddleware).
  */
-export function AuthRouter(args: { alias?: string }) {
+export function AuthRouter(args: AuthRouterArgs = {}) {
   return (target: any) => {
     const alias = args.alias ?? 'app';
 
@@ -22,10 +26,10 @@ export function AuthRouter(args: { alias?: string }) {
       AuthMiddleware.registerPrivatePath(`${alias}.${methodName}`);
     }
 
-    // Apply Router and AuthMiddleware
-    return applyDecorators(
-      Router(args),
-      UseMiddlewares(AuthMiddleware)
-    )(target);
+    const middlewares = args.logs
+      ? UseMiddlewares(AuthMiddleware, LoggedMiddleware)
+      : UseMiddlewares(AuthMiddleware);
+
+    return applyDecorators(Router(args), middlewares)(target);
   };
 }

@@ -1,7 +1,7 @@
 import { TRPCMiddleware, MiddlewareOptions } from 'nestjs-trpc';
 import { Injectable } from '@nestjs/common';
 import { TRPCError } from '@trpc/server';
-import { auth } from '@api/src/features/auth/auth';
+import { auth } from '@api/src/infrastructure/auth/auth';
 
 /**
  * Middleware that always requires authentication.

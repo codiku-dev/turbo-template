@@ -4,11 +4,11 @@ import { z } from 'zod';
 import { createUserSchema, updateUserSchema, usersSchema } from './users.schema';
 import { UserCreateInput, UserUpdateInput } from '@api/generated/prisma/models';
 import { AuthService } from '@thallesp/nestjs-better-auth';
+import { AuthRouter } from '@api/src/infrastructure/decorators/auth/auth-router.decorator';
 import { Public } from '@api/src/infrastructure/decorators/auth/optional-auth.decorator';
-import { LoggedAuthRouter } from '@api/src/infrastructure/decorators/logged-router.decorator';
 import { IncomingMessage } from 'node:http';
 
-@LoggedAuthRouter({ alias: 'users' })
+@AuthRouter({ alias: 'users', logs: true })
 export class UserRouter {
   constructor(private readonly usersService: UsersService, private readonly authService: AuthService) { }
 
