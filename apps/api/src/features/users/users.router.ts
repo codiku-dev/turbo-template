@@ -78,7 +78,7 @@ export class UserRouter {
     }),
   })
   async getAccounts(@Ctx() ctx: { req: IncomingMessage }) {
-    // console.log(ctx.req.headers);
+    console.log(ctx.req.headers);
     // const accounts = await this.authService.api.listUserAccounts({
     //   headers: fromNodeHeaders(ctx.req.headers),
     // });

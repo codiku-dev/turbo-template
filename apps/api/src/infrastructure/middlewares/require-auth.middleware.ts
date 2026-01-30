@@ -1,5 +1,6 @@
 import { TRPCMiddleware, MiddlewareOptions } from 'nestjs-trpc';
 import { Injectable } from '@nestjs/common';
+import { TRPCError } from '@trpc/server';
 import { auth } from '@api/src/features/auth/auth';
 
 /**
@@ -16,7 +17,7 @@ export class RequireAuthMiddleware implements TRPCMiddleware {
     });
 
     if (!session?.user || !session?.session) {
-      throw new Error('Unauthorized');
+      throw new TRPCError({ code: 'UNAUTHORIZED', message: 'Unauthorized' });
     }
 
     return next({

@@ -1,5 +1,6 @@
 import { TRPCMiddleware, MiddlewareOptions } from 'nestjs-trpc';
 import { Injectable } from '@nestjs/common';
+import { TRPCError } from '@trpc/server';
 import { auth } from '@api/src/features/auth/auth';
 
 // Set of procedure paths that have optional auth (e.g. @Public)
@@ -45,7 +46,7 @@ export class AuthMiddleware implements TRPCMiddleware {
         });
       }
 
-      throw new Error('Unauthorized');
+      throw new TRPCError({ code: 'UNAUTHORIZED', message: 'Unauthorized' });
     } catch (error) {
       // If optional auth, continue without throwing
       if (isOptionalAuth) {
@@ -57,7 +58,8 @@ export class AuthMiddleware implements TRPCMiddleware {
           },
         });
       }
-      throw new Error('Unauthorized');
+      if (error instanceof TRPCError) throw error;
+      throw new TRPCError({ code: 'UNAUTHORIZED', message: 'Unauthorized' });
     }
   }
 
