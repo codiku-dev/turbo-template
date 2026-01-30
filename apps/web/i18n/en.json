@@ -23,10 +23,10 @@
       "storybook": "Create your stories and develop your components in isolation.",
       "typedEnv": "Typed and validated environment variables at startup.",
       "internationalisation": "Use next-intl to translate your application easily.",
-      "apiProtection": "AuthRouter + @Public for public routes, protected routes require a session. Try both fetches below.",
+      "apiProtection": "AuthGuardRouter + @Public for public routes, protected routes require a session. Try both fetches below.",
       "autoDoc": "Auto-generated API documentation with trpc-ui: explore routers, run queries and mutations, and view responses.",
       "authentication": "Sign in, sign up and session management on the front-end with Better Auth.",
-      "logging": "Use AuthRouter with logs: true to get formatted request logs (URL, meta, response) in the terminal."
+      "logging": "Use AuthGuardRouter with logs: true to get formatted request logs (URL, meta, response) in the terminal."
     },
     "step1": {
       "title": "Fullstack type safety",

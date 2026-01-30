@@ -1,6 +1,5 @@
 import { UseMiddlewares } from 'nestjs-trpc';
-import { OptionalAuthMiddleware } from '@api/src/infrastructure/middlewares/optional-auth.middleware';
-import { AuthMiddleware } from '@api/src/infrastructure/middlewares/auth.middleware';
+import { PublicProcedureMiddleware } from '@api/src/infrastructure/middlewares/public-procedure.middleware';
 
 /**
  * Decorator to apply optional authentication to a tRPC procedure.
@@ -30,10 +29,10 @@ export function Public() {
     ctor[OPTIONAL_AUTH_METHODS_KEY].push(propertyKey);
 
     // Apply OptionalAuthMiddleware
-    UseMiddlewares(OptionalAuthMiddleware)(target, propertyKey, descriptor);
+    UseMiddlewares(PublicProcedureMiddleware)(target, propertyKey, descriptor);
   };
 }
 
-export function getOptionalAuthMethods(routerClass: any): string[] {
+export function getPublicMethods(routerClass: any): string[] {
   return (routerClass as any)[OPTIONAL_AUTH_METHODS_KEY] ?? [];
 }

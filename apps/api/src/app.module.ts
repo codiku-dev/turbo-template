@@ -13,16 +13,19 @@ import { TrpcPanelController } from '@api/src/infrastructure/docs/docs.controlle
 import { AuthModule } from '@thallesp/nestjs-better-auth';
 import { auth } from '@api/src/infrastructure/auth/auth';
 import { AppContext } from '@api/src/infrastructure/trpc/app-context';
+import { AuthenticationModule } from './features/authentification/authentication.module';
 
 @Module({
   imports: [
+    PrismaModule,
+    UsersModule,
+    AuthenticationModule,
+
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env.local.development', '.env.production', '.env'],
     }),
     TrpcMiddlewaresModule,
-    PrismaModule,
-    UsersModule,
     TRPCModule.forRoot({
       autoSchemaFile: path.resolve(__dirname, '../../../../packages/trpc/src'),
       context: AppContext,

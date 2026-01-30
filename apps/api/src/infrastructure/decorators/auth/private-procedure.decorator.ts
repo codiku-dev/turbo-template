@@ -1,6 +1,5 @@
 import { UseMiddlewares } from 'nestjs-trpc';
-import { AuthMiddleware } from '@api/src/infrastructure/middlewares/auth.middleware';
-import { RequireAuthMiddleware } from '@api/src/infrastructure/middlewares/require-auth.middleware';
+import { PrivateProcedureMiddleware } from '@api/src/infrastructure/middlewares/private-procedure.middleware';
 
 const PRIVATE_METHODS_KEY = '__privateMethods';
 
@@ -19,7 +18,7 @@ export function Private() {
     }
     ctor[PRIVATE_METHODS_KEY].push(propertyKey);
 
-    UseMiddlewares(RequireAuthMiddleware)(target, propertyKey, descriptor);
+    UseMiddlewares(PrivateProcedureMiddleware)(target, propertyKey, descriptor);
   };
 }
 

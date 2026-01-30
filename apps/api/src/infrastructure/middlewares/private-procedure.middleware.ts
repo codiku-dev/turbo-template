@@ -8,7 +8,7 @@ import { auth } from '@api/src/infrastructure/auth/auth';
  * Used by @Private() at procedure level so auth works even with classic @Router.
  */
 @Injectable()
-export class RequireAuthMiddleware implements TRPCMiddleware {
+export class PrivateProcedureMiddleware implements TRPCMiddleware {
   async use(opts: MiddlewareOptions<{ req: any; res: any }>) {
     const { next, ctx } = opts;
 

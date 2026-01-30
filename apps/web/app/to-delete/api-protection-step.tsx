@@ -49,7 +49,7 @@ export function ApiProtetionStep() {
               <code>
 
                 {'\n\n'}
-                <span className="text-purple-400">@AuthRouter</span>
+                <span className="text-purple-400">@AuthGuardRouter</span>
                 <span className="text-gray-300">({' {'} alias: </span>
                 <span className="text-blue-400">'app'</span>
                 <span className="text-gray-300"> {'}'})</span>

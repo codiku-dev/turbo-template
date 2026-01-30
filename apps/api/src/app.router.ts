@@ -1,11 +1,11 @@
 import { PrismaService } from '@api/src/infrastructure/prisma/prisma.service';
-import { Query } from 'nestjs-trpc';
+import { Query, Router } from 'nestjs-trpc';
 import { Inject } from '@nestjs/common';
 import { z } from 'zod';
-import { AuthRouter } from '@api/src/infrastructure/decorators/auth/auth-router.decorator';
-import { Public } from '@api/src/infrastructure/decorators/auth/optional-auth.decorator';
+import { AuthGuardRouter } from '@api/src/infrastructure/decorators/auth/auth-guard-router.decorator';
+import { Public } from './infrastructure/decorators/auth/public-procedure.decorator';
 
-@AuthRouter({ alias: 'app', logs: true })
+@AuthGuardRouter({ alias: 'app', logs: true })
 export class AppRouter {
     constructor(@Inject(PrismaService) private db: PrismaService) { }
 

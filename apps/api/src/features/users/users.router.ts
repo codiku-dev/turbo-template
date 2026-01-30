@@ -1,14 +1,15 @@
-import { Ctx, Input, Mutation, Query, Router, Options } from 'nestjs-trpc';
+import { Ctx, Input, Mutation, Query } from 'nestjs-trpc';
 import { UsersService } from './users.service';
 import { z } from 'zod';
 import { createUserSchema, updateUserSchema, usersSchema } from './users.schema';
 import { UserCreateInput, UserUpdateInput } from '@api/generated/prisma/models';
 import { AuthService } from '@thallesp/nestjs-better-auth';
-import { AuthRouter } from '@api/src/infrastructure/decorators/auth/auth-router.decorator';
-import { Public } from '@api/src/infrastructure/decorators/auth/optional-auth.decorator';
+import { AuthGuardRouter } from '@api/src/infrastructure/decorators/auth/auth-guard-router.decorator';
+import { Public } from '@api/src/infrastructure/decorators/auth/public-procedure.decorator';
 import { IncomingMessage } from 'node:http';
+import { fromNodeHeaders } from 'better-auth/node';
 
-@AuthRouter({ alias: 'users', logs: true })
+@AuthGuardRouter({ alias: 'users', logs: true })
 export class UserRouter {
   constructor(private readonly usersService: UsersService, private readonly authService: AuthService) { }
 
@@ -37,6 +38,7 @@ export class UserRouter {
   create(@Input() userData: UserCreateInput) {
     return this.usersService.create(userData);
   }
+
 
   @Mutation({
     input: z.object({
@@ -78,8 +80,8 @@ export class UserRouter {
     }),
   })
   async getAccounts(@Ctx() ctx: { req: IncomingMessage }) {
-    console.log(ctx.req.headers);
-    // const accounts = await this.authService.api.listUserAccounts({
+    // console.log(ctx.req.headers);
+    // const accounts = await this.authService.api.s({
     //   headers: fromNodeHeaders(ctx.req.headers),
     // });
 

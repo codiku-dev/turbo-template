@@ -21,7 +21,7 @@ export const trpcClient = trpc.createClient({
                 (opts.direction === 'down' && opts.result instanceof Error),
         }),
         httpBatchLink({
-            url: process.env.NEXT_PUBLIC_API_URL
+            url: process.env.NEXT_PUBLIC_API_URL,
         }),
     ],
 });

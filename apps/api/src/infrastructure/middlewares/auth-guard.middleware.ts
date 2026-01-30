@@ -9,7 +9,7 @@ const optionalAuthPaths = new Set<string>();
 const privatePaths = new Set<string>();
 
 @Injectable()
-export class AuthMiddleware implements TRPCMiddleware {
+export class AuthGuardMiddleware implements TRPCMiddleware {
   async use(opts: MiddlewareOptions<{ req: any; res: any; optionalAuth?: boolean }>) {
     const { next, ctx, path } = opts;
 
