@@ -10,8 +10,10 @@
       "storybook": "Storybook",
       "typedEnv": "Env typés et validés",
       "internationalisation": "Internationalisation",
-      "authBetterAuth": "Auth avec Better Auth",
-      "autoDoc": "Auto documentation"
+      "apiProtection": "Protection des API",
+      "autoDoc": "Auto documentation",
+      "authentication": "Authentification",
+      "logging": "Logging back-end"
     },
     "descriptions": {
       "fullstackTypeSafety": "Créez un endpoint NestJS et appelez-le côté front avec une sécurité de types complète.",
@@ -19,8 +21,10 @@
       "storybook": "Créez vos stories et développez vos composants en isolation.",
       "typedEnv": "Variables d'environnement typées et validées au démarrage.",
       "internationalisation": "Utilisez next-intl pour traduire votre application facilement.",
-      "authBetterAuth": "AuthRouter + @Public pour les routes publiques, les routes protégées exigent une session. Testez les deux appels ci-dessous.",
-      "autoDoc": "La documentation de l'API est générée automatiquement avec trpc-ui : parcourez les routers, exécutez les queries et mutations, et consultez les réponses."
+      "apiProtection": "AuthRouter + @Public pour les routes publiques, les routes protégées exigent une session. Testez les deux appels ci-dessous.",
+      "autoDoc": "La documentation de l'API est générée automatiquement avec trpc-ui : parcourez les routers, exécutez les queries et mutations, et consultez les réponses.",
+      "authentication": "Connexion, inscription et gestion de session côté front avec Better Auth.",
+      "logging": "Utilisez LoggedAuthRouter pour afficher des logs de requêtes formatés (URL, meta, response) dans le terminal."
     },
     "step1": {
       "title": "Fullstack type safety",
@@ -32,7 +36,10 @@
     "step2": {
       "title": "Partagez vos ressources",
       "uiPackageSide": "UI package side",
-      "nextjsSide": "NextJS side"
+      "nextjsSide": "NextJS side",
+      "result": "Démo",
+      "resultLabel": "Bouton importé depuis @repo/ui (package partagé) :",
+      "buttonLabel": "Mon bouton"
     },
     "step3": {
       "title": "Storybook",
@@ -59,7 +66,7 @@
       "result": "Résultat"
     },
     "step6": {
-      "title": "Auth avec Better Auth",
+      "title": "Protection des API (Better Auth)",
       "backendSide": "Back-end",
       "publicFetch": "Public (hello)",
       "protectedFetch": "Protégé (protectedHello)",
@@ -67,7 +74,16 @@
       "fetchProtected": "Appel privé",
       "loading": "Chargement...",
       "clickToFetch": "Cliquez pour lancer l'appel",
-      "unauthorized": "Non autorisé"
+      "unauthorized": "Non autorisé",
+      "receiveSession": "Vous pouvez recevoir la session"
+    },
+    "step8": {
+      "title": "Authentification avec Better Auth"
+    },
+    "step9": {
+      "title": "Logging back-end",
+      "codeLabel": "API",
+      "terminalLabel": "Terminal"
     },
     "step7": {
       "title": "Auto documentation",

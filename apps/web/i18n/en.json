@@ -10,8 +10,10 @@
       "storybook": "Storybook",
       "typedEnv": "Typed and validated env",
       "internationalisation": "Internationalisation",
-      "authBetterAuth": "Auth with Better Auth",
-      "autoDoc": "Auto documentation"
+      "apiProtection": "API protection",
+      "autoDoc": "Auto documentation",
+      "authentication": "Authentication",
+      "logging": "Backend Network Logging"
     },
     "descriptions": {
       "fullstackTypeSafety": "Create a NestJS endpoint and call it from the frontend with complete type safety.",
@@ -19,8 +21,10 @@
       "storybook": "Create your stories and develop your components in isolation.",
       "typedEnv": "Typed and validated environment variables at startup.",
       "internationalisation": "Use next-intl to translate your application easily.",
-      "authBetterAuth": "AuthRouter + @Public for public routes, protected routes require a session. Try both fetches below.",
-      "autoDoc": "Auto-generated API documentation with trpc-ui: explore routers, run queries and mutations, and view responses."
+      "apiProtection": "AuthRouter + @Public for public routes, protected routes require a session. Try both fetches below.",
+      "autoDoc": "Auto-generated API documentation with trpc-ui: explore routers, run queries and mutations, and view responses.",
+      "authentication": "Sign in, sign up and session management on the front-end with Better Auth.",
+      "logging": "Use LoggedAuthRouter to get formatted request logs (URL, meta, response) in the terminal."
     },
     "step1": {
       "title": "Fullstack type safety",
@@ -32,7 +36,10 @@
     "step2": {
       "title": "Share your resources",
       "uiPackageSide": "UI package side",
-      "nextjsSide": "NextJS side"
+      "nextjsSide": "NextJS side",
+      "result": "Demo",
+      "resultLabel": "Button imported from @repo/ui (shared package):",
+      "buttonLabel": "My button"
     },
     "step3": {
       "title": "Storybook",
@@ -59,7 +66,7 @@
       "result": "Result"
     },
     "step6": {
-      "title": "Auth with Better Auth",
+      "title": "API protection (Better Auth)",
       "backendSide": "Back-end",
       "publicFetch": "Public (hello)",
       "protectedFetch": "Protected (protectedHello)",
@@ -67,7 +74,16 @@
       "fetchProtected": "Fetch protected",
       "loading": "Loading...",
       "clickToFetch": "Click the button to fetch",
-      "unauthorized": "Unauthorized"
+      "unauthorized": "Unauthorized",
+      "receiveSession": "You can receive the session"
+    },
+    "step8": {
+      "title": "Authentication with Better Auth"
+    },
+    "step9": {
+      "title": "Backend Network Logging",
+      "codeLabel": "API",
+      "terminalLabel": "Terminal"
     },
     "step7": {
       "title": "Auto documentation",

@@ -3,9 +3,10 @@ import { Query } from 'nestjs-trpc';
 import { Inject } from '@nestjs/common';
 import { z } from 'zod';
 import { AuthRouter } from '@api/src/infrastructure/decorators/auth-router.decorator';
-import { Public } from '@api/src/infrastructure/decorators/optional-auth.decorator';
+import { Public } from '@api/src/infrastructure/decorators/public-auth.decorator';
+import { LoggedAuthRouter } from './infrastructure/decorators/logged-router.decorator';
 
-@AuthRouter({ alias: 'app' })
+@LoggedAuthRouter({ alias: 'app' })
 export class AppRouter {
     constructor(@Inject(PrismaService) private db: PrismaService) { }
 

@@ -2,6 +2,8 @@ import { UseMiddlewares } from 'nestjs-trpc';
 import { AuthMiddleware } from '@api/src/infrastructure/middlewares/auth.middleware';
 import { RequireAuthMiddleware } from '@api/src/infrastructure/middlewares/require-auth.middleware';
 
+const PRIVATE_METHODS_KEY = '__privateMethods';
+
 /**
  * Decorator to require authentication on a tRPC procedure.
  *
@@ -11,12 +13,16 @@ import { RequireAuthMiddleware } from '@api/src/infrastructure/middlewares/requi
  */
 export function Private() {
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
-    const routerAlias = (target.constructor as any).__routerAlias || 'app';
-    const path = `${routerAlias}.${propertyKey}`;
-
-    AuthMiddleware.unregisterOptionalAuthPath(path);
-    AuthMiddleware.registerPrivatePath(path);
+    const ctor = target.constructor as any;
+    if (!ctor[PRIVATE_METHODS_KEY]) {
+      ctor[PRIVATE_METHODS_KEY] = [];
+    }
+    ctor[PRIVATE_METHODS_KEY].push(propertyKey);
 
     UseMiddlewares(RequireAuthMiddleware)(target, propertyKey, descriptor);
   };
+}
+
+export function getPrivateMethods(routerClass: any): string[] {
+  return (routerClass as any)[PRIVATE_METHODS_KEY] ?? [];
 }

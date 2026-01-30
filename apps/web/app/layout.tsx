@@ -1,5 +1,5 @@
 import { Providers } from '@web/providers';
-import './globals.css';
+import '../assets/globals.css';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { NextIntlClientProvider } from 'next-intl';

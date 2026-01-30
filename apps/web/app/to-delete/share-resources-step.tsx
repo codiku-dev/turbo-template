@@ -1,11 +1,13 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { Button } from '@repo/ui/button/button';
 
 export function ShareResourcesStep() {
   const t = useTranslations('Landing.step2');
 
   return (
+    <div className="space-y-8">
     <div className="grid gap-8 lg:grid-cols-2">
       <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-800">
         <div className="bg-gray-800 px-4 py-2 flex items-center justify-between border-b border-gray-700">
@@ -79,6 +81,25 @@ export function ShareResourcesStep() {
               <span className="text-gray-300">{'}'}</span>
             </code>
           </pre>
+        </div>
+      </div>
+    </div>
+
+      <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-800">
+        <div className="bg-gray-800 px-4 py-2 flex items-center justify-between border-b border-gray-700">
+          <div className="flex items-center gap-2">
+            <div className="flex gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-red-500" />
+              <div className="w-3 h-3 rounded-full bg-yellow-500" />
+              <div className="w-3 h-3 rounded-full bg-green-500" />
+            </div>
+            <span className="text-xs text-gray-400 ml-2">apps/web → import from @repo/ui</span>
+          </div>
+          <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">{t('result')}</span>
+        </div>
+        <div className="p-6 bg-gray-900">
+          <p className="text-xs text-gray-400 mb-4">{t('resultLabel')}</p>
+          <Button>{t('buttonLabel')}</Button>
         </div>
       </div>
     </div>

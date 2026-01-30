@@ -6,12 +6,14 @@ import { ShareResourcesStep } from './share-resources-step';
 import { StorybookStep } from './storybook-step';
 import { EnvStep } from './env-step';
 import { InternationalizationStep } from './internationalization-step';
+import { ApiProtetionStep } from './api-protection-step';
 import { AuthStep } from './auth-step';
 import { AutoDocStep } from './auto-doc-step';
+import { LoggingStep } from './logging-step';
 
 export default function Home() {
     const t = useTranslations('Landing');
-    const [activeStep, setActiveStep] = useState<1 | 2 | 3 | 4 | 5 | 6 | 7>(1);
+    const [activeStep, setActiveStep] = useState<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9>(1);
 
     return (
         <div className="min-h-screen bg-white text-gray-900">
@@ -43,15 +45,17 @@ export default function Home() {
                         { num: 3, emoji: '📚', label: t('steps.storybook') },
                         { num: 4, emoji: '🔐', label: t('steps.typedEnv') },
                         { num: 5, emoji: '🌍', label: t('steps.internationalisation') },
-                        { num: 6, emoji: '🔑', label: t('steps.authBetterAuth') },
+                        { num: 6, emoji: '🔒', label: t('steps.apiProtection') },
                         { num: 7, emoji: '📄', label: t('steps.autoDoc') },
+                        { num: 8, emoji: '🔑', label: t('steps.authentication') },
+                        { num: 9, emoji: '📋', label: t('steps.logging') },
                     ].map((step) => {
                         const isActive = activeStep === step.num;
                         return (
                             <button
                                 key={step.num}
                                 type="button"
-                                onClick={() => setActiveStep(step.num as 1 | 2 | 3 | 4 | 5 | 6 | 7)}
+                                onClick={() => setActiveStep(step.num as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9)}
                                 className={`
                                     flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all
                                     ${isActive
@@ -76,8 +80,10 @@ export default function Home() {
                             {activeStep === 3 && `📚 ${t('step3.title')}`}
                             {activeStep === 4 && `🔐 ${t('step4.title')}`}
                             {activeStep === 5 && `🌍 ${t('step5.title')}`}
-                            {activeStep === 6 && `🔑 ${t('step6.title')}`}
+                            {activeStep === 6 && `🔒 ${t('step6.title')}`}
                             {activeStep === 7 && `📄 ${t('step7.title')}`}
+                            {activeStep === 8 && `🔑 ${t('step8.title')}`}
+                            {activeStep === 9 && `📋 ${t('step9.title')}`}
                         </h2>
                         <p className="text-gray-600">
                             {activeStep === 1 && t('descriptions.fullstackTypeSafety')}
@@ -85,8 +91,10 @@ export default function Home() {
                             {activeStep === 3 && t('descriptions.storybook')}
                             {activeStep === 4 && t('descriptions.typedEnv')}
                             {activeStep === 5 && t('descriptions.internationalisation')}
-                            {activeStep === 6 && t('descriptions.authBetterAuth')}
+                            {activeStep === 6 && t('descriptions.apiProtection')}
                             {activeStep === 7 && t('descriptions.autoDoc')}
+                            {activeStep === 8 && t('descriptions.authentication')}
+                            {activeStep === 9 && t('descriptions.logging')}
                         </p>
                     </div>
 
@@ -96,8 +104,10 @@ export default function Home() {
                         {activeStep === 3 && <StorybookStep />}
                         {activeStep === 4 && <EnvStep />}
                         {activeStep === 5 && <InternationalizationStep />}
-                        {activeStep === 6 && <AuthStep />}
+                        {activeStep === 6 && <ApiProtetionStep />}
                         {activeStep === 7 && <AutoDocStep />}
+                        {activeStep === 8 && <AuthStep />}
+                        {activeStep === 9 && <LoggingStep />}
                     </div>
                 </div>
             </div>

@@ -17,19 +17,23 @@ import { AuthMiddleware } from '@api/src/infrastructure/middlewares/auth.middlew
  * 
  * Use this when you want to allow both authenticated and unauthenticated access.
  */
+const OPTIONAL_AUTH_METHODS_KEY = '__optionalAuthMethods';
+
 export function Public() {
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
-    // Extract router alias and method name to build the path
-    // Router alias comes from @AuthRouter({ alias: 'app' })
-    // Method name is propertyKey (e.g., 'hello')
-    // Path will be like "app.hello"
-    const routerAlias = (target.constructor as any).__routerAlias || 'app';
-    const path = `${routerAlias}.${propertyKey}`;
-
-    // Register the path IMMEDIATELY when decorator is applied
-    AuthMiddleware.registerOptionalAuthPath(path);
+    // Method decorators run BEFORE class decorators, so __routerAlias is not set yet.
+    // Store the method name; @AuthRouter will register paths when it runs (with the alias).
+    const ctor = target.constructor as any;
+    if (!ctor[OPTIONAL_AUTH_METHODS_KEY]) {
+      ctor[OPTIONAL_AUTH_METHODS_KEY] = [];
+    }
+    ctor[OPTIONAL_AUTH_METHODS_KEY].push(propertyKey);
 
     // Apply OptionalAuthMiddleware
     UseMiddlewares(OptionalAuthMiddleware)(target, propertyKey, descriptor);
   };
+}
+
+export function getOptionalAuthMethods(routerClass: any): string[] {
+  return (routerClass as any)[OPTIONAL_AUTH_METHODS_KEY] ?? [];
 }

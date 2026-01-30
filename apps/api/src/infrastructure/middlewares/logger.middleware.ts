@@ -1,6 +1,8 @@
 import { TRPCMiddleware, MiddlewareOptions } from 'nestjs-trpc';
 import { Inject, Injectable, ConsoleLogger } from '@nestjs/common';
 
+const SEP = '────────────────────────────────────────────────────────';
+const SEP_THIN = '────────────────────────────────────────────────';
 
 @Injectable()
 export class LoggedMiddleware implements TRPCMiddleware {
@@ -8,43 +10,68 @@ export class LoggedMiddleware implements TRPCMiddleware {
         @Inject(ConsoleLogger) private readonly consoleLogger: ConsoleLogger
     ) { }
 
-    private formatLine(label: string, value: unknown): string {
-        const str = value !== undefined ? JSON.stringify(value, null, 2) : '';
-        return `${label}\n${str}`;
+    private jsonBlock(value: unknown): string {
+        if (value === undefined) return '—';
+        const str = JSON.stringify(value, null, 2);
+        return str.split('\n').map((line) => '  ' + line).join('\n');
+    }
+
+    private buildLog(requestUrl: string, path: string, type: string, durationMs: number, input: unknown): string {
+        const lines: string[] = [
+            '',
+            SEP,
+            '  INCOMING REQUEST URL',
+            SEP_THIN,
+            `  ${requestUrl}`,
+            '',
+            '  META',
+            SEP_THIN,
+            `  path       ${path}`,
+            `  type       ${type}`,
+            `  duration   ${durationMs} ms`,
+            '',
+        ];
+        if (input !== undefined && input !== null && Object.keys(input as object).length > 0) {
+            lines.push('  INPUT', SEP_THIN, this.jsonBlock(input), '');
+        }
+        return lines.join('\n');
     }
 
     async use(opts: MiddlewareOptions) {
         const start = Date.now();
         const { next, path, type, input } = opts;
-        const meta = { path, type, durationMs: Date.now() - start };
-        const request = `${process.env.TRPC_URL}/${path}`;
-
-        const buildLog = (): string => {
-            meta.durationMs = Date.now() - start;
-            return [
-                `REQUEST : ${request}`,
-                this.formatLine('INPUT :', input),
-                this.formatLine('META :', meta),
-            ].join('\n');
-        };
+        const baseUrl = process.env.TRPC_URL ?? '';
+        const requestUrl = `${baseUrl}/${path}`;
 
         try {
             const result = await next();
+            const durationMs = Date.now() - start;
+            const header = this.buildLog(requestUrl, path, type, durationMs, input);
 
             if (result?.ok === false) {
                 const errPayload = result?.error ?? result;
-                const log = [buildLog(), this.formatLine('ERROR :', errPayload)].join('\n') + '\n';
+                const log =
+                    header +
+                    '\n  RESPONSE (error)\n' + SEP_THIN + '\n' +
+                    this.jsonBlock(errPayload) + '\n' + SEP + '\n';
                 this.consoleLogger.error(log);
             } else {
                 const payload = result?.data ?? result;
-                const log = [buildLog(), this.formatLine('RESPONSE :', payload)].join('\n') + '\n';
+                const log =
+                    header +
+                    '\n  RESPONSE\n' + SEP_THIN + '\n' +
+                    this.jsonBlock(payload) + '\n' + SEP + '\n';
                 this.consoleLogger.log(log);
             }
 
             return result;
         } catch (err) {
-            const log = [buildLog(), this.formatLine('ERROR :', err)].join('\n') + '\n';
-            this.consoleLogger.error("\n\n" + log);
+            const durationMs = Date.now() - start;
+            const log =
+                this.buildLog(requestUrl, path, type, durationMs, input) +
+                '\n  RESPONSE (thrown)\n' + SEP_THIN + '\n' +
+                this.jsonBlock(err instanceof Error ? { message: err.message, name: err.name } : err) + '\n' + SEP + '\n';
+            this.consoleLogger.error('\n' + log);
             throw err;
         }
     }
