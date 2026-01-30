@@ -4,8 +4,9 @@ import { z } from 'zod';
 import { createUserSchema, updateUserSchema, usersSchema } from './users.schema';
 import { UserCreateInput, UserUpdateInput } from '@api/generated/prisma/models';
 import { AuthService } from '@thallesp/nestjs-better-auth';
-import { Public } from '@api/src/infrastructure/decorators/public-auth.decorator';
+import { Public } from '@api/src/infrastructure/decorators/auth/optional-auth.decorator';
 import { LoggedAuthRouter } from '@api/src/infrastructure/decorators/logged-router.decorator';
+import { IncomingMessage } from 'node:http';
 
 @LoggedAuthRouter({ alias: 'users' })
 export class UserRouter {
@@ -76,7 +77,7 @@ export class UserRouter {
       })),
     }),
   })
-  async getAccounts(/*@Ctx() ctx: { req: IncomingMessage }*/) {
+  async getAccounts(@Ctx() ctx: { req: IncomingMessage }) {
     // console.log(ctx.req.headers);
     // const accounts = await this.authService.api.listUserAccounts({
     //   headers: fromNodeHeaders(ctx.req.headers),

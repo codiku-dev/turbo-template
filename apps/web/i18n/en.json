@@ -3,7 +3,9 @@
     "title": "Hello world!"
   },
   "Landing": {
-    "templateSubtitle": "[T]urbo [N]est [T]rpc [N]ext - Boiler plate monorepo (Bun)",
+    "templateSubtitle": "Turbo Nest Trpc Next - Boiler plate monorepo (Bun)",
+    "templateSubtitleWords": "Turbo Nest  Next Trpc",
+    "templateSubtitleSuffix": "— Boiler plate monorepo (Bun)",
     "steps": {
       "fullstackTypeSafety": "Fullstack type safety",
       "shareResources": "Share resources",
@@ -88,7 +90,8 @@
     "step7": {
       "title": "Auto documentation",
       "description": "The API documentation is auto-generated with trpc-ui. You get an interactive UI to browse all routers, run queries and mutations, and see responses.",
-      "screenshotAlt": "trpc-ui API documentation interface"
+      "screenshotAlt": "trpc-ui API documentation interface",
+      "openDocs": "Open trpc-ui"
     }
   },
   "I18nExample": {

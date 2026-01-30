@@ -14,6 +14,7 @@ import { LoggingStep } from './logging-step';
 export default function Home() {
     const t = useTranslations('Landing');
     const [activeStep, setActiveStep] = useState<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9>(1);
+    const subtitleWords = t('templateSubtitleWords').split(' ');
 
     return (
         <div className="min-h-screen bg-white text-gray-900">
@@ -23,13 +24,24 @@ export default function Home() {
                     <div className="flex items-center gap-3 mb-4">
                         <div className="relative w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center shadow-md">
                             <span className="text-white font-bold text-xl tracking-tight">TT</span>
-                            <div className="absolute top-0 right-0 w-0 h-0 border-l-12 border-l-transparent border-t-12 border-t-indigo-400 rounded-tl-lg"></div>
+                            <div className="absolute top-0 right-0 w-0 h-0 border-l-12 border-l-transparent border-t-12 border-t-indigo-400 rounded-tl-lg" />
                         </div>
                         <div>
                             <h1 className="text-4xl font-bold text-gray-900 tracking-tight mb-1">
                                 TenTen
                             </h1>
-                            <p className="text-sm text-gray-500 font-medium">{t('templateSubtitle')}</p>
+                            <p className="text-sm text-gray-500 font-medium flex flex-wrap items-baseline">
+                                {subtitleWords.map((word, i) => (
+                                    <span key={i} className="inline-flex items-baseline">
+                                        <span className="text-base font-extrabold text-indigo-600 tracking-tight drop-shadow-sm">
+                                            {word[0]}
+                                        </span>
+                                        <span className="text-gray-600">{word.slice(1)}</span>
+                                        {i < subtitleWords.length - 1 ? ' ' : null}
+                                    </span>
+                                ))}
+                                <span className="text-gray-500"> {t('templateSubtitleSuffix')}</span>
+                            </p>
                         </div>
                     </div>
                 </div>

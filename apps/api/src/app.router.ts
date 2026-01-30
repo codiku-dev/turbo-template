@@ -2,8 +2,8 @@ import { PrismaService } from '@api/src/infrastructure/prisma/prisma.service';
 import { Query } from 'nestjs-trpc';
 import { Inject } from '@nestjs/common';
 import { z } from 'zod';
-import { AuthRouter } from '@api/src/infrastructure/decorators/auth-router.decorator';
-import { Public } from '@api/src/infrastructure/decorators/public-auth.decorator';
+import { AuthRouter } from '@api/src/infrastructure/decorators/auth/auth-router.decorator';
+import { Public } from '@api/src/infrastructure/decorators/auth/optional-auth.decorator';
 import { LoggedAuthRouter } from './infrastructure/decorators/logged-router.decorator';
 
 @LoggedAuthRouter({ alias: 'app' })
