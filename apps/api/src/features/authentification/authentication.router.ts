@@ -1,8 +1,7 @@
 import { AuthService } from '@thallesp/nestjs-better-auth';
 import { AuthGuardRouter } from '@api/src/infrastructure/decorators/auth/auth-guard-router.decorator';
-import { Input, Mutation, Query } from 'nestjs-trpc';
+import { Input, Mutation } from 'nestjs-trpc';
 import { CredentialsSchema, credentialsSchema } from './authentication.schema';
-import { z } from 'zod';
 
 @AuthGuardRouter({ alias: 'auth', isAuthGuardEnabled: false, logs: true })
 export class AuthRouter {
