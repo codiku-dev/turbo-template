@@ -3,7 +3,7 @@
     "title": "Hello world!"
   },
   "Landing": {
-    "templateSubtitle": "Template (Turbo Nest Trpc Next)",
+    "templateSubtitle": "[T]urbo [N]est [T]rpc [N]ext - Boiler plate monorepo (Bun)",
     "steps": {
       "fullstackTypeSafety": "Fullstack type safety",
       "shareResources": "Share resources",
@@ -41,6 +41,7 @@
     },
     "step4": {
       "title": "Typed and validated env",
+      "stronglyTypeEnv": "Strongly type your .env",
       "typedEnv": "Typed env",
       "typedEnvBadge": "Strongly typed env",
       "typedVarLabel": "Strongly typed env variable",

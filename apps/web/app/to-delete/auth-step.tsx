@@ -47,34 +47,26 @@ export function AuthStep() {
           <div className="p-6 overflow-x-auto">
             <pre className="text-sm font-mono leading-relaxed text-gray-300">
               <code>
-                <span className="text-gray-500">import</span>{' '}
-                <span className="text-blue-400">{'{'} Query {'}'}</span>{' '}
-                <span className="text-gray-500">from</span>{' '}
-                <span className="text-green-400">'nestjs-trpc'</span>
-                <span className="text-gray-300">;</span>
-                {'\n'}
-                <span className="text-gray-500">import</span>{' '}
-                <span className="text-blue-400">{'{'} AuthRouter, Public {'}'}</span>{' '}
-                <span className="text-gray-500">from</span>{' '}
-                <span className="text-green-400">'...'</span>
-                <span className="text-gray-300">;</span>
+
                 {'\n\n'}
                 <span className="text-purple-400">@AuthRouter</span>
                 <span className="text-gray-300">({' {'} alias: </span>
-                <span className="text-green-400">'app'</span>
+                <span className="text-blue-400">'app'</span>
                 <span className="text-gray-300"> {'}'})</span>
+                <span className="ml-4 text-green-400 border-2 p-1 border-green-400" > {'// Protect the entire router'}</span>
                 {'\n'}
-                <span className="text-purple-400">export class</span>{' '}
-                <span className="text-yellow-400">AppRouter</span>
-                <span className="text-gray-300"> {'{'}</span>
+                <span className="text-gray-500">export class</span>{' '}
+                <span className="text-gray-500">AppRouter</span>
+                <span className="text-gray-500"> {'{'}</span>
                 {'\n'}
-                <span className="text-gray-300">  </span>
-                <span className="text-purple-400">@Query</span>
-                <span className="text-gray-300">(...)</span>
+                <span className="text-gray-500">  </span>
+                <span className="text-gray-500">@Query</span>
+                <span className="text-gray-500">(...)</span>
                 {'\n'}
                 <span className="text-gray-300">  </span>
                 <span className="text-purple-400">@Public</span>
                 <span className="text-gray-300">()</span>
+                <span className="ml-4 text-green-400 border-2 p-1 border-green-400" > {'// Public route'}</span>
                 {'\n'}
                 <span className="text-gray-300">  </span>
                 <span className="text-purple-400">async</span>{' '}
@@ -89,6 +81,7 @@ export function AuthStep() {
                 <span className="text-purple-400">async</span>{' '}
                 <span className="text-yellow-400">protectedHello</span>
                 <span className="text-gray-300">() {'{'} ... {'}'}</span>
+                <span className="ml-4 text-green-400 border-2 p-1 border-green-400" > {'// Private route'}</span>
                 {'\n'}
                 <span className="text-gray-300">{'}'}</span>
               </code>

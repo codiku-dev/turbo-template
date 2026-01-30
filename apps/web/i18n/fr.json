@@ -41,7 +41,8 @@
     },
     "step4": {
       "title": "Variables d'environnement typées et validées",
-      "typedEnv": "Env typé",
+      "stronglyTypeEnv": "Definissez le schema de vos .env",
+      "typedEnv": "Type safety de process.env",
       "typedEnvBadge": "Env fortement typé",
       "typedVarLabel": "Variable d'env fortement typée",
       "validation": "Validation",
