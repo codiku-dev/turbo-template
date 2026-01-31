@@ -3,6 +3,13 @@
     "title": "Hello world!"
   },
   "Landing": {
+    "header": {
+      "badge": "DX-first",
+      "headline": "Ship fullstack with joy",
+      "tagline": "Type-safe APIs, shared packages, auth & docs out of the box. Built for developer experience.",
+      "stack": "Turbo · Nest · tRPC · Next · Bun"
+    },
+    "selectFeaturePrompt": "Select a feature above to see details.",
     "templateSubtitle": "Turbo Nest Trpc Next - Boiler plate monorepo (Bun)",
     "templateSubtitleWords": "Turbo Nest  Next Trpc",
     "templateSubtitleSuffix": "— Boiler plate monorepo (Bun)",
@@ -24,7 +31,7 @@
       "typedEnv": "Typed and validated environment variables at startup.",
       "internationalisation": "Use next-intl to translate your application easily.",
       "apiProtection": "AuthGuardRouter + @Public for public routes, protected routes require a session. Try both fetches below.",
-      "autoDoc": "Auto-generated API documentation with trpc-ui: explore routers, run queries and mutations, and view responses.",
+      "autoDoc": "",
       "authentication": "Sign in, sign up and session management on the front-end with Better Auth.",
       "logging": "Use AuthGuardRouter with logs: true to get formatted request logs (URL, meta, response) in the terminal."
     },
@@ -37,15 +44,15 @@
     },
     "step2": {
       "title": "Share your resources",
-      "uiPackageSide": "UI package side",
-      "nextjsSide": "NextJS side",
+      "uiPackageSide": "UI package",
+      "nextjsSide": "NextJS",
       "result": "Demo",
       "resultLabel": "Button imported from @repo/ui (shared package):",
       "buttonLabel": "My button"
     },
     "step3": {
       "title": "Storybook",
-      "uiPackageSide": "UI package side",
+      "uiPackageSide": "UI package",
       "result": "Result"
     },
     "step4": {
@@ -89,7 +96,6 @@
     },
     "step7": {
       "title": "Auto documentation",
-      "description": "The API documentation is auto-generated with trpc-ui. You get an interactive UI to browse all routers, run queries and mutations, and see responses.",
       "screenshotAlt": "trpc-ui API documentation interface",
       "openDocs": "Open trpc-ui"
     }

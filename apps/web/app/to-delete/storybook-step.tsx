@@ -9,19 +9,19 @@ export function StorybookStep() {
   return (
     <div className="grid gap-8 lg:grid-cols-2">
       <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-800">
-        <div className="bg-gray-800 px-4 py-2 flex items-center justify-between border-b border-gray-700">
-          <div className="flex items-center gap-2">
-            <div className="flex gap-1.5">
+        <div className="bg-gray-800 px-3 sm:px-4 py-2 flex items-center justify-between gap-2 min-w-0 border-b border-gray-700">
+          <div className="flex items-center gap-2 min-w-0 overflow-hidden">
+            <div className="flex gap-1.5 shrink-0">
               <div className="w-3 h-3 rounded-full bg-red-500"></div>
               <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
               <div className="w-3 h-3 rounded-full bg-green-500"></div>
             </div>
-            <span className="text-xs text-gray-400 ml-2">packages/ui/src/button/button.stories.tsx</span>
+            <span className="text-[10px] sm:text-xs text-gray-400 truncate" title="packages/ui/src/button/button.stories.tsx">packages/ui/src/button/button.stories.tsx</span>
           </div>
-          <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">{t('uiPackageSide')}</span>
+          <span className="text-[9px] sm:text-[10px] font-semibold text-white bg-indigo-600 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded shadow-sm shrink-0 whitespace-nowrap">{t('uiPackageSide')}</span>
         </div>
         <div className="p-6 overflow-x-auto">
-          <pre className="text-sm font-mono leading-relaxed text-gray-300">
+          <pre className="text-xs sm:text-sm font-mono leading-relaxed text-gray-300">
             <code>
               <span className="text-gray-500">import type</span>{' '}
               <span className="text-blue-400">{'{'} Meta, StoryObj {'}'}</span>{' '}

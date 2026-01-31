@@ -9,8 +9,6 @@ export function AutoDocStep() {
 
   return (
     <div className="space-y-6">
-      <p className="text-gray-600">{t('description')}</p>
-
       <a
         href={process.env.NEXT_PUBLIC_DOCUMENTATION_URL}
         target="_blank"

@@ -3,6 +3,13 @@
     "title": "Bonjour le monde !"
   },
   "Landing": {
+    "header": {
+      "badge": "DX d'abord",
+      "headline": "Déployez fullstack avec plaisir",
+      "tagline": "APIs type-safe, packages partagés, auth & doc inclus. Pensé pour l'expérience développeur.",
+      "stack": "Turbo · Nest · tRPC · Next · Bun"
+    },
+    "selectFeaturePrompt": "Choisis une catégorie ci-dessus pour voir les détails.",
     "templateSubtitle": "Template (Turbo Nest Trpc Next)",
     "templateSubtitleWords": "Turbo Nest Trpc Next ",
     "templateSubtitleSuffix": "— Boiler plate monorepo (Bun)",
@@ -24,22 +31,22 @@
       "typedEnv": "Variables d'environnement typées et validées au démarrage.",
       "internationalisation": "Utilisez next-intl pour traduire votre application facilement.",
       "apiProtection": "AuthGuardRouter + @Public pour les routes publiques, les routes protégées exigent une session. Testez les deux appels ci-dessous.",
-      "autoDoc": "La documentation de l'API est générée automatiquement avec trpc-ui : parcourez les routers, exécutez les queries et mutations, et consultez les réponses.",
+      "autoDoc": "",
       "authentication": "Connexion, inscription et gestion de session côté front avec Better Auth.",
       "logging": "Utilisez AuthGuardRouter avec logs: true pour afficher des logs de requêtes formatés (URL, meta, response) dans le terminal."
     },
     "step1": {
       "title": "Fullstack type safety",
-      "nestjsSide": "NestJS side",
-      "nextjsSide": "NextJS side",
-      "backendSide": "Back-end side",
-      "frontendSide": "Front-end side"
+      "nestjsSide": "NestJS",
+      "nextjsSide": "NextJS",
+      "backendSide": "Back-end",
+      "frontendSide": "Front-end"
     },
     "step2": {
       "title": "Partagez vos ressources",
-      "uiPackageSide": "UI package side",
-      "nextjsSide": "NextJS side",
-      "result": "Démo",
+      "uiPackageSide": "UI package",
+      "nextjsSide": "NextJS",
+      "result": "NextJS",
       "resultLabel": "Bouton importé depuis @repo/ui (package partagé) :",
       "buttonLabel": "Mon bouton"
     },
@@ -89,7 +96,6 @@
     },
     "step7": {
       "title": "Auto documentation",
-      "description": "La documentation de l'API est générée automatiquement avec trpc-ui. Une interface interactive permet de parcourir les routers, lancer les queries et mutations, et afficher les réponses.",
       "screenshotAlt": "Interface de documentation API trpc-ui",
       "openDocs": "Ouvrir trpc-ui"
     }

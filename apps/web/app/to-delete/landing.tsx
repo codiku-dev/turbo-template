@@ -1,6 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { motion, AnimatePresence } from 'framer-motion';
 import { TypeSafetyStep } from './type-safety-step';
 import { ShareResourcesStep } from './share-resources-step';
 import { StorybookStep } from './storybook-step';
@@ -11,46 +12,135 @@ import { AuthStep } from './auth-step';
 import { AutoDocStep } from './auto-doc-step';
 import { LoggingStep } from './logging-step';
 
+function BangerStackLogo(p: { className?: string }) {
+    return (
+        <svg
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className={p.className}
+            aria-hidden
+        >
+            <rect width="32" height="32" rx="8" fill="url(#bs-logo-bg)" />
+            <path
+                d="M6 10h20v2.5H6V10zm0 6h16v2.5H6V16zm0 6h12v2.5H6V22z"
+                fill="white"
+                fillOpacity="0.95"
+            />
+            <defs>
+                <linearGradient id="bs-logo-bg" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#7c3aed" />
+                    <stop offset="1" stopColor="#4f46e5" />
+                </linearGradient>
+            </defs>
+        </svg>
+    );
+}
+
 export default function Home() {
     const t = useTranslations('Landing');
     const [activeStep, setActiveStep] = useState<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9>(1);
-    const subtitleWords = t('templateSubtitleWords').split(' ');
+    const stepContentRef = useRef<HTMLDivElement>(null);
+    const categoriesRef = useRef<HTMLDivElement>(null);
+    const hasScrolledDownRef = useRef(false);
+    const lastScrollYRef = useRef(0);
+
+    const selectStep = useCallback((step: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9) => {
+        setActiveStep(step);
+        // Pas de scroll au clic : évite la remontée puis redescente quand on change de catégorie
+    }, []);
+
+    // Au premier scroll vers le bas → amener vers le bloc des catégories (seulement après ~60px pour éviter le coup sec)
+    const scrollThreshold = 60;
+    useEffect(() => {
+        const onScroll = () => {
+            const current = window.scrollY;
+            const isScrollingDown = current > lastScrollYRef.current;
+            lastScrollYRef.current = current;
+            if (!isScrollingDown || hasScrolledDownRef.current) return;
+            if (current < scrollThreshold) return;
+            hasScrolledDownRef.current = true;
+            categoriesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
 
     return (
-        <div className="min-h-screen bg-white text-gray-900">
-            {/* Header */}
-            <div className="border-b border-gray-200">
-                <div className="max-w-6xl mx-auto px-6 py-8">
-                    <div className="flex items-center gap-3 mb-4">
-                        <div className="relative w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center shadow-md">
-                            <span className="text-white font-bold text-xl tracking-tight">TT</span>
-                            <div className="absolute top-0 right-0 w-0 h-0 border-l-12 border-l-transparent border-t-12 border-t-indigo-400 rounded-tl-lg" />
-                        </div>
-                        <div>
-                            <h1 className="text-4xl font-bold text-gray-900 tracking-tight mb-1">
-                                TenTen
-                            </h1>
-                            <p className="text-sm text-gray-500 font-medium flex flex-wrap items-baseline">
-                                {subtitleWords.map((word, i) => (
-                                    <span key={i} className="inline-flex items-baseline">
-                                        <span className="text-base font-extrabold text-indigo-600 tracking-tight drop-shadow-sm">
-                                            {word[0]}
-                                        </span>
-                                        <span className="text-gray-600">{word.slice(1)}</span>
-                                        {i < subtitleWords.length - 1 ? ' ' : null}
-                                    </span>
-                                ))}
-                                <span className="text-gray-500"> {t('templateSubtitleSuffix')}</span>
-                            </p>
-                        </div>
-                    </div>
+        <div className="min-h-screen min-h-[100dvh] bg-[#0a0a0b] text-zinc-100 pb-24 sm:pb-32">
+            {/* Hero header */}
+            <header className="relative overflow-hidden border-b border-white/10">
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(99,102,241,0.25),transparent)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,rgba(10,10,11,0.6)_60%)]" />
+                <div className="relative max-w-5xl mx-auto px-6 pt-6 pb-16 sm:pt-8 sm:pb-20">
+                    {/* Logo + title top left */}
+                    <motion.div
+                        className="flex items-center gap-3 mb-10"
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        <BangerStackLogo className="h-9 w-9 shrink-0 rounded-lg shadow-lg shadow-violet-500/20" />
+                        <span className="text-xl font-bold tracking-tight text-white">BangerStack</span>
+                    </motion.div>
+                    <motion.div
+                        className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-violet-500/10 px-3.5 py-1.5 text-xs font-medium text-violet-300 mb-8"
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        <span className="relative flex h-1.5 w-1.5">
+                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-60" />
+                            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-violet-500" />
+                        </span>
+                        {t('header.badge')}
+                    </motion.div>
+                    <motion.h1
+                        className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl mb-4 max-w-2xl"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.55, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        {t('header.headline')}
+                    </motion.h1>
+                    <motion.p
+                        className="text-lg text-zinc-400 max-w-xl mb-8 leading-relaxed"
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        {t('header.tagline')}
+                    </motion.p>
+                    <motion.div
+                        className="flex flex-wrap items-center gap-2 text-sm text-zinc-500 font-mono"
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        {t('header.stack').split(' · ').map((tech) => (
+                            <motion.span
+                                key={tech}
+                                className="inline-block rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-zinc-400 cursor-default select-none"
+                                whileHover={{
+                                    scale: 1.08,
+                                    borderColor: 'rgba(139, 92, 246, 0.5)',
+                                    backgroundColor: 'rgba(139, 92, 246, 0.15)',
+                                    color: 'rgb(196, 181, 253)',
+                                    boxShadow: '0 0 20px -4px rgba(139, 92, 246, 0.4)',
+                                }}
+                                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                            >
+                                {tech}
+                            </motion.span>
+                        ))}
+                    </motion.div>
                 </div>
-            </div>
+            </header>
 
             {/* Main Content */}
             <div className="max-w-6xl mx-auto px-6 py-12">
                 {/* Features grid – all visible at a glance */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-10">
+                <div ref={categoriesRef} className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-10 scroll-mt-6">
                     {[
                         { num: 1, emoji: '🛡️', label: t('steps.fullstackTypeSafety') },
                         { num: 2, emoji: '📦', label: t('steps.shareResources') },
@@ -61,67 +151,107 @@ export default function Home() {
                         { num: 7, emoji: '📄', label: t('steps.autoDoc') },
                         { num: 8, emoji: '🔑', label: t('steps.authentication') },
                         { num: 9, emoji: '📋', label: t('steps.logging') },
-                    ].map((step) => {
+                    ].map((step, index) => {
                         const isActive = activeStep === step.num;
                         return (
-                            <button
+                            <motion.button
                                 key={step.num}
                                 type="button"
-                                onClick={() => setActiveStep(step.num as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9)}
+                                onClick={() => selectStep(step.num as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9)}
+                                aria-current={isActive ? 'step' : undefined}
+                                initial={{ opacity: 0, y: 12 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{
+                                    duration: 0.4,
+                                    delay: 0.38 + index * 0.045,
+                                    ease: [0.22, 1, 0.36, 1],
+                                }}
                                 className={`
-                                    flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all
+                                    flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-3 rounded-xl text-left min-w-0
+                                    transition-[background-color,border-color,box-shadow,transform] duration-200 ease-out
                                     ${isActive
-                                        ? 'bg-gray-900 text-white shadow-md ring-2 ring-gray-900 ring-offset-2'
-                                        : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200'
+                                        ? 'bg-violet-500/20 text-white border border-violet-500/40 shadow-[0_0_24px_-4px_rgba(139,92,246,0.3)] ring-2 ring-violet-500/50 ring-offset-2 ring-offset-[#0a0a0b]'
+                                        : 'bg-white/5 text-zinc-400 hover:bg-white/10 hover:text-zinc-200 border border-white/10 hover:scale-[1.02]'
                                     }
                                 `}
                             >
-                                <span className="text-2xl shrink-0" aria-hidden>{step.emoji}</span>
-                                <span className="text-sm font-medium leading-tight">{step.label}</span>
-                            </button>
+                                <span className="text-xl sm:text-2xl shrink-0" aria-hidden>{step.emoji}</span>
+                                <span className="text-xs sm:text-sm font-medium leading-tight break-words min-w-0">{step.label}</span>
+                            </motion.button>
                         );
                     })}
                 </div>
 
-                {/* Step Content */}
-                <div className="space-y-6">
-                    <div className="min-h-[100px]">
-                        <h2 className="text-2xl font-bold mb-2">
-                            {activeStep === 1 && `🛡️ ${t('step1.title')}`}
-                            {activeStep === 2 && `📦 ${t('step2.title')}`}
-                            {activeStep === 3 && `📚 ${t('step3.title')}`}
-                            {activeStep === 4 && `🔐 ${t('step4.title')}`}
-                            {activeStep === 5 && `🌍 ${t('step5.title')}`}
-                            {activeStep === 6 && `🔒 ${t('step6.title')}`}
-                            {activeStep === 7 && `📄 ${t('step7.title')}`}
-                            {activeStep === 8 && `🔑 ${t('step8.title')}`}
-                            {activeStep === 9 && `📋 ${t('step9.title')}`}
-                        </h2>
-                        <p className="text-gray-600">
-                            {activeStep === 1 && t('descriptions.fullstackTypeSafety')}
-                            {activeStep === 2 && t('descriptions.shareResources')}
-                            {activeStep === 3 && t('descriptions.storybook')}
-                            {activeStep === 4 && t('descriptions.typedEnv')}
-                            {activeStep === 5 && t('descriptions.internationalisation')}
-                            {activeStep === 6 && t('descriptions.apiProtection')}
-                            {activeStep === 7 && t('descriptions.autoDoc')}
-                            {activeStep === 8 && t('descriptions.authentication')}
-                            {activeStep === 9 && t('descriptions.logging')}
-                        </p>
+                {/* Step Content – anchor sur le titre de section, apparition après les catégories */}
+                <motion.div
+                    className="space-y-6"
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                        duration: 0.5,
+                        delay: 0.82,
+                        ease: [0.22, 1, 0.36, 1],
+                    }}
+                >
+                    <div ref={stepContentRef} className="min-h-[100px] scroll-mt-6">
+                        <AnimatePresence mode="wait">
+                            {activeStep != null && (
+                                <motion.div
+                                    key={`title-${activeStep}`}
+                                    initial={{ opacity: 0, y: 12 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -6 }}
+                                    transition={{ duration: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                                >
+                                    <h2 className="text-2xl font-bold mb-2 text-white">
+                                        {activeStep === 1 && `🛡️ ${t('step1.title')}`}
+                                        {activeStep === 2 && `📦 ${t('step2.title')}`}
+                                        {activeStep === 3 && `📚 ${t('step3.title')}`}
+                                        {activeStep === 4 && `🔐 ${t('step4.title')}`}
+                                        {activeStep === 5 && `🌍 ${t('step5.title')}`}
+                                        {activeStep === 6 && `🔒 ${t('step6.title')}`}
+                                        {activeStep === 7 && `📄 ${t('step7.title')}`}
+                                        {activeStep === 8 && `🔑 ${t('step8.title')}`}
+                                        {activeStep === 9 && `📋 ${t('step9.title')}`}
+                                    </h2>
+                                    <p className="text-zinc-400">
+                                        {activeStep === 1 && t('descriptions.fullstackTypeSafety')}
+                                        {activeStep === 2 && t('descriptions.shareResources')}
+                                        {activeStep === 3 && t('descriptions.storybook')}
+                                        {activeStep === 4 && t('descriptions.typedEnv')}
+                                        {activeStep === 5 && t('descriptions.internationalisation')}
+                                        {activeStep === 6 && t('descriptions.apiProtection')}
+                                        {activeStep === 7 && t('descriptions.autoDoc')}
+                                        {activeStep === 8 && t('descriptions.authentication')}
+                                        {activeStep === 9 && t('descriptions.logging')}
+                                    </p>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
 
-                    <div className="min-h-[400px] transition-all duration-300">
-                        {activeStep === 1 && <TypeSafetyStep />}
-                        {activeStep === 2 && <ShareResourcesStep />}
-                        {activeStep === 3 && <StorybookStep />}
-                        {activeStep === 4 && <EnvStep />}
-                        {activeStep === 5 && <InternationalizationStep />}
-                        {activeStep === 6 && <ApiProtetionStep />}
-                        {activeStep === 7 && <AutoDocStep />}
-                        {activeStep === 8 && <AuthStep />}
-                        {activeStep === 9 && <LoggingStep />}
+                    <div className="min-h-[400px] rounded-xl border border-white/10 bg-white/5 overflow-hidden p-6">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={activeStep}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -4 }}
+                                transition={{ duration: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                                {activeStep === 1 && <TypeSafetyStep />}
+                                {activeStep === 2 && <ShareResourcesStep />}
+                                {activeStep === 3 && <StorybookStep />}
+                                {activeStep === 4 && <EnvStep />}
+                                {activeStep === 5 && <InternationalizationStep />}
+                                {activeStep === 6 && <ApiProtetionStep />}
+                                {activeStep === 7 && <AutoDocStep />}
+                                {activeStep === 8 && <AuthStep />}
+                                {activeStep === 9 && <LoggingStep />}
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
-                </div>
+                </motion.div>
             </div>
         </div>
     );

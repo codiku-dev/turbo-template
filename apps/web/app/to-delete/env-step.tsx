@@ -9,20 +9,20 @@ export function EnvStep() {
     <div className="space-y-8">
       <div className="grid gap-8 lg:grid-cols-2 lg:items-stretch">
         <div className="flex flex-col min-h-0">
-          <h3 className="text-lg font-semibold mb-4 text-gray-800">{t4('stronglyTypeEnv')}</h3>
+          <h3 className="text-lg font-semibold mb-4 text-zinc-200">{t4('stronglyTypeEnv')}</h3>
           <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-800 flex-1 flex flex-col min-h-0">
-            <div className="bg-gray-800 px-4 py-2 flex items-center justify-between border-b border-gray-700 shrink-0">
-              <div className="flex items-center gap-2">
-                <div className="flex gap-1.5">
+            <div className="bg-gray-800 px-3 sm:px-4 py-2 flex items-center justify-between gap-2 min-w-0 border-b border-gray-700 shrink-0">
+              <div className="flex items-center gap-2 min-w-0 overflow-hidden">
+                <div className="flex gap-1.5 shrink-0">
                   <div className="w-3 h-3 rounded-full bg-red-500"></div>
                   <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
                 </div>
-                <span className="text-xs text-gray-400 ml-2">apps/api/env-type.ts</span>
+                <span className="text-[10px] sm:text-xs text-gray-400 truncate" title="apps/api/env-type.ts">apps/api/env-type.ts</span>
               </div>
             </div>
             <div className="p-6 overflow-x-auto flex-1 min-h-0">
-              <pre className="text-sm font-mono leading-relaxed text-gray-300">
+              <pre className="text-xs sm:text-sm font-mono leading-relaxed text-gray-300">
                 <code>
                   <span className="text-purple-400">import</span>
                   <span className="text-gray-300">{' { z } '}</span>
@@ -55,21 +55,21 @@ export function EnvStep() {
         </div>
 
         <div className="flex flex-col min-h-0">
-          <h3 className="text-lg font-semibold mb-4 text-gray-800">{t4('typedEnv')}</h3>
+          <h3 className="text-lg font-semibold mb-4 text-zinc-200">{t4('typedEnv')}</h3>
           <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-800 flex-1 flex flex-col min-h-0">
-            <div className="bg-gray-800 px-4 py-2 flex items-center justify-between border-b border-gray-700 shrink-0">
-              <div className="flex items-center gap-2">
-                <div className="flex gap-1.5">
+            <div className="bg-gray-800 px-3 sm:px-4 py-2 flex items-center justify-between gap-2 min-w-0 border-b border-gray-700 shrink-0">
+              <div className="flex items-center gap-2 min-w-0 overflow-hidden">
+                <div className="flex gap-1.5 shrink-0">
                   <div className="w-3 h-3 rounded-full bg-red-500"></div>
                   <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
                 </div>
-                <span className="text-xs text-gray-400 ml-2">apps/api/src/main.ts</span>
+                <span className="text-[10px] sm:text-xs text-gray-400 truncate" title="apps/api/src/main.ts">apps/api/src/main.ts</span>
               </div>
-              <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">{t4('typedEnvBadge')}</span>
+              <span className="text-[9px] sm:text-[10px] font-semibold text-white bg-indigo-600 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded shadow-sm shrink-0 whitespace-nowrap">{t4('typedEnvBadge')}</span>
             </div>
             <div className="p-6 overflow-x-auto flex-1 min-h-0">
-              <pre className="text-sm font-mono leading-relaxed text-gray-300">
+              <pre className="text-xs sm:text-sm font-mono leading-relaxed text-gray-300">
                 <code>
                   <span className="text-gray-500">// ✨ {t4('typedVarLabel')}</span>{'\n'}
                   <span className="text-purple-400">const</span>{' '}
@@ -89,22 +89,22 @@ export function EnvStep() {
       </div>
 
       <div>
-        <h3 className="text-lg font-semibold mb-4 text-gray-800">{t4('validationTitle')}</h3>
+        <h3 className="text-lg font-semibold mb-4 text-zinc-200">{t4('validationTitle')}</h3>
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-800">
-            <div className="bg-gray-800 px-4 py-2 flex items-center justify-between border-b border-gray-700">
-              <div className="flex items-center gap-2">
-                <div className="flex gap-1.5">
+            <div className="bg-gray-800 px-3 sm:px-4 py-2 flex items-center justify-between gap-2 min-w-0 border-b border-gray-700">
+              <div className="flex items-center gap-2 min-w-0 overflow-hidden">
+                <div className="flex gap-1.5 shrink-0">
                   <div className="w-3 h-3 rounded-full bg-red-500"></div>
                   <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
                 </div>
-                <span className="text-xs text-gray-400 ml-2">.env.local.development</span>
+                <span className="text-[10px] sm:text-xs text-gray-400 truncate">.env.local.development</span>
               </div>
-              <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">{t4('envFile')}</span>
+              <span className="text-[9px] sm:text-[10px] font-semibold text-white bg-indigo-600 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded shadow-sm shrink-0 whitespace-nowrap">{t4('envFile')}</span>
             </div>
             <div className="p-4">
-              <pre className="text-xs font-mono text-gray-300 leading-relaxed">
+              <pre className="text-[11px] sm:text-xs font-mono text-gray-300 leading-relaxed">
                 <code>
                   <span className="text-green-400">PATABASE_URL</span>
                   <span className="text-gray-500">=</span>
@@ -122,19 +122,19 @@ export function EnvStep() {
           </div>
 
           <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-800">
-            <div className="bg-gray-800 px-4 py-2 flex items-center justify-between border-b border-gray-700">
-              <div className="flex items-center gap-2">
-                <div className="flex gap-1.5">
+            <div className="bg-gray-800 px-3 sm:px-4 py-2 flex items-center justify-between gap-2 min-w-0 border-b border-gray-700">
+              <div className="flex items-center gap-2 min-w-0 overflow-hidden">
+                <div className="flex gap-1.5 shrink-0">
                   <div className="w-3 h-3 rounded-full bg-red-500"></div>
                   <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
                 </div>
-                <span className="text-xs text-gray-400 ml-2">{t4('terminal')}</span>
+                <span className="text-[10px] sm:text-xs text-gray-400 truncate">{t4('terminal')}</span>
               </div>
-              <span className="text-xs font-semibold text-white bg-indigo-600 px-3 py-1.5 rounded shadow-sm">{t4('result')}</span>
+              <span className="text-[9px] sm:text-[10px] font-semibold text-white bg-indigo-600 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded shadow-sm shrink-0 whitespace-nowrap">{t4('result')}</span>
             </div>
             <div className="p-4">
-              <pre className="text-xs font-mono text-gray-300 leading-relaxed">
+              <pre className="text-[11px] sm:text-xs font-mono text-gray-300 leading-relaxed">
                 <code>
                   <span className="text-red-400">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
                   {'\n'}
