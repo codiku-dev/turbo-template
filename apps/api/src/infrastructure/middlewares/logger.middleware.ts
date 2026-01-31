@@ -1,8 +1,7 @@
 import { TRPCMiddleware, MiddlewareOptions } from 'nestjs-trpc';
 import { Inject, Injectable, ConsoleLogger } from '@nestjs/common';
 
-const SEP = '────────────────────────────────────────────────────────';
-const SEP_THIN = '────────────────────────────────────────────────';
+const BORDER = '────────────────────────────────────────────────────────';
 
 @Injectable()
 export class LoggedMiddleware implements TRPCMiddleware {
@@ -16,23 +15,20 @@ export class LoggedMiddleware implements TRPCMiddleware {
         return str.split('\n').map((line) => '  ' + line).join('\n');
     }
 
-    private buildLog(requestUrl: string, path: string, type: string, durationMs: number, input: unknown): string {
+    private buildHeader(requestUrl: string, path: string, type: string, durationMs: number, input: unknown): string {
         const lines: string[] = [
             '',
-            SEP,
-            '  INCOMING REQUEST URL',
-            SEP_THIN,
+            BORDER,
+            '  REQUEST',
             `  ${requestUrl}`,
             '',
             '  META',
-            SEP_THIN,
-            `  path       ${path}`,
-            `  type       ${type}`,
-            `  duration   ${durationMs} ms`,
-            '',
+            `  path     ${path}`,
+            `  type     ${type}`,
+            `  duration ${durationMs} ms`,
         ];
         if (input !== undefined && input !== null && Object.keys(input as object).length > 0) {
-            lines.push('  INPUT', SEP_THIN, this.jsonBlock(input), '');
+            lines.push('', '  INPUT', this.jsonBlock(input));
         }
         return lines.join('\n');
     }
@@ -46,21 +42,23 @@ export class LoggedMiddleware implements TRPCMiddleware {
         try {
             const result = await next();
             const durationMs = Date.now() - start;
-            const header = this.buildLog(requestUrl, path, type, durationMs, input);
+            const header = this.buildHeader(requestUrl, path, type, durationMs, input);
 
             if (result?.ok === false) {
                 const errPayload = result?.error ?? result;
                 const log =
                     header +
-                    '\n  RESPONSE (error)\n' + SEP_THIN + '\n' +
-                    this.jsonBlock(errPayload) + '\n' + SEP + '\n';
+                    '\n\n  RESPONSE (error)\n' +
+                    this.jsonBlock(errPayload) +
+                    '\n' + BORDER + '\n';
                 this.consoleLogger.error(log);
             } else {
                 const payload = result?.data ?? result;
                 const log =
                     header +
-                    '\n  RESPONSE\n' + SEP_THIN + '\n' +
-                    this.jsonBlock(payload) + '\n' + SEP + '\n';
+                    '\n\n  RESPONSE\n' +
+                    this.jsonBlock(payload) +
+                    '\n' + BORDER + '\n';
                 this.consoleLogger.log(log);
             }
 
@@ -68,9 +66,10 @@ export class LoggedMiddleware implements TRPCMiddleware {
         } catch (err) {
             const durationMs = Date.now() - start;
             const log =
-                this.buildLog(requestUrl, path, type, durationMs, input) +
-                '\n  RESPONSE (thrown)\n' + SEP_THIN + '\n' +
-                this.jsonBlock(err instanceof Error ? { message: err.message, name: err.name } : err) + '\n' + SEP + '\n';
+                this.buildHeader(requestUrl, path, type, durationMs, input) +
+                '\n\n  RESPONSE (thrown)\n' +
+                this.jsonBlock(err instanceof Error ? { message: err.message, name: err.name } : err) +
+                '\n' + BORDER + '\n';
             this.consoleLogger.error('\n' + log);
             throw err;
         }

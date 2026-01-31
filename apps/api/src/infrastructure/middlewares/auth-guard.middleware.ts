@@ -1,5 +1,5 @@
 import { TRPCMiddleware, MiddlewareOptions } from 'nestjs-trpc';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, ConsoleLogger } from '@nestjs/common';
 import { TRPCError } from '@trpc/server';
 import { auth } from '@api/src/infrastructure/auth/auth';
 
@@ -8,10 +8,17 @@ const optionalAuthPaths = new Set<string>();
 // Set of procedure paths that explicitly require auth (e.g. @Private overrides @Public)
 const privatePaths = new Set<string>();
 
+const SEP = '────────────────────────────────────────────────────────';
+const SEP_THIN = '────────────────────────────────────────────────';
+
 @Injectable()
 export class AuthGuardMiddleware implements TRPCMiddleware {
+  constructor(
+    @Inject(ConsoleLogger) private readonly logger: ConsoleLogger,
+  ) {}
+
   async use(opts: MiddlewareOptions<{ req: any; res: any; optionalAuth?: boolean }>) {
-    const { next, ctx, path } = opts;
+    const { next, ctx, path, type } = opts;
 
     // Check if this procedure path has optional auth (@Private overrides @Public)
     const isOptionalAuth =
@@ -46,6 +53,7 @@ export class AuthGuardMiddleware implements TRPCMiddleware {
         });
       }
 
+      this.logUnauthorized(path, type, ctx.req);
       throw new TRPCError({ code: 'UNAUTHORIZED', message: 'Unauthorized' });
     } catch (error) {
       // If optional auth, continue without throwing
@@ -59,8 +67,26 @@ export class AuthGuardMiddleware implements TRPCMiddleware {
         });
       }
       if (error instanceof TRPCError) throw error;
+      this.logUnauthorized(path, type, ctx.req);
       throw new TRPCError({ code: 'UNAUTHORIZED', message: 'Unauthorized' });
     }
+  }
+
+  private logUnauthorized(path: string, type: string, req: { url?: string; method?: string }) {
+    const baseUrl = process.env.TRPC_URL ?? '';
+    const requestUrl = req?.url ?? (baseUrl ? `${baseUrl}/${path}` : path);
+    const log = [
+      '',
+      SEP,
+      '  UNAUTHORIZED (401)',
+      SEP_THIN,
+      `  path         ${path}`,
+      `  type         ${type}`,
+      `  request URL  ${requestUrl}`,
+      SEP,
+      '',
+    ].join('\n');
+    this.logger.warn(log);
   }
 
   static registerOptionalAuthPath(path: string) {
