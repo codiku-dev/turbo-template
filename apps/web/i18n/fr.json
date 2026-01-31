@@ -5,14 +5,13 @@
   "Landing": {
     "header": {
       "badge": "DX d'abord",
-      "headline": "Déployez fullstack avec plaisir",
+      "headline": "Développez fullstack avec plaisir",
       "tagline": "APIs type-safe, packages partagés, auth & doc inclus. Pensé pour l'expérience développeur.",
       "stack": "Turbo · Nest · tRPC · Next · Bun"
     },
     "selectFeaturePrompt": "Choisis une catégorie ci-dessus pour voir les détails.",
     "templateSubtitle": "Template (Turbo Nest Trpc Next)",
     "templateSubtitleWords": "Turbo Nest Trpc Next ",
-    "templateSubtitleSuffix": "— Boiler plate monorepo (Bun)",
     "steps": {
       "fullstackTypeSafety": "Fullstack type safety",
       "shareResources": "Partager des ressources",

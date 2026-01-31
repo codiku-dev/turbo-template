@@ -12,7 +12,6 @@
     "selectFeaturePrompt": "Select a feature above to see details.",
     "templateSubtitle": "Turbo Nest Trpc Next - Boiler plate monorepo (Bun)",
     "templateSubtitleWords": "Turbo Nest  Next Trpc",
-    "templateSubtitleSuffix": "— Boiler plate monorepo (Bun)",
     "steps": {
       "fullstackTypeSafety": "Fullstack type safety",
       "shareResources": "Share resources",
