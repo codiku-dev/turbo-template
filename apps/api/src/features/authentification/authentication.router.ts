@@ -1,9 +1,11 @@
 import { AuthService } from '@thallesp/nestjs-better-auth';
-import { AuthGuardRouter } from '@api/src/infrastructure/decorators/auth/auth-guard-router.decorator';
+import { Router } from 'nestjs-trpc';
+import { AuthGuard } from '@api/src/infrastructure/decorators/auth/auth-guard.decorator';
 import { Input, Mutation } from 'nestjs-trpc';
 import { CredentialsSchema, credentialsSchema } from './authentication.schema';
 
-@AuthGuardRouter({ alias: 'auth', isAuthGuardEnabled: false, logs: true })
+@Router({ alias: 'auth' })
+@AuthGuard({ logs: true, enabled: false })
 export class AuthRouter {
   constructor(private readonly authService: AuthService) { }
 

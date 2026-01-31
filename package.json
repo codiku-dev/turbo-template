@@ -53,6 +53,6 @@
     "packages/*"
   ],
   "dependencies": {
-    "nestjs-trpc": "^1.6.1"
+    "nestjs-trpc": "1.6.1"
   }
 }

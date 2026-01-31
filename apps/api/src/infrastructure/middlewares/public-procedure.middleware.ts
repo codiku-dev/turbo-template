@@ -1,18 +1,14 @@
 import { TRPCMiddleware, MiddlewareOptions } from 'nestjs-trpc';
 import { Injectable } from '@nestjs/common';
 import { auth } from '@api/src/infrastructure/auth/auth';
-import { AuthGuardMiddleware } from './auth-guard.middleware';
 
 @Injectable()
 export class PublicProcedureMiddleware implements TRPCMiddleware {
   async use(opts: MiddlewareOptions<{ req: any; res: any }>) {
-    const { next, ctx, path } = opts;
+    const { next, ctx } = opts;
 
-    // Register this path as optional auth IMMEDIATELY
-    // This way, on subsequent requests, AuthMiddleware will know it's optional
-    AuthGuardMiddleware.registerOptionalAuthPath(path);
-
-    // Since AuthMiddleware already ran (router-level before procedure-level),
+    // Public paths are pre-registered at startup by PublicPathScannerService.
+    // AuthGuardMiddleware already allowed this request through.
     // if it threw an error, we need to handle auth ourselves
     // We'll extract session and call next() with proper context
 
@@ -44,3 +40,6 @@ export class PublicProcedureMiddleware implements TRPCMiddleware {
     }
   }
 }
+
+/** Alias for @UseMiddlewares(PublicProcedureMiddleware) — use @UseMiddlewares(Public) on public procedures. */
+export const Public = PublicProcedureMiddleware;

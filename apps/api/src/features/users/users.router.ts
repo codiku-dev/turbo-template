@@ -1,45 +1,46 @@
-import { Ctx, Input, Mutation, Query } from 'nestjs-trpc';
+import { Ctx, Input, Mutation, Query, Router } from 'nestjs-trpc';
 import { UsersService } from './users.service';
 import { z } from 'zod';
 import { createUserSchema, updateUserSchema, usersSchema } from './users.schema';
 import { UserCreateInput, UserUpdateInput } from '@api/generated/prisma/models';
 import { AuthService } from '@thallesp/nestjs-better-auth';
-import { AuthGuardRouter } from '@api/src/infrastructure/decorators/auth/auth-guard-router.decorator';
+import { AuthGuard } from '@api/src/infrastructure/decorators/auth/auth-guard.decorator';
 import { Public } from '@api/src/infrastructure/decorators/auth/public-procedure.decorator';
 import { IncomingMessage } from 'node:http';
-import { fromNodeHeaders } from 'better-auth/node';
 
-@AuthGuardRouter({ alias: 'users', logs: true })
+@Router({ alias: 'users' })
+@AuthGuard({ logs: true })
 export class UserRouter {
   constructor(private readonly usersService: UsersService, private readonly authService: AuthService) { }
 
+  @Public()
   @Query({
     input: z.object({ id: z.string() }),
     output: usersSchema,
   })
-  @Public()
   read(@Input('id') id: string) {
     return this.usersService.findOne(id);
   }
 
+  @Public()
   @Query({
     output: z.array(usersSchema),
   })
-  @Public()
   readAll() {
     return this.usersService.findAll();
   }
 
+  @Public()
   @Mutation({
     input: createUserSchema,
     output: usersSchema,
   })
-  @Public()
   create(@Input() userData: UserCreateInput) {
     return this.usersService.create(userData);
   }
 
 
+  @Public()
   @Mutation({
     input: z.object({
       id: z.string(),
@@ -47,7 +48,6 @@ export class UserRouter {
     }),
     output: usersSchema,
   })
-  @Public()
   update(
     @Input('id') id: string,
     @Input('data') data: UserUpdateInput,
@@ -55,13 +55,13 @@ export class UserRouter {
     return this.usersService.update(id, data);
   }
 
+  @Public()
   @Mutation({
     input: z.object({
       id: z.string(),
     }),
     output: usersSchema
   })
-  @Public()
   delete(@Input('id') id: string) {
     return this.usersService.remove(id);
   }
