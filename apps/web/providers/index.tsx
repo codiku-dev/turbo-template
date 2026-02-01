@@ -1,5 +1,4 @@
 "use client";
-import { I18nProvider } from './i18n-provider';
 import { ReactQueryProvider } from './react-query-provider';
 import { TrpcProvider } from './trpc-provider';
 

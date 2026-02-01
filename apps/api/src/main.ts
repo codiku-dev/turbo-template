@@ -17,8 +17,15 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ['error', 'warn', 'log', 'verbose', 'debug'],
     bodyParser: false,
+    cors: {
+      origin: process.env.FRONTEND_URL,
+      credentials: true,
+    },
   });
-  app.enableCors();
+  // app.enableCors({
+  //   origin: '*',
+  //   credentials: true,
+  // });
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new PrismaExceptionFilter());
 

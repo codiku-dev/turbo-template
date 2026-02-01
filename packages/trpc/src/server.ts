@@ -17,7 +17,7 @@ const appRouter = t.router({
       name: z.string(),
       email: z.string().email(),
       emailVerified: z.boolean().optional(),
-      image: z.string().optional(),
+      image: z.string().nullable(),
       createdAt: z.date(),
       updatedAt: z.date(),
       sessions: z.array(z.object({
@@ -42,7 +42,7 @@ const appRouter = t.router({
       name: z.string(),
       email: z.string().email(),
       emailVerified: z.boolean().optional(),
-      image: z.string().optional(),
+      image: z.string().nullable(),
       createdAt: z.date(),
       updatedAt: z.date(),
       sessions: z.array(z.object({
@@ -67,7 +67,7 @@ const appRouter = t.router({
       name: z.string(),
       email: z.string().email(),
       emailVerified: z.boolean().optional(),
-      image: z.string().optional(),
+      image: z.string().nullable(),
       createdAt: z.date(),
       updatedAt: z.date(),
       sessions: z.array(z.object({
@@ -97,7 +97,7 @@ const appRouter = t.router({
       name: z.string(),
       email: z.string().email(),
       emailVerified: z.boolean().optional(),
-      image: z.string().optional(),
+      image: z.string().nullable(),
       createdAt: z.date(),
       updatedAt: z.date(),
       sessions: z.array(z.object({
@@ -124,7 +124,7 @@ const appRouter = t.router({
         name: z.string(),
         email: z.string().email(),
         emailVerified: z.boolean().optional(),
-        image: z.string().optional(),
+        image: z.string().nullable(),
         createdAt: z.date(),
         updatedAt: z.date(),
         sessions: z.array(z.object({
@@ -155,7 +155,7 @@ const appRouter = t.router({
       name: z.string(),
       email: z.string().email(),
       emailVerified: z.boolean().optional(),
-      image: z.string().optional(),
+      image: z.string().nullable(),
       createdAt: z.date(),
       updatedAt: z.date(),
       sessions: z.array(z.object({
@@ -182,7 +182,7 @@ const appRouter = t.router({
       name: z.string(),
       email: z.string().email(),
       emailVerified: z.boolean().optional(),
-      image: z.string().optional(),
+      image: z.string().nullable(),
       createdAt: z.date(),
       updatedAt: z.date(),
       sessions: z.array(z.object({
@@ -213,12 +213,6 @@ const appRouter = t.router({
         updatedAt: z.date(),
       })),
     })).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any)
-  }),
-  auth: t.router({
-    signup: publicProcedure.input(z.object({
-      email: z.string().email(),
-      password: z.string(),
-    })).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any)
   })
 });
 export type AppRouter = typeof appRouter;

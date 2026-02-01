@@ -59,8 +59,9 @@ function checkSingleApp(dir: string): { passed: boolean; missingVars?: string[];
   if (r.status !== 0) {
     const output = r.stderr?.toString() || r.stdout?.toString() || "";
     const missingMatch = output.match(/MISSING_VARS:(.+)/);
-    const missingVars = missingMatch ? missingMatch?.[1]?.split(",") : undefined;
-    console.error(`  ❌ ${appName}: validation failed (${picked.name})`);
+    const missingVars = missingMatch ? missingMatch[1].split(",").map((s) => s.trim()).filter(Boolean) : undefined;
+    const varsHint = missingVars?.length ? ` — missing/invalid: ${missingVars.join(", ")}` : "";
+    console.error(`  ❌ ${appName}: validation failed (${picked.name})${varsHint}`);
     return { passed: false, missingVars, envFile: picked.name, appName };
   }
   console.log(`  ✅ ${appName}: valid (${picked.name})`);

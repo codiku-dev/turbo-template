@@ -8,7 +8,7 @@ import { StorybookStep } from './storybook-step';
 import { EnvStep } from './env-step';
 import { InternationalizationStep } from './internationalization-step';
 import { ApiProtetionStep } from './api-protection-step';
-import { AuthStep } from './auth-step';
+import { AuthStep } from './authentication/auth-step';
 import { AutoDocStep } from './auto-doc-step';
 import { LoggingStep } from './logging-step';
 
