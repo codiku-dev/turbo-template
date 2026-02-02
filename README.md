@@ -441,6 +441,117 @@ This is used to build the full request URL in logs.
 
 ---
 
+## 🔐 Authentication (Better Auth + tRPC)
+
+The template uses **Better Auth** for authentication. The API protects tRPC procedures by default; procedures marked with `@Public()` are accessible without a session.
+
+### Backend: `@AuthGuard` and `@Public()`
+
+**Router-level: `@AuthGuard(args?)`**
+
+Apply `@AuthGuard` on a tRPC router class to enable auth (and optionally request/response logging) for all procedures in that router:
+
+```typescript
+import { Router, Query } from 'nestjs-trpc';
+import { AuthGuard } from '@api/src/infrastructure/decorators/auth/auth-guard.decorator';
+import { Public } from '@api/src/infrastructure/decorators/auth/public-procedure.decorator';
+
+@Router({ alias: 'app' })
+@AuthGuard({ logs: true })  // optional params below
+export class AppRouter {
+  @Public()
+  @Query({ output: z.object({ message: z.string() }) })
+  async hello() {
+    return { message: 'Hello, no auth required' };
+  }
+
+  @Query({ output: z.object({ message: z.string() }) })
+  async protectedHello() {
+    return { message: 'Hello, you are authenticated' };  // ctx.user, ctx.session available
+  }
+}
+```
+
+**`@AuthGuard` parameters**
+
+| Param     | Type    | Default | Description |
+|----------|---------|---------|-------------|
+| `logs`   | boolean | `false` | If `true`, also applies request/response logging (e.g. input, output, duration) for this router. |
+| `enabled`| boolean | `true`  | If `false`, auth is disabled for the router (e.g. for an auth-only router); only logging applies when `logs: true`. |
+
+**Procedure-level: `@Public()`**
+
+- **Without `@Public()`** – The procedure **requires** a valid session. If the request has no session (or invalid session), the API returns `UNAUTHORIZED` (401).
+- **With `@Public()`** – The procedure is **optional auth**: it can be called with or without a session. If the user is logged in, `ctx.user` and `ctx.session` are set; otherwise they are `undefined`.
+
+At startup, `PublicPathScannerService` scans all routers and registers procedure paths that use `@Public()`. `AuthGuardMiddleware` then allows those paths without requiring auth; all other procedures require a session (Better Auth reads the session from request cookies).
+
+**Context in procedures**
+
+- **Protected procedures** (no `@Public()`): `ctx.user` and `ctx.session` are always set (middleware returns 401 otherwise).
+- **Public procedures** (`@Public()`): `ctx.user` and `ctx.session` are set when the client sends a valid session cookie; otherwise they are `undefined`.
+
+### Frontend: Auth client
+
+The web app uses the Better Auth React client from `@web/libs/auth-client`:
+
+```typescript
+import { createAuthClient } from "better-auth/react";
+
+export const { useSession, signIn, signUp, signOut } = createAuthClient({
+  baseURL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL,  // e.g. http://localhost:3090
+});
+```
+
+**Exposed APIs**
+
+| API          | Usage |
+|-------------|--------|
+| `useSession()` | React hook: `{ data: session, isPending, error }`. Session contains `user` and `session`. Use for conditional UI (e.g. show “Sign in” vs “Sign out”). |
+| `signIn.email({ email, password })` | Sign in with email/password. Call from a form handler; redirect or update UI on success/error. |
+| `signUp.email({ name, email, password })` | Register with email/password. |
+| `signOut()` | Sign out the current user (clears session cookie). |
+
+**Important**
+
+- Better Auth uses **cookies** for the session. The auth API is called on your backend (e.g. Nest); the Next.js app must use `NEXT_PUBLIC_BETTER_AUTH_URL` pointing at that backend so that sign-in/sign-up requests and cookie domain match.
+- tRPC and `fetch` send cookies by default for same-origin or correctly configured cross-origin requests, so protected tRPC procedures receive the session cookie and the API can resolve the user.
+
+**Example: sign-in form**
+
+```typescript
+import { signIn } from '@web/libs/auth-client';
+
+async function handleSubmit(values: { email: string; password: string }) {
+  const res = await signIn.email({ email: values.email, password: values.password });
+  if (res.error) {
+    // show res.error.message
+    return;
+  }
+  // redirect or update UI
+}
+```
+
+**Example: show user or “Sign out”**
+
+```typescript
+import { useSession, signOut } from '@web/libs/auth-client';
+
+function Account() {
+  const { data: session, isPending } = useSession();
+  if (isPending) return <div>Loading…</div>;
+  if (!session?.user) return <div>Not signed in</div>;
+  return (
+    <div>
+      <p>Hello, {session.user.name}</p>
+      <button onClick={() => signOut()}>Sign out</button>
+    </div>
+  );
+}
+```
+
+---
+
 ## 🛠️ Type Checking & Utilities
 
 ### Type Checking
