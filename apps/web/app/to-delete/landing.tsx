@@ -2,6 +2,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Copy, Check } from 'lucide-react';
 import { TypeSafetyStep } from './type-safety-step';
 import { ShareResourcesStep } from './share-resources-step';
 import { StorybookStep } from './storybook-step';
@@ -37,9 +38,19 @@ function BangerStackLogo(p: { className?: string }) {
     );
 }
 
+const CREATE_CMD = 'npx create-bangerstack@latest';
+
 export default function Home() {
     const t = useTranslations('Landing');
     const [activeStep, setActiveStep] = useState<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9>(1);
+    const [copied, setCopied] = useState(false);
+
+    const copyCreateCmd = useCallback(() => {
+        void navigator.clipboard.writeText(CREATE_CMD).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        });
+    }, []);
     const stepContentRef = useRef<HTMLDivElement>(null);
     const categoriesRef = useRef<HTMLDivElement>(null);
     const hasScrolledDownRef = useRef(false);
@@ -72,8 +83,8 @@ export default function Home() {
             <header className="relative overflow-hidden border-b border-white/10">
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(99,102,241,0.25),transparent)]" />
                 <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,rgba(10,10,11,0.6)_60%)]" />
-                <div className="relative max-w-5xl mx-auto px-6 pt-6 pb-16 sm:pt-8 sm:pb-20">
-                    {/* Logo + title top left */}
+                <div className="relative max-w-5xl mx-auto px-4 sm:px-6 pt-6 pb-16 sm:pt-8 sm:pb-20">
+                    {/* Top row: logo + title */}
                     <motion.div
                         className="flex items-center gap-3 mb-10"
                         initial={{ opacity: 0, y: 16 }}
@@ -104,7 +115,7 @@ export default function Home() {
                         {t('header.headline')}
                     </motion.h1>
                     <motion.p
-                        className="text-lg text-zinc-400 max-w-xl mb-8 leading-relaxed"
+                        className="text-lg text-zinc-400 max-w-xl mb-6 leading-relaxed"
                         initial={{ opacity: 0, y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
@@ -112,7 +123,27 @@ export default function Home() {
                         {t('header.tagline')}
                     </motion.p>
                     <motion.div
-                        className="flex flex-wrap items-center gap-2 text-sm text-zinc-500 font-mono"
+                        className="mb-8"
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.26, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                        <button
+                            type="button"
+                            onClick={copyCreateCmd}
+                            className="inline-flex items-center gap-2 rounded-lg border border-zinc-600/60 bg-zinc-800/90 px-3 py-2 text-sm font-mono text-zinc-300 hover:border-zinc-500 hover:bg-zinc-700/80 transition-colors focus:outline-none focus:ring-1 focus:ring-zinc-500"
+                            title="Copy command"
+                        >
+                            <span className="truncate max-w-[240px] sm:max-w-none">{CREATE_CMD}</span>
+                            {copied ? (
+                                <Check className="h-4 w-4 shrink-0 text-emerald-400" aria-hidden />
+                            ) : (
+                                <Copy className="h-4 w-4 shrink-0" aria-hidden />
+                            )}
+                        </button>
+                    </motion.div>
+                    <motion.div
+                        className="flex flex-wrap items-center gap-2 text-sm"
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -120,11 +151,11 @@ export default function Home() {
                         {t('header.stack').split(' · ').map((tech) => (
                             <motion.span
                                 key={tech}
-                                className="inline-block rounded-md border border-white/10 bg-white/5 px-2.5 py-1 text-zinc-400 cursor-default select-none"
+                                className="inline-flex items-center rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 font-medium text-violet-200 cursor-default select-none"
                                 whileHover={{
                                     scale: 1.08,
                                     borderColor: 'rgba(139, 92, 246, 0.5)',
-                                    backgroundColor: 'rgba(139, 92, 246, 0.15)',
+                                    backgroundColor: 'rgba(139, 92, 246, 0.2)',
                                     color: 'rgb(196, 181, 253)',
                                     boxShadow: '0 0 20px -4px rgba(139, 92, 246, 0.4)',
                                 }}

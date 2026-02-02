@@ -201,18 +201,7 @@ const appRouter = t.router({
         accessTokenExpiresAt: z.date(),
         refreshTokenExpiresAt: z.date(),
       })).optional(),
-    })).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any),
-    getAccounts: publicProcedure.output(z.object({
-      accounts: z.array(z.object({
-        id: z.string(),
-        providerId: z.string(),
-        accountId: z.string(),
-        userId: z.string(),
-        scopes: z.array(z.string()),
-        createdAt: z.date(),
-        updatedAt: z.date(),
-      })),
-    })).query(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any)
+    })).mutation(async () => "PLACEHOLDER_DO_NOT_REMOVE" as any)
   })
 });
 export type AppRouter = typeof appRouter;
