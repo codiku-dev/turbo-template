@@ -12,6 +12,7 @@ import { ApiProtetionStep } from './api-protection-step';
 import { AuthStep } from './authentication/auth-step';
 import { AutoDocStep } from './auto-doc-step';
 import { LoggingStep } from './logging-step';
+import { Badge } from '@repo/ui/badge/badge';
 
 function BangerStackLogo(p: { className?: string }) {
     return (
@@ -128,19 +129,28 @@ export default function Home() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.26, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        <button
-                            type="button"
-                            onClick={copyCreateCmd}
-                            className="inline-flex items-center gap-2 rounded-lg border border-zinc-600/60 bg-zinc-800/90 px-3 py-2 text-sm font-mono text-zinc-300 hover:border-zinc-500 hover:bg-zinc-700/80 transition-colors focus:outline-none focus:ring-1 focus:ring-zinc-500"
-                            title="Copy command"
-                        >
-                            <span className="truncate max-w-[240px] sm:max-w-none">{CREATE_CMD}</span>
-                            {copied ? (
-                                <Check className="h-4 w-4 shrink-0 text-emerald-400" aria-hidden />
-                            ) : (
-                                <Copy className="h-4 w-4 shrink-0" aria-hidden />
-                            )}
-                        </button>
+                        <span className="relative inline-flex rounded-lg overflow-hidden p-[1px]">
+                            <span
+                                className="absolute inset-0 rounded-lg animate-[border-glow_3s_linear_infinite] opacity-90"
+                                style={{
+                                    background: 'conic-gradient(from 0deg, transparent 0%, rgba(139,92,246,0.9) 20%, rgba(167,139,250,1) 40%, rgba(139,92,246,0.9) 60%, rgba(196,181,253,0.6) 80%, transparent 100%)',
+                                }}
+                                aria-hidden
+                            />
+                            <button
+                                type="button"
+                                onClick={copyCreateCmd}
+                                className="relative z-10 inline-flex items-center gap-2 rounded-[calc(0.5rem-1px)] border border-transparent bg-zinc-800/90 px-3 py-2 text-sm font-mono text-zinc-300 hover:bg-zinc-700/80 transition-colors focus:outline-none focus:ring-1 focus:ring-violet-500 focus:ring-offset-2 focus:ring-offset-[#0a0a0b]"
+                                title="Copy command"
+                            >
+                                <span className="truncate max-w-[240px] sm:max-w-none">{CREATE_CMD}</span>
+                                {copied ? (
+                                    <Check className="h-4 w-4 shrink-0 text-emerald-400" aria-hidden />
+                                ) : (
+                                    <Copy className="h-4 w-4 shrink-0" aria-hidden />
+                                )}
+                            </button>
+                        </span>
                     </motion.div>
                     <motion.div
                         className="flex flex-wrap items-center gap-2 text-sm"
@@ -151,7 +161,6 @@ export default function Home() {
                         {t('header.stack').split(' · ').map((tech) => (
                             <motion.span
                                 key={tech}
-                                className="inline-flex items-center rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 font-medium text-violet-200 cursor-default select-none"
                                 whileHover={{
                                     scale: 1.08,
                                     borderColor: 'rgba(139, 92, 246, 0.5)',
@@ -161,7 +170,7 @@ export default function Home() {
                                 }}
                                 transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                             >
-                                {tech}
+                                <Badge>{tech}</Badge>
                             </motion.span>
                         ))}
                     </motion.div>

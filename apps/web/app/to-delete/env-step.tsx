@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { Badge } from '@repo/ui/badge/badge';
 
 export function EnvStep() {
   const t4 = useTranslations('Landing.step4');
@@ -20,6 +21,7 @@ export function EnvStep() {
                 </div>
                 <span className="text-[10px] sm:text-xs text-gray-400 truncate" title="apps/api/env-type.ts">apps/api/env-type.ts</span>
               </div>
+              <Badge size="sm">{t4('zodSchemaBadge')}</Badge>
             </div>
             <div className="p-6 overflow-x-auto flex-1 min-h-0">
               <pre className="text-xs sm:text-sm font-mono leading-relaxed text-gray-300">
@@ -66,7 +68,7 @@ export function EnvStep() {
                 </div>
                 <span className="text-[10px] sm:text-xs text-gray-400 truncate" title="apps/api/src/main.ts">apps/api/src/main.ts</span>
               </div>
-              <span className="text-[9px] sm:text-[10px] font-semibold text-white bg-indigo-600 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded shadow-sm shrink-0 whitespace-nowrap">{t4('typedEnvBadge')}</span>
+              <Badge size="sm">{t4('typedEnvBadge')}</Badge>
             </div>
             <div className="p-6 overflow-x-auto flex-1 min-h-0">
               <pre className="text-xs sm:text-sm font-mono leading-relaxed text-gray-300">
@@ -101,7 +103,7 @@ export function EnvStep() {
                 </div>
                 <span className="text-[10px] sm:text-xs text-gray-400 truncate">.env.local.development</span>
               </div>
-              <span className="text-[9px] sm:text-[10px] font-semibold text-white bg-indigo-600 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded shadow-sm shrink-0 whitespace-nowrap">{t4('envFile')}</span>
+              <Badge size="sm">{t4('envFile')}</Badge>
             </div>
             <div className="p-4">
               <pre className="text-[11px] sm:text-xs font-mono text-gray-300 leading-relaxed">
@@ -131,7 +133,7 @@ export function EnvStep() {
                 </div>
                 <span className="text-[10px] sm:text-xs text-gray-400 truncate">{t4('terminal')}</span>
               </div>
-              <span className="text-[9px] sm:text-[10px] font-semibold text-white bg-indigo-600 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded shadow-sm shrink-0 whitespace-nowrap">{t4('result')}</span>
+              <Badge size="sm">{t4('result')}</Badge>
             </div>
             <div className="p-4">
               <pre className="text-[11px] sm:text-xs font-mono text-gray-300 leading-relaxed">

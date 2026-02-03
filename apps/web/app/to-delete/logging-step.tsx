@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { Badge } from '@repo/ui/badge/badge';
 
 export function LoggingStep() {
   const t = useTranslations('Landing.step9');
@@ -17,7 +18,7 @@ export function LoggingStep() {
             </div>
             <span className="text-[10px] sm:text-xs text-gray-400 truncate" title="apps/api/src/features/users/users.router.ts">apps/api/.../users.router.ts</span>
           </div>
-          <span className="text-[9px] sm:text-[10px] font-semibold text-white bg-indigo-600 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded shadow-sm shrink-0 whitespace-nowrap">{t('codeLabel')}</span>
+          <Badge size="sm">{t('codeLabel')}</Badge>
         </div>
         <div className="p-6 overflow-x-auto">
           <pre className="text-xs sm:text-sm font-mono leading-relaxed text-gray-300">
@@ -60,7 +61,7 @@ export function LoggingStep() {
             </div>
             <span className="text-[10px] sm:text-xs text-gray-400 truncate">api:dev</span>
           </div>
-          <span className="text-[9px] sm:text-[10px] font-semibold text-white bg-indigo-600 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded shadow-sm shrink-0 whitespace-nowrap">{t('terminalLabel')}</span>
+          <Badge size="sm">{t('terminalLabel')}</Badge>
         </div>
         <div className="p-4 overflow-x-auto">
           <pre className="text-[11px] sm:text-xs font-mono leading-relaxed text-gray-300 whitespace-pre">

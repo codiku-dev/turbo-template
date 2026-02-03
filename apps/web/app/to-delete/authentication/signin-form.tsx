@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { signIn } from '@web/libs/auth-client';
+import { Badge } from '@repo/ui/badge/badge';
 import { Button } from '@repo/ui/button/button';
 import { Input } from '@repo/ui/input/input';
 import { Label } from '@repo/ui/label/label';
@@ -29,7 +30,7 @@ function SigninCodeBlock() {
                     </div>
                     <span className="text-[9px] sm:text-xs text-gray-400 truncate min-w-0" title="apps/web/app/to-delete/authentication/signin-form.tsx">apps/web/.../signin-form.tsx</span>
                 </div>
-                <span className="text-[8px] sm:text-[10px] font-semibold text-white bg-indigo-600 px-1 py-0.5 sm:px-2 sm:py-1 rounded shadow-sm shrink-0 whitespace-nowrap">Client</span>
+                <Badge size="sm">Client</Badge>
             </div>
             <div className="p-2 sm:p-4 overflow-auto min-w-0 flex-1 min-h-0">
                 <pre className="text-[10px] sm:text-xs font-mono leading-snug text-gray-300 min-w-max">

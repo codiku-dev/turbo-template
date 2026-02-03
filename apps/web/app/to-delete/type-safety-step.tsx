@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { trpc } from '@web/libs/trpc-client';
+import { Badge } from '@repo/ui/badge/badge';
 
 export function TypeSafetyStep() {
   const t = useTranslations('Landing.step1');
@@ -23,7 +24,7 @@ export function TypeSafetyStep() {
               </div>
               <span className="text-[10px] sm:text-xs text-gray-400 truncate" title="apps/api/src/features/users/users.router.ts">apps/api/src/features/users/users.router.ts</span>
             </div>
-            <span className="text-[9px] sm:text-[10px] font-semibold text-white bg-indigo-600 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded shadow-sm shrink-0 whitespace-nowrap">{t('backendSide')}</span>
+            <Badge size="sm">{t('backendSide')}</Badge>
           </div>
           <div className="p-6 overflow-x-auto">
             <pre className="text-xs sm:text-sm font-mono leading-relaxed text-gray-300">
@@ -76,7 +77,7 @@ export function TypeSafetyStep() {
               </div>
               <span className="text-[10px] sm:text-xs text-gray-400 truncate" title="apps/web/app/page.tsx">apps/web/app/page.tsx</span>
             </div>
-            <span className="text-[9px] sm:text-[10px] font-semibold text-white bg-indigo-600 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded shadow-sm shrink-0 whitespace-nowrap">{t('frontendSide')}</span>
+            <Badge size="sm">{t('frontendSide')}</Badge>
           </div>
           <div className="p-6 overflow-x-auto">
             <pre className="text-xs sm:text-sm font-mono leading-relaxed text-gray-300">
@@ -138,7 +139,7 @@ export function TypeSafetyStep() {
             </div>
             <span className="text-[10px] sm:text-xs text-gray-400 truncate">Demo</span>
           </div>
-          <span className="text-[9px] sm:text-[10px] font-semibold text-white bg-indigo-600 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded shadow-sm shrink-0 whitespace-nowrap">Résultat</span>
+          <Badge size="sm">Résultat</Badge>
         </div>
         <div className="p-6 bg-white">
           <button

@@ -59,6 +59,7 @@
       "stronglyTypeEnv": "Strongly type your .env",
       "typedEnv": "Typed env",
       "typedEnvBadge": "Strongly typed env",
+      "zodSchemaBadge": "Zod schema",
       "typedVarLabel": "Strongly typed env variable",
       "validation": "Validation",
       "validationTitle": "Validation during dev and build",

@@ -59,6 +59,7 @@
       "stronglyTypeEnv": "Definissez le schema de vos .env",
       "typedEnv": "Type safety de process.env",
       "typedEnvBadge": "Env fortement typé",
+      "zodSchemaBadge": "Schéma Zod",
       "typedVarLabel": "Variable d'env fortement typée",
       "validation": "Validation",
       "validationTitle": "Validation permanente durant le dev et au build",

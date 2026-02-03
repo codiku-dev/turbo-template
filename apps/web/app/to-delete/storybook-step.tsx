@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { Badge } from '@repo/ui/badge/badge';
 
 export function StorybookStep() {
   const t = useTranslations('Landing.step3');
@@ -18,7 +19,7 @@ export function StorybookStep() {
             </div>
             <span className="text-[10px] sm:text-xs text-gray-400 truncate" title="packages/ui/src/button/button.stories.tsx">packages/ui/src/button/button.stories.tsx</span>
           </div>
-          <span className="text-[9px] sm:text-[10px] font-semibold text-white bg-indigo-600 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded shadow-sm shrink-0 whitespace-nowrap">{t('uiPackageSide')}</span>
+          <Badge size="sm">{t('uiPackageSide')}</Badge>
         </div>
         <div className="p-6 overflow-x-auto">
           <pre className="text-xs sm:text-sm font-mono leading-relaxed text-gray-300">

@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { trpc } from '@web/libs/trpc-client';
+import { Badge } from '@repo/ui/badge/badge';
 
 function getErrorMessage(error: unknown): string {
   if (error instanceof Error) return error.message;
@@ -41,7 +42,7 @@ export function ApiProtetionStep() {
               </div>
               <span className="text-[9px] sm:text-xs text-gray-400 truncate min-w-0" title="apps/api/src/app.router.ts">apps/api/src/app.router.ts</span>
             </div>
-            <span className="text-[8px] sm:text-[10px] font-semibold text-white bg-indigo-600 px-1 py-0.5 sm:px-2 sm:py-1 rounded shadow-sm shrink-0 whitespace-nowrap">{t('backendSide')}</span>
+            <Badge size="sm">{t('backendSide')}</Badge>
           </div>
           <div className="p-2 sm:p-4 overflow-x-auto overflow-y-auto max-h-[200px] sm:max-h-[280px] lg:max-h-none min-w-0">
             <pre className="text-[10px] sm:text-xs font-mono leading-snug text-gray-300 min-w-max">

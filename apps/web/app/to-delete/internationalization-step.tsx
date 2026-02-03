@@ -4,12 +4,14 @@ import { useTranslations, useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useState, useRef, useEffect, startTransition } from 'react';
 import { createPortal } from 'react-dom';
+import { Badge } from '@repo/ui/badge/badge';
+
 export function InternationalizationStep() {
   const t = useTranslations('Landing.step5');
 
   return (
     <div className="grid gap-8 lg:grid-cols-2">
-        <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-800">
+      <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-800">
         <div className="bg-gray-800 px-3 sm:px-4 py-2 flex items-center justify-between gap-2 min-w-0 border-b border-gray-700">
           <div className="flex items-center gap-2 min-w-0 overflow-hidden">
             <div className="flex gap-1.5 shrink-0">
@@ -19,7 +21,7 @@ export function InternationalizationStep() {
             </div>
             <span className="text-[10px] sm:text-xs text-gray-400 truncate" title="apps/web/app/components/my-component.tsx">apps/web/.../my-component.tsx</span>
           </div>
-          <span className="text-[9px] sm:text-[10px] font-semibold text-white bg-indigo-600 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded shadow-sm shrink-0 whitespace-nowrap">{t('code')}</span>
+          <Badge size="sm">{t('code')}</Badge>
         </div>
         <div className="p-6 overflow-x-auto">
           <pre className="text-xs sm:text-sm font-mono leading-relaxed text-gray-300">
@@ -76,7 +78,7 @@ export function InternationalizationStep() {
             </div>
             <span className="text-[10px] sm:text-xs text-gray-400 truncate">Résultat</span>
           </div>
-          <span className="text-[9px] sm:text-[10px] font-semibold text-white bg-indigo-600 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded shadow-sm shrink-0 whitespace-nowrap">{t('result')}</span>
+          <Badge size="sm">{t('result')}</Badge>
         </div>
         <div className="p-6 bg-white h-full">
           <div className="mb-4 flex justify-end">

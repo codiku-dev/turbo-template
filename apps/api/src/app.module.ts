@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import * as path from 'path';
 
 import { UsersModule } from '@api/src/features/users/users.module';
@@ -21,11 +20,6 @@ import { AppContext } from './infrastructure/trpc/app-context';
   imports: [
     PrismaModule,
     UsersModule,
-
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: ['.env.local.development', '.env.production', '.env'],
-    }),
     TrpcMiddlewaresModule,
     TRPCModule.forRoot({
       autoSchemaFile: path.resolve(__dirname, '../../../../packages/trpc/src'),
