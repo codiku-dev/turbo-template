@@ -28,7 +28,6 @@
 
 - **🚀 NestJS 11** - Progressive Node.js framework with decorators and dependency injection
 - **🔄 Watch Mode** - Auto-reload on file changes
-- **📝 Swagger Integration** - API documentation ready
 - **📊 Request Logging Middleware** - Automatic logging of all tRPC requests with inputs, outputs, errors, and performance metrics
 
 ### 🗄️ Database & ORM
