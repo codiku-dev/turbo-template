@@ -30,7 +30,7 @@
       "typedEnv": "Typed and validated environment variables at startup.",
       "internationalisation": "Use next-intl to translate your application easily.",
       "apiProtection": "AuthGuardRouter + @Public for public routes, protected routes require a session. Try both fetches below.",
-      "autoDoc": "",
+      "autoDoc": "We use trpc-ui to expose your tRPC API. The documentation is generated automatically from your routers and Zod schemas.",
       "authentication": "Sign in, sign up and session management on the front-end with Better Auth.",
       "logging": "Use AuthGuardRouter with logs: true to get formatted request logs (URL, meta, response) in the terminal."
     },
@@ -96,6 +96,7 @@
     },
     "step7": {
       "title": "Auto documentation",
+      "intro": "We use trpc-ui to expose your tRPC API. The documentation is generated automatically from your routers and Zod schemas.",
       "screenshotAlt": "trpc-ui API documentation interface",
       "openDocs": "Open trpc-ui"
     }

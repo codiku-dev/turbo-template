@@ -12,7 +12,7 @@ import { ApiProtetionStep } from './api-protection-step';
 import { AuthStep } from './authentication/auth-step';
 import { AutoDocStep } from './auto-doc-step';
 import { LoggingStep } from './logging-step';
-import { Badge } from '@repo/ui/badge/badge';
+import { Badge } from '@repo/ui/components/badge';
 
 function BangerStackLogo(p: { className?: string }) {
   return (
@@ -199,6 +199,7 @@ export default function Home() {
               .map((tech) => (
                 <motion.span
                   key={tech}
+                  className="inline-flex rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0b]"
                   whileHover={{
                     scale: 1.08,
                     borderColor: 'rgba(139, 92, 246, 0.5)',

@@ -1,21 +1,31 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
+import { ConsoleLogger, ValidationPipe } from '@nestjs/common';
 
 import { AppModule } from '@api/src/app.module';
 import { PrismaExceptionFilter } from '@api/src/infrastructure/prisma/prisma-exception.filter';
 import { parseEnv } from '@api/env-type';
 
 /** Hide nestjs-trpc generator warnings for custom decorators (Public, Private). */
-const originalWarn = console.warn;
+function isDecoratorNotSupportedWarning(message: unknown): boolean {
+  return typeof message === 'string' && /Decorator .+, not supported\./.test(message);
+}
+
+class FilteredLogger extends ConsoleLogger {
+  warn(message: unknown, ...optionalParams: unknown[]) {
+    if (isDecoratorNotSupportedWarning(message)) return;
+    super.warn(message, ...optionalParams);
+  }
+}
+
+const originalConsoleWarn = console.warn;
 console.warn = (...args: unknown[]) => {
-  const msg = args[0];
-  if (typeof msg === 'string' && /Decorator .+, not supported\./.test(msg)) return;
-  originalWarn.apply(console, args);
+  if (isDecoratorNotSupportedWarning(args[0])) return;
+  originalConsoleWarn.apply(console, args);
 };
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    logger: ['error', 'warn', 'log', 'verbose', 'debug'],
+    logger: new FilteredLogger(),
     bodyParser: false,
     cors: {
       origin: process.env.FRONTEND_URL,

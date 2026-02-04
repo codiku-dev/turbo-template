@@ -16,12 +16,14 @@ const connectionString = process.env.DATABASE_URL
 
 const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString }) });
 export const auth = betterAuth({
+    hooks: {},
     database: prismaAdapter(prisma, {
         provider: "postgresql",
-        debugLogs: true
+        // debugLogs: true
     }),
     emailAndPassword: {
         enabled: true,
 
     },
+
 });

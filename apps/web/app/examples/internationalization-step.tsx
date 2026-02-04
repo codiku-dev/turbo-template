@@ -4,8 +4,8 @@ import { useTranslations, useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useState, useRef, useEffect, startTransition } from 'react';
 import { createPortal } from 'react-dom';
-import { Badge } from '@repo/ui/badge/badge';
-import { StyledTerminal } from '@web/app/components/StyledTerminal';
+import { Badge } from '@repo/ui/components/badge';
+import { StyledTerminal } from '@web/app/examples/components/StyledTerminal';
 
 export function InternationalizationStep() {
   const t = useTranslations('Landing.step5');
