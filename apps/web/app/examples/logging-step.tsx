@@ -1,8 +1,8 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Badge } from '@repo/ui/badge/badge';
-import { StyledTerminal } from '@web/app/components/StyledTerminal';
+import { Badge } from '@repo/ui/components/badge';
+import { StyledTerminal } from '@web/app/examples/components/StyledTerminal';
 
 export function LoggingStep() {
   const t = useTranslations('Landing.step9');

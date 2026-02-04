@@ -13,7 +13,7 @@ function useDemoCredentials() {
       email: `demo-${crypto.randomUUID().slice(0, 8)}@example.com`,
       password: DEMO_PASSWORD,
     }),
-    []
+    [],
   );
 }
 
@@ -22,9 +22,6 @@ export function AuthStep() {
 
   return (
     <div className="space-y-6">
-      <p className="text-sm text-zinc-400">
-        Demo: sign up, sign in, then see your account. All use the Better Auth client (signIn.email, signUp.email, signOut, useSession).
-      </p>
       <div className="space-y-6">
         <div>
           <h3 className="text-sm font-semibold text-zinc-300 mb-3">Sign up</h3>

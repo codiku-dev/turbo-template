@@ -1,10 +1,10 @@
 'use client';
 
 import { useSession, signOut } from '@web/libs/auth-client';
-import { Badge } from '@repo/ui/badge/badge';
-import { Button } from '@repo/ui/button/button';
-import { Label } from '@repo/ui/label/label';
-import { cn } from '@web/utils/cn';
+import { Badge } from '@repo/ui/components/badge';
+import { Button } from '@repo/ui/components/button/button';
+import { Label } from '@repo/ui/components/label';
+import { cn } from '@repo/ui/utils/cn';
 
 function AccountCodeBlock() {
   return (
@@ -16,14 +16,21 @@ function AccountCodeBlock() {
             <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-yellow-500" />
             <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-green-500" />
           </div>
-          <span className="text-[9px] sm:text-xs text-gray-400 truncate min-w-0" title="apps/web/app/to-delete/authentication/account-form.tsx">apps/web/.../account-form.tsx</span>
+          <span
+            className="text-[9px] sm:text-xs text-gray-400 truncate min-w-0"
+            title="apps/web/app/to-delete/authentication/account-form.tsx"
+          >
+            apps/web/.../account-form.tsx
+          </span>
         </div>
         <Badge size="sm">Client</Badge>
       </div>
       <div className="p-2 sm:p-4 overflow-auto min-w-0 flex-1 min-h-0">
         <pre className="text-[10px] sm:text-xs font-mono leading-snug text-gray-300 min-w-max">
           <code>
-            <span className="text-purple-400">const</span> <span className="text-gray-300">{'{ data: session }'}</span> <span className="text-gray-300">= useSession();</span>
+            <span className="text-purple-400">const</span>{' '}
+            <span className="text-gray-300">{'{ data: session }'}</span>{' '}
+            <span className="text-gray-300">= useSession();</span>
             {'\n\n'}
             <span className="text-gray-300">signOut();</span>
           </code>
@@ -38,11 +45,16 @@ export function AccountForm(p: { className?: string }) {
 
   if (isPending) {
     return (
-      <div className={cn('grid grid-cols-1 lg:grid-cols-3 gap-4 w-full min-w-0 items-stretch', p.className)}>
-        <div className="min-w-0 h-full min-h-[200px] lg:min-h-0">
+      <div
+        className={cn(
+          'grid grid-cols-1 lg:grid-cols-3 gap-4 w-full min-w-0 items-stretch',
+          p.className,
+        )}
+      >
+        <div className="min-w-0 h-full min-h-[280px]">
           <AccountCodeBlock />
         </div>
-        <div className="min-w-0 h-full flex flex-col bg-gray-900 rounded-lg overflow-hidden border border-gray-800 min-h-[200px] lg:min-h-0">
+        <div className="min-w-0 h-full flex flex-col bg-gray-900 rounded-lg overflow-hidden border border-gray-800 min-h-[280px]">
           <div className="bg-gray-800 px-3 sm:px-4 py-2 border-b border-gray-700 shrink-0">
             <span className="text-xs font-medium text-gray-300">Demo</span>
           </div>
@@ -50,12 +62,14 @@ export function AccountForm(p: { className?: string }) {
             <p className="text-sm text-gray-600">Loading session…</p>
           </div>
         </div>
-        <div className="min-w-0 h-full flex flex-col bg-gray-900 rounded-lg overflow-hidden border border-gray-800 min-h-[200px] lg:min-h-0">
+        <div className="min-w-0 h-full flex flex-col bg-gray-900 rounded-lg overflow-hidden border border-gray-800 min-h-[280px]">
           <div className="bg-gray-800 px-3 sm:px-4 py-2 border-b border-gray-700 shrink-0">
             <span className="text-xs font-medium text-gray-300">Réponse</span>
           </div>
           <div className="p-4 bg-gray-900 flex-1 min-h-0 overflow-auto">
-            <pre className="text-[10px] sm:text-xs font-mono text-gray-300 rounded bg-gray-800 p-3 min-h-[80px]">—</pre>
+            <pre className="text-[10px] sm:text-xs font-mono text-gray-300 rounded bg-gray-800 p-3 min-h-[80px]">
+              —
+            </pre>
           </div>
         </div>
       </div>
@@ -64,24 +78,33 @@ export function AccountForm(p: { className?: string }) {
 
   if (!session?.user) {
     return (
-      <div className={cn('grid grid-cols-1 lg:grid-cols-3 gap-4 w-full min-w-0 items-stretch', p.className)}>
-        <div className="min-w-0 h-full min-h-[200px] lg:min-h-0">
+      <div
+        className={cn(
+          'grid grid-cols-1 lg:grid-cols-3 gap-4 w-full min-w-0 items-stretch',
+          p.className,
+        )}
+      >
+        <div className="min-w-0 h-full min-h-[280px]">
           <AccountCodeBlock />
         </div>
-        <div className="min-w-0 h-full flex flex-col bg-gray-900 rounded-lg overflow-hidden border border-gray-800 min-h-[200px] lg:min-h-0">
+        <div className="min-w-0 h-full flex flex-col bg-gray-900 rounded-lg overflow-hidden border border-gray-800 min-h-[280px]">
           <div className="bg-gray-800 px-3 sm:px-4 py-2 border-b border-gray-700 shrink-0">
             <span className="text-xs font-medium text-gray-300">Demo</span>
           </div>
           <div className="p-4 bg-white text-gray-900 flex-1 min-h-0 overflow-auto">
-            <p className="text-sm text-gray-600">Not signed in. Sign in above to see your account.</p>
+            <p className="text-sm text-gray-600">
+              Not signed in. Sign in above to see your account.
+            </p>
           </div>
         </div>
-        <div className="min-w-0 h-full flex flex-col bg-gray-900 rounded-lg overflow-hidden border border-gray-800 min-h-[200px] lg:min-h-0">
+        <div className="min-w-0 h-full flex flex-col bg-gray-900 rounded-lg overflow-hidden border border-gray-800 min-h-[280px]">
           <div className="bg-gray-800 px-3 sm:px-4 py-2 border-b border-gray-700 shrink-0">
             <span className="text-xs font-medium text-gray-300">Réponse</span>
           </div>
           <div className="p-4 bg-gray-900 flex-1 min-h-0 overflow-auto">
-            <pre className="text-[10px] sm:text-xs font-mono text-gray-300 rounded bg-gray-800 p-3 min-h-[80px]">—</pre>
+            <pre className="text-[10px] sm:text-xs font-mono text-gray-300 rounded bg-gray-800 p-3 min-h-[80px]">
+              —
+            </pre>
           </div>
         </div>
       </div>
@@ -91,11 +114,16 @@ export function AccountForm(p: { className?: string }) {
   const user = session.user;
 
   return (
-    <div className={cn('grid grid-cols-1 lg:grid-cols-3 gap-4 w-full min-w-0 items-stretch', p.className)}>
-      <div className="min-w-0 h-full min-h-[200px] lg:min-h-0">
+    <div
+      className={cn(
+        'grid grid-cols-1 lg:grid-cols-3 gap-4 w-full min-w-0 items-stretch',
+        p.className,
+      )}
+    >
+      <div className="min-w-0 h-full min-h-[280px]">
         <AccountCodeBlock />
       </div>
-      <div className="min-w-0 h-full flex flex-col bg-gray-900 rounded-lg overflow-hidden border border-gray-800 min-h-[200px] lg:min-h-0">
+      <div className="min-w-0 h-full flex flex-col bg-gray-900 rounded-lg overflow-hidden border border-gray-800 min-h-[280px]">
         <div className="bg-gray-800 px-3 sm:px-4 py-2 border-b border-gray-700 shrink-0">
           <span className="text-xs font-medium text-gray-300">Demo</span>
         </div>
@@ -117,7 +145,7 @@ export function AccountForm(p: { className?: string }) {
           </div>
         </div>
       </div>
-      <div className="min-w-0 h-full flex flex-col bg-gray-900 rounded-lg overflow-hidden border border-gray-800 min-h-[200px] lg:min-h-0">
+      <div className="min-w-0 h-full flex flex-col bg-gray-900 rounded-lg overflow-hidden border border-gray-800 min-h-[280px]">
         <div className="bg-gray-800 px-3 sm:px-4 py-2 border-b border-gray-700 shrink-0">
           <span className="text-xs font-medium text-gray-300">Réponse</span>
         </div>

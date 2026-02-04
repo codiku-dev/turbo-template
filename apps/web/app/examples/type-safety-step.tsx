@@ -2,8 +2,8 @@
 
 import { useTranslations } from 'next-intl';
 import { trpc } from '@web/libs/trpc-client';
-import { Badge } from '@repo/ui/badge/badge';
-import { StyledTerminal } from '@web/app/components/StyledTerminal';
+import { Badge } from '@repo/ui/components/badge';
+import { StyledTerminal } from '@web/app/examples/components/StyledTerminal';
 
 export function TypeSafetyStep() {
   const t = useTranslations('Landing.step1');

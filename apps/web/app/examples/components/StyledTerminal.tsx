@@ -1,7 +1,7 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { cn } from '@web/utils/cn';
+import { cn } from '@repo/ui/utils/cn';
 
 type StyledTerminalProps = {
   title?: string;

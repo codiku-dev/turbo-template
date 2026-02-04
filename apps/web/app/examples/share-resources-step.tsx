@@ -1,9 +1,9 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Badge } from '@repo/ui/badge/badge';
-import { Button } from '@repo/ui/button/button';
-import { StyledTerminal } from '@web/app/components/StyledTerminal';
+import { Badge } from '@repo/ui/components/badge';
+import { Button } from '@repo/ui/components/button/button';
+import { StyledTerminal } from '@web/app/examples/components/StyledTerminal';
 
 export function ShareResourcesStep() {
   const t = useTranslations('Landing.step2');

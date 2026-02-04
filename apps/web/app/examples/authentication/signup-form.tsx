@@ -5,12 +5,12 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { signUp } from '@web/libs/auth-client';
-import { Badge } from '@repo/ui/badge/badge';
-import { Button } from '@repo/ui/button/button';
-import { Input } from '@repo/ui/input/input';
-import { Label } from '@repo/ui/label/label';
-import { cn } from '@web/utils/cn';
-import { StyledTerminal } from '@web/app/components/StyledTerminal';
+import { Badge } from '@repo/ui/components/badge';
+import { Button } from '@repo/ui/components/button/button';
+import { Input } from '@repo/ui/components/input';
+import { Label } from '@repo/ui/components/label';
+import { cn } from '@repo/ui/utils/cn';
+import { StyledTerminal } from '@web/app/examples/components/StyledTerminal';
 
 const signupSchema = z.object({
   name: z.string().min(1),
@@ -78,10 +78,10 @@ export function SignupForm(p: {
         p.className,
       )}
     >
-      <div className="min-w-0 h-full min-h-[200px] lg:min-h-0">
+      <div className="min-w-0 h-full min-h-[280px] flex flex-col">
         <SignupCodeBlock />
       </div>
-      <div className="min-w-0 h-full flex flex-col bg-gray-900 rounded-lg overflow-hidden border border-gray-800 min-h-[200px] lg:min-h-0">
+      <div className="min-w-0 h-full flex flex-col bg-gray-900 rounded-lg overflow-hidden border border-gray-800 min-h-[280px]">
         <div className="bg-gray-800 px-3 sm:px-4 py-2 border-b border-gray-700 shrink-0">
           <span className="text-xs font-medium text-gray-300">Demo</span>
         </div>
@@ -140,7 +140,7 @@ export function SignupForm(p: {
           </form>
         </div>
       </div>
-      <div className="min-w-0 h-full flex flex-col bg-gray-900 rounded-lg overflow-hidden border border-gray-800 min-h-[200px] lg:min-h-0">
+      <div className="min-w-0 h-full flex flex-col bg-gray-900 rounded-lg overflow-hidden border border-gray-800 min-h-[280px]">
         <div className="bg-gray-800 px-3 sm:px-4 py-2 border-b border-gray-700 shrink-0">
           <span className="text-xs font-medium text-gray-300">Réponse</span>
         </div>
