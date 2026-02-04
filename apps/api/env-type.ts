@@ -6,7 +6,6 @@ import { z } from "zod";
 
 export const envSchema = z.object({
   BETTER_AUTH_SECRET: z.string(),
-  BETTER_AUTH_URL: z.string(),
   DATABASE_URL: z.string(),
   PORT: z.string(),
   POSTGRES_DB: z.string(),
