@@ -15,6 +15,8 @@ import { AuthModule } from '@thallesp/nestjs-better-auth';
 import { auth } from '@api/src/infrastructure/auth/auth';
 // Relative path so nestjs-trpc generator can resolve the context (it doesn't use path aliases)
 import { AppContext } from './infrastructure/trpc/app-context';
+import { SignUpHook } from './features/authentication/signup-hook';
+import { SignInHook } from './features/authentication/signin-hook';
 
 @Module({
   imports: [
@@ -34,5 +36,7 @@ import { AppContext } from './infrastructure/trpc/app-context';
     AppContext,
     { provide: TRPC_ROUTER_TYPES, useValue: [AppRouter, UserRouter] },
     PublicPathScannerService,
+    SignUpHook,
+    SignInHook
   ],
 }) export class AppModule { }

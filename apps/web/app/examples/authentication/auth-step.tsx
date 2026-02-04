@@ -1,9 +1,12 @@
 'use client';
 
 import { useMemo } from 'react';
+import { Badge } from '@repo/ui/components/badge';
+import { StyledTerminal } from '@web/app/examples/components/StyledTerminal';
 import { SigninForm } from './signin-form';
 import { SignupForm } from './signup-form';
 import { AccountForm } from './account-form';
+import { AuthEventsHook } from './auth-events-hook';
 
 const DEMO_PASSWORD = 'password123';
 
@@ -35,6 +38,13 @@ export function AuthStep() {
         <div>
           <h3 className="text-sm font-semibold text-zinc-300 mb-3">Account</h3>
           <AccountForm />
+        </div>
+
+        <div>
+          <h3 className="text-sm font-semibold text-zinc-300 mb-3">
+            Evenements authentification
+          </h3>
+          <AuthEventsHook />
         </div>
       </div>
     </div>

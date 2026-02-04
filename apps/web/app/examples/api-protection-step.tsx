@@ -70,7 +70,7 @@ export function ApiProtetionStep() {
                   {'// Protect the entire router'}
                 </span>
                 {'\n'}
-                <span className="text-purple-400">@AuthGuardRouter</span>
+                <span className="text-purple-400">@AuthGuard</span>
                 <span className="text-gray-300">({' {'} alias: </span>
                 <span className="text-blue-400">'app'</span>
                 <span className="text-gray-300"> {'}'})</span>
@@ -81,7 +81,7 @@ export function ApiProtetionStep() {
                 {'\n'}
                 <span className="text-gray-500"> </span>
                 <span className="text-gray-500">@Query</span>
-                <span className="text-gray-500">(...)</span>
+                <span className="text-gray-300">(...)</span>
                 {'\n'}
                 <span className="text-gray-300"> </span>
                 <span className="text-purple-400">@Public</span>
@@ -103,19 +103,27 @@ export function ApiProtetionStep() {
                 <span className="text-gray-300">(...)</span>
                 <span className="ml-2 sm:ml-4 text-green-400 border border-green-400 px-0.5 py-px rounded text-[9px] sm:text-[10px]">
                   {' '}
-                  {'// Private route'}
+                  {'// Private: ctx has user + session'}
                 </span>
                 {'\n'}
                 <span className="text-gray-300"> </span>
                 <span className="text-purple-400">async</span>{' '}
                 <span className="text-yellow-400">protectedHello</span>
                 <span className="text-gray-300">(</span>
-                <span className="text-purple-400">@Session</span>
-                <span className="text-gray-300">() session: </span>
-                <span className="text-blue-400">UserSession</span>
-                <span className="text-gray-300">
-                  ) {'{'} ... {'}'}
-                </span>
+                <span className="text-purple-400">@Ctx</span>
+                <span className="text-gray-300">() ctx: </span>
+                <span className="text-blue-400">BaseUserSession</span>
+                <span className="text-gray-300">) {'{'}</span>
+                {'\n'}
+                <span className="text-gray-300">  </span>
+                <span className="text-purple-400">const</span>
+                <span className="text-gray-300"> {'{ user }'} = ctx;</span>
+                {'\n'}
+                <span className="text-gray-300">  </span>
+                <span className="text-purple-400">return</span>
+                <span className="text-gray-300"> {'{ message: `... ${user?.email}` }'};</span>
+                {'\n'}
+                <span className="text-gray-300"> {'}'}</span>
                 {'\n'}
                 <span className="text-gray-300">{'}'}</span>
               </code>

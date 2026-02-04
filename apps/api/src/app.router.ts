@@ -1,10 +1,10 @@
 import { PrismaService } from '@api/src/infrastructure/prisma/prisma.service';
-import { Query, Router } from 'nestjs-trpc';
+import { Ctx, Query, Router, } from 'nestjs-trpc';
 import { Inject } from '@nestjs/common';
 import { z } from 'zod';
 import { AuthGuard } from '@api/src/infrastructure/decorators/auth/auth-guard.decorator';
 import { Public } from '@api/src/infrastructure/decorators/auth/public-procedure.decorator';
-
+import { BaseUserSession } from '@thallesp/nestjs-better-auth';
 @Router({ alias: 'app' })
 @AuthGuard({ logs: true })
 export class AppRouter {
@@ -17,18 +17,8 @@ export class AppRouter {
     }
 
     @Query({ output: z.object({ message: z.string() }) })
-    async protectedHello() {
-        return { message: `Hello, you are authenticated (${new Date().toISOString()})` };
-    }
-
-    @Query({ output: z.object({ message: z.string() }) })
-    async demoHello() {
-        return { message: `Hello, you are authenticated (${new Date().toISOString()})` };
-    }
-
-    @Public()
-    @Query({ output: z.object({ message: z.string() }) })
-    async other() {
-        return { message: `Hello, you are public (${new Date().toISOString()})` };
+    async protectedHello(@Ctx() ctx: BaseUserSession) {
+        const { user } = ctx;
+        return { message: `${user?.email} authenticated, at ${new Date().toISOString()}` };
     }
 }
