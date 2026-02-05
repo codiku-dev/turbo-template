@@ -12,6 +12,7 @@
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
+    "build": "bun run build:styles && bun run build:components",
     "check-types": "tsc --noEmit",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
