@@ -29,7 +29,7 @@ import { SignInHook } from './features/authentication/signin-hook';
     }),
     AuthModule.forRoot({ auth, disableTrustedOriginsCors: true }),
   ],
-  controllers: [TrpcPanelController],
+  controllers: process.env['NODE_ENV'] === 'production' ? [] : [TrpcPanelController],
   providers: [
     AppService,
     AppRouter,
