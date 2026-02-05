@@ -6,12 +6,31 @@
       "cache": false,
       "persistent": true
     },
+    "start:prod": {
+      "cache": false,
+      "env": ["DATABASE_URL"]
+    },
+    "start": {
+      "cache": false
+    },
+    "start:debug": {
+      "cache": false,
+      "persistent": true
+    },
     "build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "lint": {},
     "test": {},
+    "test:watch": {
+      "cache": false,
+      "persistent": true
+    },
+    "test:debug": {
+      "cache": false,
+      "persistent": true
+    },
     "test:e2e": {},
     "db:start": {
       "cache": false,
