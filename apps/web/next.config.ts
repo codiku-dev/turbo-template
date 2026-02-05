@@ -19,7 +19,6 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig = {
   allowedDevOrigins: [process.env.NEXT_PUBLIC_API_URL],
   transpilePackages: ['@repo/ui'],
-  output: "standalone" as const
 };
 
 export default withNextIntl(nextConfig);
