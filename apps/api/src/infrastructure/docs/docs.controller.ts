@@ -1,9 +1,10 @@
-import { All, Controller, Header, Inject, OnModuleInit } from '@nestjs/common';
+import { All, Controller, Header, Inject, OnModuleInit, Req } from '@nestjs/common';
+import { Request } from 'express';
 import { renderTrpcPanel } from 'trpc-ui';
 import { AnyRouter } from '@trpc/server';
 import { AppRouterHost } from 'nestjs-trpc';
 import { OptionalAuth } from '@thallesp/nestjs-better-auth';
-
+import { getBaseUrl } from '@api/src/infrastructure/utils/request-url';
 
 @Controller("docs")
 export class TrpcPanelController implements OnModuleInit {
@@ -18,9 +19,9 @@ export class TrpcPanelController implements OnModuleInit {
     @All()
     @Header('Content-Type', 'text/html')
     @OptionalAuth()
-    panel(): string {
+    panel(@Req() req: Request): string {
         return renderTrpcPanel(this.appRouter, {
-            url: process.env.TRPC_URL,
+            url: getBaseUrl(req) + '/trpc',
             meta: {
                 title: "API Documentation",
                 description:

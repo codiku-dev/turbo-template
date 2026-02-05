@@ -1,5 +1,6 @@
 import { TRPCMiddleware, MiddlewareOptions } from 'nestjs-trpc';
 import { Inject, Injectable, ConsoleLogger } from '@nestjs/common';
+import { getBaseUrl } from '@api/src/infrastructure/utils/request-url';
 
 const BORDER = '────────────────────────────────────────────────────────';
 
@@ -33,11 +34,11 @@ export class LoggedMiddleware implements TRPCMiddleware {
         return lines.join('\n');
     }
 
-    async use(opts: MiddlewareOptions) {
+    async use(opts: MiddlewareOptions<{ req: any; res: any }>) {
         const start = Date.now();
-        const { next, path, type, input } = opts;
-        const baseUrl = process.env.TRPC_URL ?? '';
-        const requestUrl = `${baseUrl}/${path}`;
+        const { next, path, type, input, ctx } = opts;
+        const baseUrl = ctx?.req ? getBaseUrl(ctx.req) : '';
+        const requestUrl = baseUrl ? `${baseUrl}/trpc/${path}` : path;
 
         try {
             const result = await next();

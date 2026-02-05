@@ -2,6 +2,7 @@ import { TRPCMiddleware, MiddlewareOptions } from 'nestjs-trpc';
 import { Inject, Injectable, ConsoleLogger } from '@nestjs/common';
 import { TRPCError } from '@trpc/server';
 import { auth } from '@api/src/infrastructure/auth/auth';
+import { getBaseUrl } from '@api/src/infrastructure/utils/request-url';
 
 // Set of procedure paths that have optional auth (e.g. @Public)
 const optionalAuthPaths = new Set<string>();
@@ -72,9 +73,9 @@ export class AuthGuardMiddleware implements TRPCMiddleware {
     }
   }
 
-  private logUnauthorized(path: string, type: string, req: { url?: string; method?: string }) {
-    const baseUrl = process.env.TRPC_URL ?? '';
-    const requestUrl = req?.url ?? (baseUrl ? `${baseUrl}/${path}` : path);
+  private logUnauthorized(path: string, type: string, req: { url?: string; method?: string; get?: (n: string) => string | undefined; protocol?: string }) {
+    const baseUrl = req ? getBaseUrl(req) : '';
+    const requestUrl = req?.url ?? (baseUrl ? `${baseUrl}/trpc/${path}` : path);
     const log = [
       '',
       SEP,

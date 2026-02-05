@@ -2,6 +2,11 @@
   "HomePage": {
     "title": "Bonjour le monde !"
   },
+  "Authentication": {
+    "authEvents": {
+      "description": "s'exécute avant inscription/connexion pour personnaliser le flux"
+    }
+  },
   "Landing": {
     "header": {
       "badge": "DX d'abord",

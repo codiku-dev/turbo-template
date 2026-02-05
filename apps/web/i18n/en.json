@@ -2,6 +2,11 @@
   "HomePage": {
     "title": "Hello world!"
   },
+  "Authentication": {
+    "authEvents": {
+      "description": "runs before sign-up/sign-in to customize the flow"
+    }
+  },
   "Landing": {
     "header": {
       "badge": "DX-first",
