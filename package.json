@@ -18,11 +18,14 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "#---------------------------API---------------------------------#": "",
-    "start:api":"bunx turbo run start:prod --filter=api...",
+    "start:api": "bunx turbo run start:prod --filter=api...",
     "db:start": "turbo run db:start --filter=api",
     "db:update": "cd apps/api && bun run db:update",
     "db:studio": "turbo run db:studio --filter=api",
-    "build:api":"bun install && bunx turbo run build --filter=api...",
+    "build:api": "bun install && bunx turbo run build --filter=api...",
+    "#---------------------------WEB---------------------------------#": "",
+    "start:web": "bunx turbo run start:prod --filter=web...",
+    "build:web": "bun install && bunx turbo run build --filter=web...",
     "#---------------------------UI---------------------------------#": "",
     "storybook": "turbo run storybook --filter=@repo/ui",
     "build-storybook": "turbo run build-storybook --filter=@repo/ui",
@@ -42,7 +45,7 @@
     "concurrently": "^9.1.0",
     "dotenv": "^16.4.7",
     "prettier": "^3.2.5",
-    "turbo": "^2.7.5"
+    "turbo": "^2.8.3"
   },
   "overrides": {
     "@types/react": "19.2.9",
@@ -57,6 +60,9 @@
     "packages/*"
   ],
   "dependencies": {
-    "nestjs-trpc": "1.6.1"
+    "build": "^0.1.4",
+    "bunx": "^0.1.0",
+    "nestjs-trpc": "1.6.1",
+    "run": "^1.5.0"
   }
 }
