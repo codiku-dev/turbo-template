@@ -17,7 +17,7 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  allowedDevOrigins: [process.env.NEXT_PUBLIC_API_URL],
+  allowedDevOrigins: [process.env.NEXT_PUBLIC_API_BASE_URL],
   transpilePackages: ['@repo/ui'],
 };
 

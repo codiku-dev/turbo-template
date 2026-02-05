@@ -8,7 +8,7 @@
     },
     "start:prod": {
       "cache": false,
-      "env": ["DATABASE_URL", "PORT", "POSTGRES_USER", "POSTGRES_PASSWORD", "POSTGRES_DB", "POSTGRES_PORT", "TRPC_URL", "BETTER_AUTH_SECRET", "BETTER_AUTH_URL", "FRONTEND_URL"]
+      "env": ["DATABASE_URL", "PORT", "POSTGRES_USER", "POSTGRES_PASSWORD", "POSTGRES_DB", "POSTGRES_PORT", "TRPC_URL", "BETTER_AUTH_SECRET",  "FRONTEND_URL"]
     },
     "start": {
       "cache": false

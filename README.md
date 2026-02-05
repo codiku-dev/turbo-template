@@ -498,8 +498,8 @@ The web app uses the Better Auth React client from `@web/libs/auth-client`:
 import { createAuthClient } from "better-auth/react";
 
 export const { useSession, signIn, signUp, signOut } = createAuthClient({
-  baseURL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL,  // e.g. http://localhost:3090
-});
+  baseURL:  ""
+}); 
 ```
 
 **Exposed APIs**
@@ -513,7 +513,6 @@ export const { useSession, signIn, signUp, signOut } = createAuthClient({
 
 **Important**
 
-- Better Auth uses **cookies** for the session. The auth API is called on your backend (e.g. Nest); the Next.js app must use `NEXT_PUBLIC_BETTER_AUTH_URL` pointing at that backend so that sign-in/sign-up requests and cookie domain match.
 - tRPC and `fetch` send cookies by default for same-origin or correctly configured cross-origin requests, so protected tRPC procedures receive the session cookie and the API can resolve the user.
 
 **Example: sign-in form**
