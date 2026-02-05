@@ -692,8 +692,7 @@ bun build-storybook
 │   └── jest-config/     # Shared Jest configs
 │
 └── scripts/              # Utility scripts
-    ├── check-env-all-apps.ts   # Environment validator (all apps)
-    ├── check-env-single-app.ts # Environment validator (one app)
+    ├── check-env-all-apps.ts   # Validates process.env vs each app's env-type.ts zod
     └── generate-env-types.ts
 ```
 
