@@ -52,7 +52,7 @@ function loadEnvInDir(dir: string): void {
       const vars = issues?.length
         ? [...new Set(issues.map((i) => i.path?.filter(Boolean).join(".")).filter(Boolean))]
         : ["?"];
-      console.error("\n❌ Environment variablesvalidation failed\n");
+      console.error("\n❌ Environment variables validation failed\n");
       console.error(`  App: ${appName}`);
       console.error(`  Missing: ${vars.join(", ")}\n`);
       process.exit(1);

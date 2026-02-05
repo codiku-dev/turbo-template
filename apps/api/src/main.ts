@@ -32,9 +32,11 @@ async function bootstrap() {
     const vars = issues?.length
       ? [...new Set(issues.map((i) => i.path?.filter(Boolean).join(".")).filter(Boolean))]
       : ["?"];
+    const envKeys = Object.keys(process.env).sort().join(", ");
     console.error("\n❌ Environment validation failed\n");
     console.error("  App: apps/api");
-    console.error(`  Missing: ${vars.join(", ")}\n`);
+    console.error(`  Missing: ${vars.join(", ")}`);
+    console.error(`  process.env keys in this process: ${envKeys || "(none)"}\n`);
     process.exit(1);
   }
 
