@@ -24,11 +24,25 @@ console.warn = (...args: unknown[]) => {
 };
 
 async function bootstrap() {
+  let env: ReturnType<typeof parseEnv>;
+  try {
+    env = parseEnv();
+  } catch (err: unknown) {
+    const issues = (err as { issues?: Array<{ path?: (string | number)[] }> })?.issues;
+    const vars = issues?.length
+      ? [...new Set(issues.map((i) => i.path?.filter(Boolean).join(".")).filter(Boolean))]
+      : ["?"];
+    console.error("\n❌ Environment validation failed\n");
+    console.error("  App: apps/api");
+    console.error(`  Missing: ${vars.join(", ")}\n`);
+    process.exit(1);
+  }
+
   const app = await NestFactory.create(AppModule, {
     logger: new FilteredLogger(),
     bodyParser: false,
     cors: {
-      origin: process.env.FRONTEND_URL,
+      origin: env.FRONTEND_URL,
       credentials: true,
     },
   });
@@ -39,7 +53,6 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new PrismaExceptionFilter());
 
-  const env = parseEnv();
   const port = Number(env.PORT) || 3090;
 
   await app.listen(port);
@@ -47,7 +60,7 @@ async function bootstrap() {
   const serverUrl = await app.getUrl();
   console.log(`🚀 Backend     : ${serverUrl}/trpc/app.hello`);
   console.log(`📚 Docs        : ${serverUrl}/docs`);
-  console.log(`🎨 Frontend    : ${process.env.FRONTEND_URL}`);
+  console.log(`🎨 Frontend    : ${env.FRONTEND_URL}`);
 }
 
 void bootstrap();
