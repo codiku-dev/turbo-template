@@ -1,8 +1,6 @@
 'use client';
 
 import { useMemo } from 'react';
-import { Badge } from '@repo/ui/components/badge';
-import { StyledTerminal } from '@web/app/examples/components/StyledTerminal';
 import { SigninForm } from './signin-form';
 import { SignupForm } from './signup-form';
 import { AccountForm } from './account-form';

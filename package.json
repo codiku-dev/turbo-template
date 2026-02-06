@@ -51,9 +51,7 @@
     "@types/react": "19.2.9",
     "@types/react-dom": "19.2.3"
   },
-  "engines": {
-    "node": ">=18"
-  },
+ 
   "packageManager": "bun@1.2.15",
   "workspaces": [
     "apps/*",
@@ -64,5 +62,8 @@
     "bunx": "^0.1.0",
     "nestjs-trpc": "1.6.1",
     "run": "^1.5.0"
+  },
+  "engines": {
+    "node": "20.19.0"
   }
 }
