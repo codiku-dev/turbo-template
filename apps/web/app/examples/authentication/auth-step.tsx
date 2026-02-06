@@ -11,7 +11,7 @@ const DEMO_PASSWORD = 'password123';
 function useDemoCredentials() {
   return useMemo(
     () => ({
-      email: `demo-${crypto.randomUUID().slice(0, 8)}@example.com`,
+      email: `demo-${Date.now()}@example.com`,
       password: DEMO_PASSWORD,
     }),
     [],
