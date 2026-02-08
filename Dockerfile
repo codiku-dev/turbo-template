@@ -47,10 +47,12 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
+# Copier package.json racine + lock
+COPY package.json bun.lock turbo.json ./
+
 # Copier build final et deps
-COPY --from=build /app/apps/api/dist ./dist
+COPY --from=build /app/apps/api/dist ./apps/api/dist
 COPY --from=deps /app/node_modules ./node_modules
-COPY apps/api/package.json ./
 
 # Start
 CMD ["bun", "run", "start:api"]
