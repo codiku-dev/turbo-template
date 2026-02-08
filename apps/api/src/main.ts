@@ -1,32 +1,15 @@
 import { NestFactory } from '@nestjs/core';
-import { ConsoleLogger, ValidationPipe } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
 
 import { AppModule } from '@api/src/app.module';
 import { PrismaExceptionFilter } from '@api/src/infrastructure/prisma/prisma-exception.filter';
 import { parseEnv } from '@api/env-type';
+import { env } from 'node:process';
 
-/** Hide nestjs-trpc generator warnings for custom decorators (Public, Private). */
-function isDecoratorNotSupportedWarning(message: unknown): boolean {
-  return typeof message === 'string' && /Decorator .+, not supported\./.test(message);
-}
-
-class FilteredLogger extends ConsoleLogger {
-  warn(message: unknown, ...optionalParams: unknown[]) {
-    if (isDecoratorNotSupportedWarning(message)) return;
-    super.warn(message, ...optionalParams);
-  }
-}
-
-const originalConsoleWarn = console.warn;
-console.warn = (...args: unknown[]) => {
-  if (isDecoratorNotSupportedWarning(args[0])) return;
-  originalConsoleWarn.apply(console, args);
-};
-
-async function bootstrap() {
-  let env: ReturnType<typeof parseEnv>;
+function checkEnv() {
   try {
-    env = parseEnv();
+    parseEnv();
+    console.log("LE PROCESS.ENV", process.env);
   } catch (err: unknown) {
     const issues = (err as { issues?: Array<{ path?: (string | number)[] }> })?.issues;
     const vars = issues?.length
@@ -39,19 +22,19 @@ async function bootstrap() {
     console.error(`  process.env keys in this process: ${envKeys || "(none)"}\n`);
     process.exit(1);
   }
+}
+async function bootstrap() {
+
+  checkEnv();
 
   const app = await NestFactory.create(AppModule, {
-    logger: new FilteredLogger(),
     bodyParser: false,
     cors: {
       origin: env.FRONTEND_URL,
       credentials: true,
     },
   });
-  // app.enableCors({
-  //   origin: '*',
-  //   credentials: true,
-  // });
+
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new PrismaExceptionFilter());
 
