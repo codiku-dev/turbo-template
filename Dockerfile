@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.7
 
 ########################
-# STAGE 1 - dependencies
+# STAGE 1 - dependencies !
 ########################
 FROM oven/bun:1.3.0 AS deps
 WORKDIR /app
