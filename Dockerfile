@@ -18,7 +18,7 @@ COPY packages ./packages
 
 # Installer les deps avec cache Bun
 RUN --mount=type=cache,target=/root/.bun \
-    bun install --frozen-lockfile
+    bun install
 
 ########################
 # STAGE 2 - build
