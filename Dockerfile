@@ -9,7 +9,7 @@ WORKDIR /app
 ENV TURBO_TELEMETRY_DISABLED=1
 
 # Copier fichiers principaux pour installer les deps
-COPY package.json bun.lockb turbo.json ./
+COPY package.json bun.lock turbo.json ./
 COPY apps/api/package.json apps/api/
 COPY packages/trpc/package.json packages/trpc/
 COPY packages/typescript-config/package.json packages/typescript-config/
