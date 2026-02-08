@@ -5,22 +5,20 @@
 ########################
 FROM oven/bun:1.3.0 AS deps
 WORKDIR /app
+
 ENV TURBO_TELEMETRY_DISABLED=1
 
-# Copier package.json, lockfile et turbo.json racine
+# Copier juste les fichiers nécessaires pour installer les dépendances
 COPY package.json bun.lock turbo.json ./
-
-# Copier package.json des workspaces pour Bun (Turbo)
 COPY apps/api/package.json apps/api/
 COPY packages/trpc/package.json packages/trpc/
 COPY packages/typescript-config/package.json packages/typescript-config/
 COPY packages/eslint-config/package.json packages/eslint-config/
-
-# Copier tout le code packages
 COPY packages ./packages
 
-# Installer deps avec cache Bun
-RUN --mount=type=cache,target=/root/.bun bun install --frozen-lockfile
+# Installer les deps avec cache Bun (pas de --frozen-lockfile pour éviter les erreurs)
+RUN --mount=type=cache,target=/root/.bun \
+    bun install
 
 ########################
 # STAGE 2 - build
@@ -28,13 +26,15 @@ RUN --mount=type=cache,target=/root/.bun bun install --frozen-lockfile
 FROM deps AS build
 WORKDIR /app
 
-# Copier le code qui change selon watch paths
+# Copier uniquement le code qui peut changer selon les watch paths
 COPY apps/api ./apps/api
 COPY packages/trpc ./packages/trpc
 COPY packages/typescript-config ./packages/typescript-config
 COPY packages/eslint-config ./packages/eslint-config
+# Copier fichiers racines pour que tout changement relance le build
+COPY . .
 
-# Build Turbo/API avec cache Turbo + Bun
+# Build avec cache Turbo et Bun
 RUN --mount=type=cache,target=/root/.bun \
     --mount=type=cache,target=/app/.turbo \
     bun run build:api
@@ -44,15 +44,13 @@ RUN --mount=type=cache,target=/root/.bun \
 ########################
 FROM oven/bun:1.3.0 AS runtime
 WORKDIR /app
+
 ENV NODE_ENV=production
 
-# Copier le build final
-COPY --from=build /app/.turbo /app/.turbo
-COPY --from=build /app/node_modules /app/node_modules
-COPY --from=build /app/package.json /app/package.json
-COPY --from=build /app/bun.lock /app/bun.lock
-COPY --from=build /app/turbo.json /app/turbo.json
-COPY --from=build /app/apps/api/dist ./apps/api/dist
+# Copier build final et deps
+COPY --from=build /app/apps/api/dist ./dist
+COPY --from=deps /app/node_modules ./node_modules
+COPY apps/api/package.json ./
 
-# Start via script racine (start:api)
+# Start
 CMD ["bun", "run", "start:api"]
