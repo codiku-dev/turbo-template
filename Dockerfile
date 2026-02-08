@@ -7,12 +7,14 @@ ENV TURBO_TELEMETRY_DISABLED=1
 
 # Fichiers racine
 COPY package.json bun.lock turbo.json ./
+COPY apps/api ./apps/api
 
 # Packages internes
 COPY packages/trpc/package.json packages/trpc/
 COPY packages/typescript-config/package.json packages/typescript-config/
 COPY packages/eslint-config/package.json packages/eslint-config/
 COPY packages ./packages
+
 
 RUN --mount=type=cache,target=/root/.bun bun install
 
