@@ -8,16 +8,16 @@ WORKDIR /app
 
 ENV TURBO_TELEMETRY_DISABLED=1
 
-# Fichiers racine essentiels pour Turbo et Bun
+# Fichiers root pour Turbo/Bun
 COPY package.json bun.lock turbo.json ./
 
-# Packages nécessaires à l'API
+# Packages nécessaires
 COPY packages/trpc/package.json packages/trpc/
 COPY packages/typescript-config/package.json packages/typescript-config/
 COPY packages/eslint-config/package.json packages/eslint-config/
 COPY packages ./packages
 
-# Installer les dépendances Bun avec cache
+# Installer deps avec cache
 RUN --mount=type=cache,target=/root/.bun \
     bun install
 
@@ -27,13 +27,13 @@ RUN --mount=type=cache,target=/root/.bun \
 FROM deps AS build
 WORKDIR /app
 
-# Copier uniquement le code source de l'API et packages partagés
+# Copier code source API + packages partagés
 COPY apps/api ./apps/api
 COPY packages/trpc ./packages/trpc
 COPY packages/typescript-config ./packages/typescript-config
 COPY packages/eslint-config ./packages/eslint-config
 
-# Build l'API avec Turbo + cache Turbo/Bun
+# Build API
 RUN --mount=type=cache,target=/root/.bun \
     --mount=type=cache,target=/app/.turbo \
     bun run build:api
@@ -46,13 +46,20 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-# Copier le build final de l'API et node_modules
+# Installer OpenSSL pour Prisma
+RUN apt-get update -y && apt-get install -y openssl
+
+# Copier le build final + node_modules
 COPY --from=build /app/apps/api/dist ./apps/api/dist
 COPY --from=deps /app/node_modules ./node_modules
 
-# Copier package.json de l'API et fichiers root
+# Copier package.json API et fichiers root
 COPY apps/api/package.json ./apps/api/package.json
 COPY package.json bun.lock turbo.json ./
 
+# Copier dossier prisma pour schema
+COPY apps/api/prisma ./apps/api/prisma
+
 # Lancer le script racine depuis la racine
+WORKDIR /app
 CMD ["bun", "run", "start:api"]
