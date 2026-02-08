@@ -8,10 +8,10 @@ WORKDIR /app
 
 ENV TURBO_TELEMETRY_DISABLED=1
 
-# Copier fichiers root essentiels pour Turbo et Bun
+# Fichiers racine essentiels pour Turbo et Bun
 COPY package.json bun.lock turbo.json ./
 
-# Copier tous les packages nécessaires à l'API
+# Packages nécessaires à l'API
 COPY packages/trpc/package.json packages/trpc/
 COPY packages/typescript-config/package.json packages/typescript-config/
 COPY packages/eslint-config/package.json packages/eslint-config/
@@ -27,13 +27,13 @@ RUN --mount=type=cache,target=/root/.bun \
 FROM deps AS build
 WORKDIR /app
 
-# Copier uniquement le code source de l'API et les packages partagés
+# Copier uniquement le code source de l'API et packages partagés
 COPY apps/api ./apps/api
 COPY packages/trpc ./packages/trpc
 COPY packages/typescript-config ./packages/typescript-config
 COPY packages/eslint-config ./packages/eslint-config
 
-# Build l'API avec Turbo et cache Turbo/Bun
+# Build l'API avec Turbo + cache Turbo/Bun
 RUN --mount=type=cache,target=/root/.bun \
     --mount=type=cache,target=/app/.turbo \
     bun run build:api
@@ -46,18 +46,13 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-# Copier le build final de l'API et les node_modules
-COPY --from=build /app/apps/api/dist ./dist
+# Copier le build final de l'API et node_modules
+COPY --from=build /app/apps/api/dist ./apps/api/dist
 COPY --from=deps /app/node_modules ./node_modules
 
-# Copier package.json de l'API pour que Bun/Turbo trouve les scripts
+# Copier package.json de l'API et fichiers root
 COPY apps/api/package.json ./apps/api/package.json
-
-# Copier les fichiers root pour que Turbo reconnaisse les workspaces
 COPY package.json bun.lock turbo.json ./
 
-# Définir le WORKDIR sur l'API pour que start:api fonctionne
-WORKDIR /app/apps/api
-
-# Lancer l'API
-CMD ["bun", "run", "start:prod"]
+# Lancer le script racine depuis la racine
+CMD ["bun", "run", "start:api"]
