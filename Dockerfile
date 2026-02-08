@@ -47,11 +47,14 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-# Copier package.json racine + lock
+# Copier package.json + lock + turbo.json
 COPY package.json bun.lock turbo.json ./
 
-# Copier build final et deps
-COPY --from=build /app/apps/api/dist ./apps/api/dist
+# Copier tout le code nécessaire pour Turbo (apps + packages)
+COPY apps ./apps
+COPY packages ./packages
+
+# Copier node_modules du build stage
 COPY --from=deps /app/node_modules ./node_modules
 
 # Start
