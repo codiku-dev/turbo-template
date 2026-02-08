@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.7
+# File: Dockerfile
 
 ########################
 # STAGE 1 - dependencies
@@ -17,7 +17,7 @@ COPY packages/typescript-config/package.json packages/typescript-config/
 COPY packages/eslint-config/package.json packages/eslint-config/
 COPY packages ./packages
 
-# Installer deps avec cache
+# Installer les dépendances avec cache
 RUN --mount=type=cache,target=/root/.bun \
     bun install
 
@@ -49,7 +49,7 @@ ENV NODE_ENV=production
 # Installer OpenSSL pour Prisma
 RUN apt-get update -y && apt-get install -y openssl
 
-# Copier le build final + node_modules
+# Copier build final + node_modules
 COPY --from=build /app/apps/api/dist ./apps/api/dist
 COPY --from=deps /app/node_modules ./node_modules
 
@@ -57,8 +57,8 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY apps/api/package.json ./apps/api/package.json
 COPY package.json bun.lock turbo.json ./
 
-# Copier dossier prisma pour schema
-COPY apps/api/prisma ./apps/api/prisma
+# Copier dossier Prisma depuis ton chemin source
+COPY apps/api/src/infrastructure/prisma ./apps/api/prisma
 
 # Lancer le script racine depuis la racine
 WORKDIR /app
