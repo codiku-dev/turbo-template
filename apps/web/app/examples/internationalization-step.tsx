@@ -68,7 +68,7 @@ export function InternationalizationStep() {
       </StyledTerminal>
 
       <StyledTerminal
-        title="Résultat"
+        title={t('result')}
         badge={<Badge size="sm">{t('result')}</Badge>}
         variant="custom"
         contentClassName="p-6 bg-white h-full"

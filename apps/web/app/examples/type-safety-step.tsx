@@ -125,7 +125,7 @@ export function TypeSafetyStep() {
 
       <StyledTerminal
         title="Demo"
-        badge={<Badge size="sm">Résultat</Badge>}
+        badge={<Badge size="sm">{t('result')}</Badge>}
         variant="custom"
         contentClassName="p-6 bg-white"
       >

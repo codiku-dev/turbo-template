@@ -44,7 +44,8 @@
       "nestjsSide": "NestJS side",
       "nextjsSide": "NextJS side",
       "backendSide": "Back-end side",
-      "frontendSide": "Front-end side"
+      "frontendSide": "Front-end side",
+      "result": "Result"
     },
     "step2": {
       "title": "Share your resources",

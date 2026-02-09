@@ -6,10 +6,9 @@ import { PrismaExceptionFilter } from '@api/src/infrastructure/prisma/prisma-exc
 import { parseEnv } from '@api/env-type';
 import { env } from 'node:process';
 
-function checkEnv() {
+function checkEnvVariablesAgaintZodSchema() {
   try {
     parseEnv();
-    console.log("LE PROCESS.ENV", process.env);
   } catch (err: unknown) {
     const issues = (err as { issues?: Array<{ path?: (string | number)[] }> })?.issues;
     const vars = issues?.length
@@ -25,7 +24,7 @@ function checkEnv() {
 }
 async function bootstrap() {
 
-  checkEnv();
+  checkEnvVariablesAgaintZodSchema();
 
   const app = await NestFactory.create(AppModule, {
     bodyParser: false,
