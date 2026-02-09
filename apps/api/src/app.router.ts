@@ -6,10 +6,10 @@ import { AuthGuard } from '@api/src/infrastructure/decorators/auth/auth-guard.de
 import { Public } from '@api/src/infrastructure/decorators/auth/public-procedure.decorator';
 import { Roles } from '@api/src/infrastructure/decorators/auth/roles-procedure.decorator';
 import { BaseUserSession } from '@thallesp/nestjs-better-auth';
+
 @Router({ alias: 'app' })
 @AuthGuard({ logs: true })
 export class AppRouter {
-    constructor(@Inject(PrismaService) private db: PrismaService) { }
 
     @Public()
     @Query({ output: z.object({ message: z.string() }) })
